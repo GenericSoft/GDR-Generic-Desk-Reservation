@@ -1,0 +1,4 @@
+
+@function lighten($color, $percentage) {
+    @return mix(white, $color, $percentage);
+}
