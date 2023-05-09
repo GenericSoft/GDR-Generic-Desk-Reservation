@@ -1,5 +1,20 @@
-$primary: #724D7E;
-$secondary: #DBE6F6;
-
+$primary: #724d7e;
+$secondary: #dbe6f6;
+$warning: #ff966e;
+$success: #00c9b9;
+$danger: #cf153a;
+$orange: #ffc563;
+$yellow: #f9f871;
+$dark: #0f0e0f;
+$grey: #edebeb;
+$white: #f9f9f9;
+$background: #fff6ff;
+ 
 // Arrays
-$colors: ("primary", $primary), ("secondary", $secondary);
+$colors: ('primary', $primary), ('secondary', $secondary),
+  ('warning', $warning),
+  ('success', $success),
+  ('danger', $danger),
+  ('orange', $orange), ('yellow', $yellow),
+  ('dark', $dark), ('grey', $grey), ('white', $white),
+  ('background', $background);
