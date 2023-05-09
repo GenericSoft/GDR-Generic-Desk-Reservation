@@ -1,0 +1,16 @@
+@each $color in $colors {
+    .btn-#{nth($color,1)}{
+        background: nth($color,2);
+        @if nth($color,1)=="dark" or nth($color,1)=="danger"or nth($color,1)=="primary"{
+            color: $white;
+        }@else{
+            color: $dark;
+        }
+    }
+    .btn-#{nth($color,1)}:hover{
+        //
+    }
+    .btn-#{nth($color,1)}:active{
+        //
+    }
+}
