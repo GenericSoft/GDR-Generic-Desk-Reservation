@@ -1,10 +1,10 @@
 @font-face{
-    font-family:mainFont;
+    font-family:Ubuntu;
     src:url('../../utils/Ubuntu/Ubuntu-Regular.ttf')
 }
 
 @each $color in $colors {
-    .textColor-#{nth($color,1)}{
+    .text-color-#{nth($color,1)}{
         color:nth($color,2)
     }
 }
@@ -12,5 +12,5 @@
 *,
 ::before,
 ::after{
-    font-family:mainFont;
+    font-family:Ubuntu;
 }
