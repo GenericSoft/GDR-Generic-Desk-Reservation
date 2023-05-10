@@ -1,0 +1,38 @@
+.form {
+  &-header {
+    height: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid #724d7e;
+  }
+
+  &-title-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    & img {
+      height: 60px;
+    }
+
+    & h1 {
+      font-size: 25px;
+      color: #724d7e;
+    }
+  }
+
+  &-btn-container {
+    & button {
+      width: 100px;
+      height: 50px;
+      border: 1px solid #724d7e;
+      outline: none;
+      background-color: white;
+      font-size: 18px;
+      border-radius: 10px;
+      color: #724d7e;
+    }
+  }
+}
