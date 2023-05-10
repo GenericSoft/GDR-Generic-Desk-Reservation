@@ -1,0 +1,23 @@
+@import '../../common/styles/colors';
+
+.form {
+  &-body {
+    height: 85%;
+    padding: 40px 10px 10px 10px;
+
+    .one-line {
+      display: flex;
+      align-items: end;
+    }
+
+    .form-label {
+      width: 150px;
+    }
+
+    .form-submit-btn {
+      background-color: #724d7e;
+      outline: none;
+      border: none;
+    }
+  }
+}

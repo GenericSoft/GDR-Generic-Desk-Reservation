@@ -7,14 +7,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
 // Components
-import Home from '../../containers/Home/Home';
+import Registration from '../../pages/Registration/Registration';
 
 function App() {
   return (
     // <ThemeProvider theme={theme}>
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Registration />} />
       </Routes>
     </div>
     // </ThemeProvider>
