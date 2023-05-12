@@ -1,4 +1,5 @@
 @import '../../common/styles/colors';
+@import '../../common/styles/buttons';
 
 .form {
   &-body {
@@ -12,12 +13,12 @@
 
     .form-label {
       width: 150px;
-    }
-
-    .form-submit-btn {
-      background-color: #724d7e;
-      outline: none;
-      border: none;
+      color: $primary;
     }
   }
+}
+
+.error-message {
+  margin-block: 20px;
+  color: $danger;
 }
