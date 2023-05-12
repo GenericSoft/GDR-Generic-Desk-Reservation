@@ -1,16 +1,16 @@
-@font-face{
-    font-family:Ubuntu;
-    src:url('../../utils/Ubuntu/Ubuntu-Regular.ttf')
+@font-face {
+  font-family: Ubuntu;
+  src: url('../../utils/fonts/Ubuntu-Regular.ttf');
 }
 
 @each $color in $colors {
-    .text-color-#{nth($color,1)}{
-        color:nth($color,2)
-    }
+  .text-color-#{nth($color,1)} {
+    color: nth($color, 2);
+  }
 }
 
 *,
 ::before,
-::after{
-    font-family:Ubuntu;
+::after {
+  font-family: Ubuntu;
 }
