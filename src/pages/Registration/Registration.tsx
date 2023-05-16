@@ -91,34 +91,35 @@ const Registration = () => {
     <FormContainer
       onClick={() => console.log('function to navigate to log in page')}
     >
+      <h3 className="text-color-primary">Registration</h3>
       <Form onSubmit={handleSubmit}>
         <InputField
           reference={firstNameRef}
-          placeholder="Enter first name"
+          placeholder="&nbsp;"
           label="First name"
         />
         <InputField
           reference={lastNameRef}
-          placeholder="Enter last name"
+          placeholder="&nbsp;"
           label="Last name"
         />
         <InputField
           reference={emailRef}
-          placeholder="Enter email"
+          placeholder="&nbsp;"
           label="Email address"
           type="email"
         />
         <InputField
           reference={passwordRef}
-          placeholder="Enter password"
+          placeholder="&nbsp;"
           label="Password"
           type="password"
         />
 
         {errorMsg && <div className="error-message">{errorMsg}</div>}
 
-        <Button className="btn-primary" type="submit">
-          Submit
+        <Button className="btn-primary mt-4" type="submit">
+          Join the Club
         </Button>
       </Form>
     </FormContainer>

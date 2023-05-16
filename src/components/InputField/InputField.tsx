@@ -16,9 +16,10 @@ const InputField = ({
   type,
 }: InputFieldProps) => {
   return (
-    <Form.Group className="mb-3 one-line" controlId="formBasicEmail">
-      <Form.Label className="form-label">{label}</Form.Label>
+    <Form.Group className="mb-3 one-line inp" controlId="formBasicEmail">
       <Form.Control ref={reference} placeholder={placeholder} type={type} />
+      <span className="label">{label}</span>
+      <span className="focus-bg"></span>
     </Form.Group>
   );
 };
