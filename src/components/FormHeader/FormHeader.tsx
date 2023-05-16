@@ -4,7 +4,11 @@ import './FormHeader.scss';
 
 import Logo from '../../resources/images/gs-logo.png';
 
-const FormHeader = ({ onClick }: any) => {
+type FormHeaderProps = {
+  onClick: () => void;
+};
+
+const FormHeader = ({ onClick }: FormHeaderProps) => {
   return (
     <div className="form-header">
       <div className="form-title-container">
