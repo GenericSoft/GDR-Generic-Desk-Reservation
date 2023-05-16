@@ -13,12 +13,10 @@ const FormHeader = ({ onClick }: FormHeaderProps) => {
     <div className="form-header">
       <div className="form-title-container">
         <img src={Logo} alt="logo" />
-        <h1>Registration</h1>
       </div>
-      <div className="form-btn-container">
-        <button onClick={onClick} type="button">
-          Login
-        </button>
+      <div className="form-btn-container" onClick={onClick}>
+        <span className="small">Switch to</span>
+        <span> Login</span>
       </div>
     </div>
   );
