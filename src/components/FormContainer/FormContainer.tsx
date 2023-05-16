@@ -4,7 +4,12 @@ import RegistrationImage from '../../resources/images/registration-image.png';
 import FormHeader from '../FormHeader/FormHeader';
 import './FormContainer.scss';
 
-const FormContainer = ({ children, onClick }: any) => {
+type FormContainerProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
+const FormContainer = ({ children, onClick }: FormContainerProps) => {
   return (
     <div className="form-page-wrapper">
       <div className="form-page-container">

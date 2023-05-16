@@ -1,4 +1,3 @@
-import { Store } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 
@@ -6,7 +5,7 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 
-import rootReducer, { RootReducerType } from './reducers/rootReducer';
+import rootReducer from './reducers/rootReducer';
 
 const persistConfig = {
   key: 'root',
@@ -16,7 +15,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const store: Store<RootReducerType> = configureStore({
+const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
