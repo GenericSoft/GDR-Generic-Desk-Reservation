@@ -2,38 +2,23 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { apiUserType, userType } from '../../interfaces/User';
 
-import {
-  // createUserRequest,
-  registerUserRequest,
-} from '../../api/reservationDeskBackend/userApi';
+import { registerUserRequest } from '../../api/reservationDeskBackend/userApi';
+import { toError } from '../../utils/error';
 
-export const registerUser = createAsyncThunk(
+import { bindActionCreators } from 'redux';
+import { useAppDispatch } from '../store';
+
+export const registerUser = createAsyncThunk<userType, apiUserType>(
   'users/registerUserStatus',
-  async (userData: apiUserType) => {
+  async (userData) => {
     try {
-      const response = await registerUserRequest(userData);
+      const response: userType = await registerUserRequest(userData);
       return response;
-    } catch (error: any) {
-      throw Error(error.message);
+    } catch (error) {
+      throw toError(error);
     }
   }
 );
-
-// export const saveUserToDb = createAsyncThunk(
-//   'users/saveUserToDbStatus',
-//   async (userData: {
-//     userId: string;
-//     firstName: string;
-//     lastName: string;
-//     email: string;
-//   }) => {
-//     try {
-//       await createUserRequest(userData);
-//     } catch (error: any) {
-//       throw Error(error.message);
-//     }
-//   }
-// );
 
 const initialState: userType = {
   userId: '',
@@ -68,7 +53,7 @@ export const userSlice = createSlice({
     }),
   },
   extraReducers: (builder) => {
-    builder.addCase(registerUser.fulfilled, (state, action: any) => {
+    builder.addCase(registerUser.fulfilled, (state, action) => {
       const { userId, email, token, firstName, lastName } = action.payload;
 
       return {
@@ -81,11 +66,16 @@ export const userSlice = createSlice({
       };
     });
     builder.addCase(registerUser.rejected, (state, action) => {
-      throw Error(action.error.message);
+      throw new Error(action.error.message);
     });
   },
 });
 
 export const userActions = userSlice.actions;
+
+export const useUserActions = () => {
+  const dispatch = useAppDispatch();
+  return bindActionCreators(userActions, dispatch);
+};
 
 export default userSlice.reducer;

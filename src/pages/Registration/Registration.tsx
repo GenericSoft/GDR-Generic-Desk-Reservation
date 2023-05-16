@@ -4,12 +4,14 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import FormContainer from '../../components/FormContainer/FormContainer';
+import InputField from '../../components/InputField/InputField';
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { registerUser } from '../../redux/reducers/userReducer';
 
 import './Registration.scss';
 import { createUserRequest } from '../../api/reservationDeskBackend/userApi';
+import { toError } from '../../utils/error';
 
 const Registration = () => {
   const firstNameRef = useRef<HTMLInputElement>(null);
@@ -21,7 +23,7 @@ const Registration = () => {
 
   const [errorMsg, setErrorMsg] = useState<string>('');
 
-  const dispatch: any = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -65,16 +67,18 @@ const Registration = () => {
         lastNameRef.current.value = '';
         emailRef.current.value = '';
         passwordRef.current.value = '';
-      } catch (error: any) {
-        if (error.message === 'auth/email-already-in-use') {
+      } catch (error) {
+        const err = toError(error);
+
+        if (err.message === 'auth/email-already-in-use') {
           setErrorMsg('This email is already in use!');
         }
 
-        if (error.message === 'auth/invalid-email') {
+        if (err.message === 'auth/invalid-email') {
           setErrorMsg('The email is invalid!');
         }
 
-        if (error.message === 'auth/weak-password') {
+        if (err.message === 'auth/weak-password') {
           setErrorMsg('Password must be at least 6 characters!');
         }
       }
@@ -88,26 +92,28 @@ const Registration = () => {
       onClick={() => console.log('function to navigate to log in page')}
     >
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3 one-line" controlId="formBasicEmail">
-          <Form.Label className="form-label">First name</Form.Label>
-          <Form.Control ref={firstNameRef} placeholder="Enter first name" />
-        </Form.Group>
-        <Form.Group className="mb-3 one-line" controlId="formBasicEmail">
-          <Form.Label className="form-label">Last name</Form.Label>
-          <Form.Control ref={lastNameRef} placeholder="Enter last name" />
-        </Form.Group>
-        <Form.Group className="mb-3 one-line" controlId="formBasicEmail">
-          <Form.Label className="form-label">Email address</Form.Label>
-          <Form.Control ref={emailRef} type="email" placeholder="Enter email" />
-        </Form.Group>
-        <Form.Group className="mb-3 one-line" controlId="formBasicEmail">
-          <Form.Label className="form-label">Password</Form.Label>
-          <Form.Control
-            ref={passwordRef}
-            type="password"
-            placeholder="Enter password"
-          />
-        </Form.Group>
+        <InputField
+          reference={firstNameRef}
+          placeholder="Enter first name"
+          label="First name"
+        />
+        <InputField
+          reference={lastNameRef}
+          placeholder="Enter last name"
+          label="Last name"
+        />
+        <InputField
+          reference={emailRef}
+          placeholder="Enter email"
+          label="Email address"
+          type="email"
+        />
+        <InputField
+          reference={passwordRef}
+          placeholder="Enter password"
+          label="Password"
+          type="password"
+        />
 
         {errorMsg && <div className="error-message">{errorMsg}</div>}
 

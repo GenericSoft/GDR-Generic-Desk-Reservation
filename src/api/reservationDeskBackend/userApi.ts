@@ -1,7 +1,8 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { apiUserType, userType } from '../../interfaces/User';
+import { apiUserType } from '../../interfaces/User';
 import { auth, db } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
+import { toError } from '../../utils/error';
 
 export const registerUserRequest = async (userData: apiUserType) => {
   try {
@@ -11,16 +12,17 @@ export const registerUserRequest = async (userData: apiUserType) => {
 
     const user = {
       userId: result.user.uid,
-      email: result.user.email,
+      email: result.user.email as string,
       firstName: userData.firstName,
       lastName: userData.lastName,
       token,
     };
 
     return user;
-  } catch (error: any) {
-    const newError = new Error(error.code);
-    throw newError;
+  } catch (error) {
+    // const firebaseError = error as FirebaseError;
+    // throw new Error(firebaseError.code);
+    throw toError(error, true);
   }
 };
 
@@ -43,7 +45,7 @@ export const createUserRequest = async (userData: {
         deskNum: 0,
       },
     });
-  } catch (error: any) {
-    throw Error(error.message);
+  } catch (error) {
+    throw toError(error);
   }
 };
