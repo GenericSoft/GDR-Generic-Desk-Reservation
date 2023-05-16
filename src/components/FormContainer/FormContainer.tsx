@@ -12,6 +12,7 @@ type FormContainerProps = {
 const FormContainer = ({ children, onClick }: FormContainerProps) => {
   return (
     <div className="form-page-wrapper">
+      <div className="blue-triangle1"></div>
       <div className="form-page-container">
         <div className="image-container">
           <img className="image" src={RegistrationImage} alt="form-pic" />
