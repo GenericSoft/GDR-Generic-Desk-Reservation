@@ -1,0 +1,30 @@
+.drop-down {
+  ::after {
+    color: white;
+  }
+  a {
+    font-size: 1.5rem;
+  }
+  &__icon {
+    margin-right: 4px;
+  }
+
+  &__profile-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--image {
+      height: 2.5rem;
+      border-radius: 50%;
+      margin-right: 2px;
+    }
+  }
+  &__user-content{
+    font-size: 0.9rem;
+
+    &--email{
+      color: grey;
+    }
+  }
+}

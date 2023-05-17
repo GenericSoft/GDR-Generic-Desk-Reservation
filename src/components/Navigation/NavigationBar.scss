@@ -1,0 +1,22 @@
+.nav {
+  background: #191e27;
+  padding: 0;
+  margin: 0;
+
+  &__logo {
+    &-container {
+      padding: 0;
+      margin: 0;
+      margin-left: 6rem;
+    }
+  }
+  &__user-data {
+    &--name {
+      color: white;
+      padding: 0;
+      margin: 0;
+      margin-right: 3px;
+      font-size: 1.5rem;
+    }
+  }
+}
