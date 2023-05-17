@@ -3,7 +3,11 @@
     position: relative;
     height: 100vh;
     background-color: transparent;
-    background-image: linear-gradient(90deg, rgb(94, 211, 225, 0.4) 0%, rgb(127, 83, 172, 0.4) 59%);
+    background-image: linear-gradient(
+      90deg,
+      rgb(94, 211, 225, 0.4) 0%,
+      rgb(127, 83, 172, 0.4) 59%
+    );
   }
 
   &-container {
@@ -16,7 +20,6 @@
     transform: translate(-50%, -50%);
     height: 70vh;
     display: flex;
-    
   }
 }
 
@@ -24,6 +27,11 @@
   background-color: white;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+
+  &.login {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
 }
 
 .image {
@@ -37,13 +45,13 @@
 }
 
 .blue-triangle1 {
-    content: "";
-    position: fixed;
-    width: 200%;
-    height: 200%;
-    top: -50%;
-    left: -50%;
-    z-index: -1;
-    background: url("../../resources/images/Purple_triangle.png") 0 0 repeat;
-    transform: rotate(30deg);
+  content: '';
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  z-index: -1;
+  background: url('../../resources/images/Purple_triangle.png') 0 0 repeat;
+  transform: rotate(30deg);
 }

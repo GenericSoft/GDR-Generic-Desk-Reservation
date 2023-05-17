@@ -1,18 +1,37 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { apiUserType, userType } from '../../interfaces/User';
+import {
+  registerUserType,
+  loginUserType,
+  userType,
+} from '../../interfaces/User';
 
-import { registerUserRequest } from '../../api/reservationDeskBackend/userApi';
+import {
+  loginUserRequest,
+  registerUserRequest,
+} from '../../api/reservationDeskBackend/userApi';
 import { toError } from '../../utils/error';
 
 import { bindActionCreators } from 'redux';
 import { useAppDispatch } from '../store';
 
-export const registerUser = createAsyncThunk<userType, apiUserType>(
+export const registerUser = createAsyncThunk<userType, registerUserType>(
   'users/registerUserStatus',
   async (userData) => {
     try {
       const response: userType = await registerUserRequest(userData);
+      return response;
+    } catch (error) {
+      throw toError(error);
+    }
+  }
+);
+
+export const loginUser = createAsyncThunk<userType, loginUserType>(
+  'users/loginUserStatus',
+  async (userData) => {
+    try {
+      const response: userType = await loginUserRequest(userData);
       return response;
     } catch (error) {
       throw toError(error);
@@ -66,6 +85,21 @@ export const userSlice = createSlice({
       };
     });
     builder.addCase(registerUser.rejected, (state, action) => {
+      throw new Error(action.error.message);
+    });
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      const { userId, email, token, firstName, lastName } = action.payload;
+
+      return {
+        ...state,
+        userId,
+        firstName,
+        lastName,
+        email,
+        token,
+      };
+    });
+    builder.addCase(loginUser.rejected, (state, action) => {
       throw new Error(action.error.message);
     });
   },

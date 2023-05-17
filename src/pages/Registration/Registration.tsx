@@ -6,12 +6,12 @@ import Button from 'react-bootstrap/Button';
 import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 
-import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { useAppDispatch } from '../../redux/store';
 import { registerUser } from '../../redux/reducers/userReducer';
 
 import './Registration.scss';
-import { createUserRequest } from '../../api/reservationDeskBackend/userApi';
 import { toError } from '../../utils/error';
+import { useNavigate } from 'react-router';
 
 const Registration = () => {
   const firstNameRef = useRef<HTMLInputElement>(null);
@@ -19,7 +19,7 @@ const Registration = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const userId = useAppSelector((state) => state.user.userId);
+  const navigate = useNavigate();
 
   const [errorMsg, setErrorMsg] = useState<string>('');
 
@@ -55,13 +55,6 @@ const Registration = () => {
 
         await dispatch(registerUser(formValues));
 
-        createUserRequest({
-          userId,
-          firstName,
-          lastName,
-          email,
-        });
-
         //clear the input after successful submit
         firstNameRef.current.value = '';
         lastNameRef.current.value = '';
@@ -88,9 +81,7 @@ const Registration = () => {
   };
 
   return (
-    <FormContainer
-      onClick={() => console.log('function to navigate to log in page')}
-    >
+    <FormContainer onClick={() => navigate('/login')} isLoginPage={false}>
       <h3 className="text-color-primary">Registration</h3>
       <Form onSubmit={handleSubmit}>
         <InputField
