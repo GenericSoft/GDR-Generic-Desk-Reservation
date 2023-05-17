@@ -3,7 +3,6 @@ import React from 'react';
 import RegistrationImage from '../../resources/images/registration-image.png';
 import FormHeader from '../FormHeader/FormHeader';
 import './FormContainer.scss';
-import Footer from '../Footer/Footer';
 
 type FormContainerProps = {
   children: React.ReactNode;
@@ -30,7 +29,6 @@ const FormContainer = ({
           <div className="form-body">{children}</div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
