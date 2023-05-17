@@ -8,6 +8,7 @@ import './App.scss';
 
 // Components
 import Registration from '../../pages/Registration/Registration';
+import Login from '../../pages/Login/Login';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Registration />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
     // </ThemeProvider>
