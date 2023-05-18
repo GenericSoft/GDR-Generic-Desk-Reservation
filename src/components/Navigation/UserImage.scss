@@ -1,4 +1,6 @@
 .logo-container {
+  flex-shrink: 0;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7,7 +9,8 @@
   border-radius: 50%;
   margin: 0;
   padding: 0;
-  background: white;
+  background: rgb(203, 113, 203);
+  color: white;
 }
 
 .user-image {

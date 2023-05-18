@@ -30,8 +30,13 @@ export const registerUser = createAsyncThunk<userType, registerUserType>(
 export const loginUser = createAsyncThunk<userType, loginUserType>(
   'users/loginUserStatus',
   async (userData) => {
+    console.log('user data login', userData);
+
     try {
       const response: userType = await loginUserRequest(userData);
+
+      console.log('login response', response);
+
       return response;
     } catch (error) {
       throw toError(error);
@@ -44,6 +49,7 @@ const initialState: userType = {
   firstName: '',
   lastName: '',
   email: '',
+  profilePic: '',
   token: '',
 };
 
@@ -52,13 +58,15 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<userType>) => {
-      const { userId, firstName, lastName, email, token } = action.payload;
+      const { userId, firstName, lastName, email, profilePic, token } =
+        action.payload;
       return {
         ...state,
         userId,
         firstName,
         lastName,
         email,
+        profilePic,
         token,
       };
     },
@@ -68,6 +76,7 @@ export const userSlice = createSlice({
       firstName: '',
       lastName: '',
       email: '',
+      profilePic: '',
       token: '',
     }),
   },
@@ -88,7 +97,8 @@ export const userSlice = createSlice({
       throw new Error(action.error.message);
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      const { userId, email, token, firstName, lastName } = action.payload;
+      const { userId, email, token, firstName, lastName, profilePic } =
+        action.payload;
 
       return {
         ...state,
@@ -97,6 +107,7 @@ export const userSlice = createSlice({
         lastName,
         email,
         token,
+        profilePic,
       };
     });
     builder.addCase(loginUser.rejected, (state, action) => {

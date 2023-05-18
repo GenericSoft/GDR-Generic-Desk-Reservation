@@ -3,21 +3,25 @@ import Container from 'react-bootstrap/Container';
 
 import './NavigationBar.scss';
 import logo from '../../resources/images/GenericSoft_Logo_White.svg';
-import userImage from '../../resources/images/pexels-pixabay-415829.jpg';
 
 import DropDown from './DropDown';
 import UserImage from './UserImage';
+import { useSelector } from 'react-redux';
 
-const user = {
-  firstName: 'Lia',
-  lastName: 'blq blq',
-  email: 'liaB@abv.bg',
-  image: userImage,
-};
-
-const nameLogo = user.firstName.substring(0, 1) + user.lastName.substring(0, 1);
+import { RootStateType } from '../../redux/reducers/rootReducer';
 
 function NavigationBar() {
+  const currentUser = useSelector((state: RootStateType) => state.user);
+  console.log(currentUser);
+
+  let nameLogo = '';
+
+  if (currentUser.firstName && currentUser.lastName) {
+    nameLogo =
+      currentUser.firstName.substring(0, 1).toUpperCase() +
+      currentUser.lastName.substring(0, 1).toUpperCase();
+  }
+
   return (
     <Navbar className="nav">
       <Container>
@@ -32,15 +36,18 @@ function NavigationBar() {
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-end nav__user-data">
           <Navbar.Text className="nav__user-data--name">
-            {user.firstName}
+            {currentUser.firstName}
           </Navbar.Text>
           <DropDown
-            firstName={user.firstName}
-            image={user.image}
-            email={user.email}
+            firstName={currentUser.firstName || ''}
+            image={currentUser.profilePic || ''}
+            email={currentUser.email}
             nameLogo={nameLogo}
           />
-          <UserImage userImage={user.image} nameLogo={nameLogo} />
+          <UserImage
+            userImage={currentUser.profilePic || ''}
+            nameLogo={nameLogo}
+          />
         </Navbar.Collapse>
       </Container>
     </Navbar>
