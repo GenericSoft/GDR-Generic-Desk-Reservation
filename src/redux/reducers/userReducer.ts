@@ -30,12 +30,8 @@ export const registerUser = createAsyncThunk<userType, registerUserType>(
 export const loginUser = createAsyncThunk<userType, loginUserType>(
   'users/loginUserStatus',
   async (userData) => {
-    console.log('user data login', userData);
-
     try {
       const response: userType = await loginUserRequest(userData);
-
-      console.log('login response', response);
 
       return response;
     } catch (error) {

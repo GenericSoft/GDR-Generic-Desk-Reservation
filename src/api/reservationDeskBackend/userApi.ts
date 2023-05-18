@@ -91,7 +91,6 @@ export const retrieveUserInformation = async (userId: string) => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log(docSnap.data());
     return docSnap.data() as firebaseUserType;
   } else {
     console.log('No such document');

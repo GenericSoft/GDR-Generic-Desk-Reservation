@@ -12,7 +12,6 @@ import { RootStateType } from '../../redux/reducers/rootReducer';
 
 function NavigationBar() {
   const currentUser = useSelector((state: RootStateType) => state.user);
-  console.log(currentUser);
 
   let nameLogo = '';
 
