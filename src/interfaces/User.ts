@@ -15,6 +15,7 @@ export interface userType {
   firstName?: string;
   lastName?: string;
   email: string;
+  profilePic?: string;
   token: string;
 }
 
