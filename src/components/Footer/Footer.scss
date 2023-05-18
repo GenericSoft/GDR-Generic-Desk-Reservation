@@ -13,9 +13,10 @@
 
   &-image {
     height: 100%;
+    width: 40%;
+    object-fit: fill;
     &-container {
       flex: 1 1 0;
-      //   text-align: center;
     }
   }
 
@@ -29,7 +30,7 @@
       ul {
         list-style-type: none;
         margin: 0;
-        padding: 0;
+        padding: 0 0 0 20px;
       }
 
       li a {
@@ -48,6 +49,7 @@
 
     div {
       color: $white;
+      padding: 0 0 0 20px;
     }
   }
 }
