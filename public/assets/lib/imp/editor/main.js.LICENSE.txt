@@ -1,0 +1,673 @@
+/*! !!../node_modules/css-loader/dist/cjs.js!./index.css */
+
+/*! !../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */
+
+/*! !../node_modules/style-loader/dist/runtime/insertBySelector.js */
+
+/*! !../node_modules/style-loader/dist/runtime/insertStyleElement.js */
+
+/*! !../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */
+
+/*! !../node_modules/style-loader/dist/runtime/styleDomAPI.js */
+
+/*! !../node_modules/style-loader/dist/runtime/styleTagTransform.js */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/fullscreenButton.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/menu/closeButton.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/menu/item.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/menu/itemArtboard.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/menu/list.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/menu/menu.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/menu/openButton.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/menu/search.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/navigator.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/objects/object.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/objects/spot.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/objects/text.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/tooltip/tooltip.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/tooltip/tooltipFullscreen.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/ui.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./UI/zoomButtons.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./debug.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./fullscreen.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./imageMap.css */
+
+/*! -!../node_modules/css-loader/dist/cjs.js!./layers.css */
+
+/*! ../../../node_modules/css-loader/dist/runtime/api.js */
+
+/*! ../../../node_modules/css-loader/dist/runtime/sourceMaps.js */
+
+/*! ../../node_modules/css-loader/dist/runtime/api.js */
+
+/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */
+
+/*! ../../version */
+
+/*! ../helpers/regeneratorRuntime */
+
+/*! ../node_modules/css-loader/dist/runtime/api.js */
+
+/*! ../node_modules/css-loader/dist/runtime/sourceMaps.js */
+
+/*! ./arrayLikeToArray.js */
+
+/*! ./arrayWithoutHoles.js */
+
+/*! ./assertThisInitialized.js */
+
+/*! ./iterableToArray.js */
+
+/*! ./nonIterableSpread.js */
+
+/*! ./setPrototypeOf.js */
+
+/*! ./toPrimitive.js */
+
+/*! ./toPropertyKey.js */
+
+/*! ./typeof.js */
+
+/*! ./unsupportedIterableToArray.js */
+
+/*! @babel/runtime/helpers/asyncToGenerator */
+
+/*! @babel/runtime/helpers/classCallCheck */
+
+/*! @babel/runtime/helpers/createClass */
+
+/*! @babel/runtime/helpers/defineProperty */
+
+/*! @babel/runtime/helpers/getPrototypeOf */
+
+/*! @babel/runtime/helpers/inherits */
+
+/*! @babel/runtime/helpers/possibleConstructorReturn */
+
+/*! @babel/runtime/helpers/toConsumableArray */
+
+/*! @babel/runtime/helpers/typeof */
+
+/*! @babel/runtime/regenerator */
+
+/*! Client/UI/artboardMenu */
+
+/*! Client/UI/fullscreenButton */
+
+/*! Client/UI/icons */
+
+/*! Client/UI/menu/closeButton */
+
+/*! Client/UI/menu/item */
+
+/*! Client/UI/menu/itemArtboard */
+
+/*! Client/UI/menu/list */
+
+/*! Client/UI/menu/menu */
+
+/*! Client/UI/menu/openButton */
+
+/*! Client/UI/menu/search */
+
+/*! Client/UI/navigator */
+
+/*! Client/UI/objects/group */
+
+/*! Client/UI/objects/impObject */
+
+/*! Client/UI/objects/oval */
+
+/*! Client/UI/objects/poly */
+
+/*! Client/UI/objects/rect */
+
+/*! Client/UI/objects/spot */
+
+/*! Client/UI/objects/svg */
+
+/*! Client/UI/objects/svgSingle */
+
+/*! Client/UI/objects/text */
+
+/*! Client/UI/tooltip/content/button */
+
+/*! Client/UI/tooltip/content/heading */
+
+/*! Client/UI/tooltip/content/image */
+
+/*! Client/UI/tooltip/content/paragraph */
+
+/*! Client/UI/tooltip/content/tooltipContent */
+
+/*! Client/UI/tooltip/content/video */
+
+/*! Client/UI/tooltip/content/youTube */
+
+/*! Client/UI/tooltip/tooltip */
+
+/*! Client/UI/tooltip/tooltipFullscreen */
+
+/*! Client/UI/zoomButtons */
+
+/*! Client/api/functions.js */
+
+/*! Client/api/functionsDeprecated.js */
+
+/*! Client/api/hooks.js */
+
+/*! Client/api/hooksDeprecated.js */
+
+/*! Client/api/html.js */
+
+/*! Client/consts */
+
+/*! Client/controllers/artboardController */
+
+/*! Client/controllers/cacheController */
+
+/*! Client/controllers/eventController */
+
+/*! Client/controllers/fullscreenController */
+
+/*! Client/controllers/menuController */
+
+/*! Client/controllers/navigatorController */
+
+/*! Client/controllers/objectController */
+
+/*! Client/controllers/tooltipController */
+
+/*! Client/controllers/zoomController */
+
+/*! Client/globals.js */
+
+/*! Client/imageMap */
+
+/*! Client/scripts/actionQueue */
+
+/*! Client/scripts/defaults */
+
+/*! Client/scripts/squaresContentParser */
+
+/*! Client/store/actions */
+
+/*! Client/store/getters */
+
+/*! Client/store/mutations */
+
+/*! Client/store/store */
+
+/*! ClientAssets/index.css */
+
+/*! Editor/scripts/consts */
+
+/*! Editor/scripts/import */
+
+/*! Editor/scripts/import-legacy */
+
+/*! Editor/scripts/utilities */
+
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+
+/*!***********************!*\
+  !*** ./src/consts.js ***!
+  \***********************/
+
+/*!************************!*\
+  !*** ./src/globals.js ***!
+  \************************/
+
+/*!*************************!*\
+  !*** ./src/UI/icons.js ***!
+  \*************************/
+
+/*!*************************!*\
+  !*** ./src/api/html.js ***!
+  \*************************/
+
+/*!*************************!*\
+  !*** ./src/imageMap.js ***!
+  \*************************/
+
+/*!**************************!*\
+  !*** ./assets/index.css ***!
+  \**************************/
+
+/*!**************************!*\
+  !*** ./src/api/hooks.js ***!
+  \**************************/
+
+/*!****************************!*\
+  !*** ../editor/version.js ***!
+  \****************************/
+
+/*!****************************!*\
+  !*** ./src/store/store.js ***!
+  \****************************/
+
+/*!*****************************!*\
+  !*** ./src/UI/menu/item.js ***!
+  \*****************************/
+
+/*!*****************************!*\
+  !*** ./src/UI/menu/list.js ***!
+  \*****************************/
+
+/*!*****************************!*\
+  !*** ./src/UI/menu/menu.js ***!
+  \*****************************/
+
+/*!*****************************!*\
+  !*** ./src/UI/navigator.js ***!
+  \*****************************/
+
+/*!******************************!*\
+  !*** ./src/api/functions.js ***!
+  \******************************/
+
+/*!******************************!*\
+  !*** ./src/store/actions.js ***!
+  \******************************/
+
+/*!******************************!*\
+  !*** ./src/store/getters.js ***!
+  \******************************/
+
+/*!*******************************!*\
+  !*** ./src/UI/menu/search.js ***!
+  \*******************************/
+
+/*!*******************************!*\
+  !*** ./src/UI/objects/svg.js ***!
+  \*******************************/
+
+/*!*******************************!*\
+  !*** ./src/UI/zoomButtons.js ***!
+  \*******************************/
+
+/*!********************************!*\
+  !*** ./src/UI/artboardMenu.js ***!
+  \********************************/
+
+/*!********************************!*\
+  !*** ./src/UI/objects/oval.js ***!
+  \********************************/
+
+/*!********************************!*\
+  !*** ./src/UI/objects/poly.js ***!
+  \********************************/
+
+/*!********************************!*\
+  !*** ./src/UI/objects/rect.js ***!
+  \********************************/
+
+/*!********************************!*\
+  !*** ./src/UI/objects/spot.js ***!
+  \********************************/
+
+/*!********************************!*\
+  !*** ./src/UI/objects/text.js ***!
+  \********************************/
+
+/*!********************************!*\
+  !*** ./src/store/mutations.js ***!
+  \********************************/
+
+/*!*********************************!*\
+  !*** ./src/UI/objects/group.js ***!
+  \*********************************/
+
+/*!*********************************!*\
+  !*** ./src/scripts/defaults.js ***!
+  \*********************************/
+
+/*!***********************************!*\
+  !*** ./src/UI/menu/openButton.js ***!
+  \***********************************/
+
+/*!***********************************!*\
+  !*** ./src/UI/tooltip/tooltip.js ***!
+  \***********************************/
+
+/*!************************************!*\
+  !*** ./src/UI/fullscreenButton.js ***!
+  \************************************/
+
+/*!************************************!*\
+  !*** ./src/UI/menu/closeButton.js ***!
+  \************************************/
+
+/*!************************************!*\
+  !*** ./src/api/hooksDeprecated.js ***!
+  \************************************/
+
+/*!************************************!*\
+  !*** ./src/scripts/actionQueue.js ***!
+  \************************************/
+
+/*!*************************************!*\
+  !*** ./src/UI/menu/itemArtboard.js ***!
+  \*************************************/
+
+/*!*************************************!*\
+  !*** ./src/UI/objects/impObject.js ***!
+  \*************************************/
+
+/*!*************************************!*\
+  !*** ./src/UI/objects/svgSingle.js ***!
+  \*************************************/
+
+/*!***************************************!*\
+  !*** ../editor/src/scripts/consts.js ***!
+  \***************************************/
+
+/*!***************************************!*\
+  !*** ../editor/src/scripts/import.js ***!
+  \***************************************/
+
+/*!****************************************!*\
+  !*** ./src/api/functionsDeprecated.js ***!
+  \****************************************/
+
+/*!*****************************************!*\
+  !*** ./src/UI/tooltip/content/image.js ***!
+  \*****************************************/
+
+/*!*****************************************!*\
+  !*** ./src/UI/tooltip/content/video.js ***!
+  \*****************************************/
+
+/*!******************************************!*\
+  !*** ../editor/src/scripts/utilities.js ***!
+  \******************************************/
+
+/*!******************************************!*\
+  !*** ./src/UI/tooltip/content/button.js ***!
+  \******************************************/
+
+/*!*******************************************!*\
+  !*** ./src/UI/tooltip/content/heading.js ***!
+  \*******************************************/
+
+/*!*******************************************!*\
+  !*** ./src/UI/tooltip/content/youTube.js ***!
+  \*******************************************/
+
+/*!*******************************************!*\
+  !*** ./src/controllers/menuController.js ***!
+  \*******************************************/
+
+/*!*******************************************!*\
+  !*** ./src/controllers/zoomController.js ***!
+  \*******************************************/
+
+/*!********************************************!*\
+  !*** ./src/controllers/cacheController.js ***!
+  \********************************************/
+
+/*!********************************************!*\
+  !*** ./src/controllers/eventController.js ***!
+  \********************************************/
+
+/*!*********************************************!*\
+  !*** ./src/UI/tooltip/content/paragraph.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./src/UI/tooltip/tooltipFullscreen.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./src/controllers/objectController.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./src/scripts/squaresContentParser.js ***!
+  \*********************************************/
+
+/*!**********************************************!*\
+  !*** ../editor/src/scripts/import-legacy.js ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** ./src/controllers/tooltipController.js ***!
+  \**********************************************/
+
+/*!***********************************************!*\
+  !*** ./src/controllers/artboardController.js ***!
+  \***********************************************/
+
+/*!************************************************!*\
+  !*** ./src/controllers/navigatorController.js ***!
+  \************************************************/
+
+/*!*************************************************!*\
+  !*** ./src/controllers/fullscreenController.js ***!
+  \*************************************************/
+
+/*!**************************************************!*\
+  !*** ./src/UI/tooltip/content/tooltipContent.js ***!
+  \**************************************************/
+
+/*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+
+/*!***********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/typeof.js ***!
+  \***********************************************************/
+
+/*!************************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/sourceMaps.js ***!
+  \************************************************************/
+
+/*!*************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/inherits.js ***!
+  \*************************************************************/
+
+/*!***************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/styleDomAPI.js ***!
+  \***************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/createClass.js ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/toPrimitive.js ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/ui.css ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/debug.css ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/index.css ***!
+  \****************************************************************/
+
+/*!*****************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/layers.css ***!
+  \*****************************************************************/
+
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js ***!
+  \******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js ***!
+  \*******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
+  \*******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js ***!
+  \*******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js ***!
+  \*******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/regeneratorRuntime.js ***!
+  \*******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/imageMap.css ***!
+  \*******************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js ***!
+  \********************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/insertBySelector.js ***!
+  \********************************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js ***!
+  \*********************************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js ***!
+  \*********************************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/fullscreen.css ***!
+  \*********************************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/styleTagTransform.js ***!
+  \*********************************************************************/
+
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js ***!
+  \**********************************************************************/
+
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js ***!
+  \**********************************************************************/
+
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js ***!
+  \**********************************************************************/
+
+/*!**********************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/insertStyleElement.js ***!
+  \**********************************************************************/
+
+/*!***********************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/menu/item.css ***!
+  \***********************************************************************/
+
+/*!***********************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/menu/list.css ***!
+  \***********************************************************************/
+
+/*!***********************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/menu/menu.css ***!
+  \***********************************************************************/
+
+/*!***********************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/navigator.css ***!
+  \***********************************************************************/
+
+/*!*************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/menu/search.css ***!
+  \*************************************************************************/
+
+/*!*************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/zoomButtons.css ***!
+  \*************************************************************************/
+
+/*!**************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js ***!
+  \**************************************************************************/
+
+/*!**************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/objects/spot.css ***!
+  \**************************************************************************/
+
+/*!**************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/objects/text.css ***!
+  \**************************************************************************/
+
+/*!****************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/objects/object.css ***!
+  \****************************************************************************/
+
+/*!****************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
+  \****************************************************************************/
+
+/*!*****************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/menu/openButton.css ***!
+  \*****************************************************************************/
+
+/*!*****************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/tooltip/tooltip.css ***!
+  \*****************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js ***!
+  \******************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/fullscreenButton.css ***!
+  \******************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/menu/closeButton.css ***!
+  \******************************************************************************/
+
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js ***!
+  \*******************************************************************************/
+
+/*!*******************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/menu/itemArtboard.css ***!
+  \*******************************************************************************/
+
+/*!**********************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js ***!
+  \**********************************************************************************/
+
+/*!***************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./assets/UI/tooltip/tooltipFullscreen.css ***!
+  \***************************************************************************************/
