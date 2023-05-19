@@ -44,6 +44,7 @@ const Login = () => {
         //clear the input after successful submit
         emailRef.current.value = '';
         passwordRef.current.value = '';
+        navigate('/dashboard', { replace: true });
       } catch (error) {
         const err = toError(error);
 

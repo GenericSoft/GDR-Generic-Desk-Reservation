@@ -19,7 +19,7 @@ import {
 
 import './DropDown.scss';
 import { Container } from 'react-bootstrap';
-import UserImage from './UserImage';
+import UserImage from '../UserImage/UserImage';
 
 type User = {
   firstName: string;
