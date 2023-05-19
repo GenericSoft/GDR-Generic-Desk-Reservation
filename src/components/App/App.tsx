@@ -7,15 +7,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
 // Components
-import Registration from '../../pages/Registration/Registration';
+// import Registration from '../../pages/Registration/Registration';
 import Login from '../../pages/Login/Login';
+import TimeTable from '../../components/TimeTable/TimeTable';
 
 function App() {
   return (
     // <ThemeProvider theme={theme}>
     <div className="App">
       <Routes>
-        <Route path="/" element={<Registration />} />
+        <Route path="/" element={<TimeTable />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </div>
