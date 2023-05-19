@@ -30,13 +30,15 @@ type User = {
 
 function DropDown(user: User) {
   return (
-    <NavDropdown className="drop-down" title="">
+    <NavDropdown id="nav-dropdown" className="drop-down" title="" align="end">
       <NavDropdown.Item className="drop-down__profile-item">
         <UserImage userImage={user.image} nameLogo={user.nameLogo} />
         <Container className="drop-down__user-content">
-          <Container>{user.firstName}</Container>
+          <Container>
+            <p>{user.firstName}</p>
+          </Container>
           <Container className="drop-down__user-content--email">
-            {user.email}
+            <p>{user.email}</p>
           </Container>
         </Container>
       </NavDropdown.Item>
