@@ -60,6 +60,7 @@ const Registration = () => {
         lastNameRef.current.value = '';
         emailRef.current.value = '';
         passwordRef.current.value = '';
+        navigate('/dashboard', { replace: true });
       } catch (error) {
         const err = toError(error);
 

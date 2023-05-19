@@ -4,8 +4,8 @@ import Container from 'react-bootstrap/Container';
 import './NavigationBar.scss';
 import logo from '../../resources/images/GenericSoft_Logo_White.svg';
 
-import DropDown from './DropDown';
-import UserImage from './UserImage';
+import DropDown from '../DropDown/DropDown';
+import UserImage from '../UserImage/UserImage';
 import { useSelector } from 'react-redux';
 
 import { RootStateType } from '../../redux/reducers/rootReducer';
