@@ -25,6 +25,13 @@
 
     &--email{
       color: grey;
+      max-width: 7rem;
+      p{
+        margin: 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+     
     }
   }
 }

@@ -37,12 +37,14 @@ function NavigationBar() {
           <Navbar.Text className="nav__user-data--name">
             {currentUser.firstName}
           </Navbar.Text>
+
           <DropDown
             firstName={currentUser.firstName || ''}
             image={currentUser.profilePic || ''}
             email={currentUser.email}
             nameLogo={nameLogo}
           />
+
           <UserImage
             userImage={currentUser.profilePic || ''}
             nameLogo={nameLogo}
