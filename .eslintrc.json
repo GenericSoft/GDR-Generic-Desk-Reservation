@@ -26,6 +26,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
+  "ignorePatterns": ["main.js"],
   "rules": {
     "no-console": "off",
     "react/react-in-jsx-scope": "off",
