@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import './ImageMapPro.scss';
+import ModalContainer from '../Modal/Modal';
 
 const ImageMapProView = () => {
   // const [image, setImage] = useState(null);
@@ -24,6 +25,8 @@ const ImageMapProView = () => {
     script.onload = () => {
       // eslint-disable-next-line
       ImageMapPro.init('#image-map-pro', JSON.parse(localStorageData)[0]);
+
+      // console.log('OBJECT', JSON.parse(localStorageData)[0]);
       // eslint-disable-next-line
       //   console.log(ImageMapPro);
       //   console.log(JSON.parse(localStorageData)[0]);
@@ -34,32 +37,38 @@ const ImageMapProView = () => {
           // Do something
           const id = action.payload.object;
 
+          console.log(action.payload);
+
           const img = document.querySelector(
             'div[data-object-id="' + id + '"]'
           );
-          // img.style.background = 'green';
+          const attribute = img.getAttribute('data-title');
 
-          if (img.style.background == 'green') {
-            img.style.background = 'red';
-            console.log('ifaaa');
+          console.log(attribute);
+
+          if (attribute !== 'Text') {
+            console.log('HEY');
+
+            console.log(img.style);
             console.log(img.style.background);
-          } else {
-            img.style.background = 'green';
-            console.log('elseaaa');
-            console.log(img.style.background);
+
+            if (!img.style.background) {
+              console.log('HERE');
+              img.style.background = 'green';
+            }
+
+            if (img.style.background === 'green') {
+              img.style.background = 'red';
+              console.log('change to red');
+              console.log(img.style.background);
+            } else {
+              img.style.background = 'green';
+              console.log('change to green');
+              console.log(img.style.background);
+            }
           }
-
-          // console.log(action);
         }
       });
-
-      // if (image.style.background === 'green') {
-      //   image.style.background = 'red';
-      //   console.log('wtf1');
-      // } else {
-      //   image.style.background = 'green';
-      //   console.log('wtf2');
-      // }
     };
 
     // eslint-disable-next-line
@@ -71,20 +80,11 @@ const ImageMapProView = () => {
     // return () => ImageMapPro.unsubscribe(0);
   }, []);
 
-  // useEffect(() => {
-  //   const img = image;
-  //   if (img.style.background === 'green') {
-  //     img.style.background = 'red';
-  //     console.log('wtf1');
-  //   } else {
-  //     img.style.background = 'green';
-  //     console.log('wtf2');
-  //   }
-
-  //   setImage(img);
-  // }, [image]);
-
-  return <div id="image-map-pro"></div>;
+  return (
+    <ModalContainer title="Viewer" navigateRoute="/dashboard">
+      <div id="image-map-pro"></div>
+    </ModalContainer>
+  );
 };
 
 export default ImageMapProView;

@@ -5,7 +5,7 @@ import {
 } from 'firebase/auth';
 import { registerUserType, firebaseUserType } from '../../interfaces/User';
 import { auth, db } from '../../firebase';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 import { toError } from '../../utils/error';
 
 export const registerUserRequest = async (userData: registerUserType) => {
