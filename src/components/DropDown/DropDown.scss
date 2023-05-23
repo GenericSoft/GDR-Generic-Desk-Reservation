@@ -20,18 +20,22 @@
       margin-right: 2px;
     }
   }
-  &__user-content{
+  &__user-content {
     font-size: 0.9rem;
 
-    &--email{
+    &--email {
       color: grey;
       max-width: 7rem;
-      p{
+      p {
         margin: 0;
         text-overflow: ellipsis;
         overflow: hidden;
       }
-     
+    }
+    &--name {
+      p {
+        margin: 0;
+      }
     }
   }
 }
