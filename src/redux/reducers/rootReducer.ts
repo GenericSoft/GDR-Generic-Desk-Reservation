@@ -3,9 +3,9 @@ import { combineReducers } from 'redux';
 import { userType } from '../../interfaces/User';
 
 import userReducer from './userReducer';
-import roomReducer from './roomReducer';
+import roomReducer from './imageMapReducer';
 
-import { Room } from '../../interfaces/Room';
+import { Room } from '../../interfaces/ImageMap';
 
 export type RootReducerType = {
   user: userType;
