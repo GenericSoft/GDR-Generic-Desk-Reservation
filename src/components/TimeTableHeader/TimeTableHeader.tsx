@@ -11,8 +11,6 @@ import {
 } from 'date-fns';
 import './TimeTableHeader.scss';
 
-// import Table from 'react-bootstrap/Table';
-
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState(getWeek(currentMonth));
@@ -34,18 +32,6 @@ const Calendar = () => {
     setSelectedDate(day);
   };
 
-  // const renderHeader = () => {
-  //   const dateFormat = 'MMM yyyy';
-  //   return (
-  //     <div className="header row flex-middle">
-  //       <div className="col col-start"></div>
-  //       <div className="col col-center">
-  //         <span>{format(currentMonth, dateFormat)}</span>
-  //       </div>
-  //       <div className="col col-end"></div>
-  //     </div>
-  //   );
-  // };
   const renderDays = () => {
     const dateFormat = 'EEE';
     const days = [];
@@ -120,7 +106,6 @@ const Calendar = () => {
   return (
     <div className="calendar">
       {renderFooter()}
-      {/* {renderHeader()} */}
       {renderDays()}
       {renderCells()}
     </div>
