@@ -1,17 +1,23 @@
-.App {
-    font-family: sans-serif;
-    text-align: center;
-    min-height: 700px;
-    background-color: paleturquoise;
-    margin: 0;
-    padding: 20px;
-    width: 100%;
-  }
+@import '../../common/styles/colors';
+@import '../../common/styles/functions';
+
+// .App {
+//     font-family: sans-serif;
+//     text-align: center;
+//     min-height: 700px;
+//     background-color: paleturquoise;
+//     margin: 0;
+//     padding: 20px;
+//     width: 100%;
+//   }
   /* FONT IMPORTS */
-  
+  .table {
+    width: 90%;
+    margin: auto;
+  }
   
   .icon {
-    font-family: "Material Icons", serif;
+    // font-family: "Material Icons", serif;
     font-style: normal;
     display: inline-block;
     vertical-align: middle;
@@ -103,17 +109,17 @@
   }
   
   .col-start {
-    justify-content: flex-start;
+    flex: 1;
     text-align: left;
   }
   
   .col-center {
-    justify-content: center;
+    flex: 1;
     text-align: center;
   }
   
   .col-end {
-    justify-content: flex-end;
+    flex: 1;
     text-align: right;
   }
   
@@ -130,8 +136,9 @@
   .calendar .header {
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 115%;
+    // font-size: 115%;
     border-bottom: 1px solid var(--border-color);
+    display: flex;
   }
   
   .calendar .header .icon {
@@ -164,13 +171,15 @@
   
   .calendar .body .cell {
     position: relative;
-    height: 4em;
+    // height: 2em;
     border-right: 1px solid var(--border-color);
     overflow: hidden;
     cursor: pointer;
     background: var(--neutral-color);
     transition: 0.25s ease-out;
     font-size: 1.5em;
+    text-align: center;
+    font-weight: bold;
   }
   
   .calendar .body .cell:hover {
@@ -185,7 +194,7 @@
   }
   .calendar .body .today {
     border-left: 10px solid transparent;
-    border-image: linear-gradient(45deg, #ff1a79 0%, #eb82b3 40%);
+    border-image: linear-gradient(45deg, $primary 0%, lighten($primary, 80%) 40%);
     border-image-slice: 1;
   }
   .calendar .body .row {
@@ -200,14 +209,14 @@
     border-right: none;
   }
   
-  .calendar .body .cell .number {
-    position: absolute;
-    font-size: 82.5%;
-    line-height: 1;
-    top: 0.75em;
-    right: 0.75em;
-    font-weight: 700;
-  }
+//   .calendar .body .cell .number {
+//     position: absolute;
+//     font-size: 82.5%;
+//     line-height: 1;
+//     top: 0.75em;
+//     right: 0.75em;
+//     font-weight: 700;
+//   }
   
   .calendar .body .disabled {
     color: var(--text-color-light);
