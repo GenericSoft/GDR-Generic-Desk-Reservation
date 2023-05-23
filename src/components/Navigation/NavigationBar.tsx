@@ -6,12 +6,11 @@ import logo from '../../resources/images/GenericSoft_Logo_White.svg';
 
 import DropDown from '../DropDown/DropDown';
 import UserImage from '../UserImage/UserImage';
-import { useSelector } from 'react-redux';
 
-import { RootStateType } from '../../redux/reducers/rootReducer';
+import { useAppSelector } from '../../redux/store';
 
 function NavigationBar() {
-  const currentUser = useSelector((state: RootStateType) => state.user);
+  const currentUser = useAppSelector((state) => state.user);
 
   let nameLogo = '';
 
@@ -30,7 +29,7 @@ function NavigationBar() {
             width="90"
             height="90"
             className="d-inline-block align-top nav__logo-image"
-            alt="Generik logo"
+            alt="Generic logo"
           />
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-end nav__user-data">

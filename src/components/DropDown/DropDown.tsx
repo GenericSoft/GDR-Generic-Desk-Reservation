@@ -34,7 +34,7 @@ function DropDown(user: User) {
       <NavDropdown.Item className="drop-down__profile-item">
         <UserImage userImage={user.image} nameLogo={user.nameLogo} />
         <Container className="drop-down__user-content">
-          <Container>
+          <Container className="drop-down__user-content--name">
             <p>{user.firstName}</p>
           </Container>
           <Container className="drop-down__user-content--email">
