@@ -87,7 +87,6 @@ const Calendar = () => {
             }}
           >
             <span className="number">{formattedDate}</span>
-            <span className="bg">{formattedDate}</span>
           </div>
         );
         day = addDays(day, 1);
@@ -105,7 +104,7 @@ const Calendar = () => {
     const dateFormat = 'MMM yyyy';
 
     return (
-      <div className="header row flex-middle">
+      <div className="header">
         <div className="col col-start">
           <div className="icon" onClick={() => changeWeekHandle('prev')}>
             prev week

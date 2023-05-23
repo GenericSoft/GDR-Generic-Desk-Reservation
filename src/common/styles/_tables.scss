@@ -1,0 +1,6 @@
+@import './colors';
+@import './functions';
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-accent-bg: rgba(114, 77, 126, .5);
+}
