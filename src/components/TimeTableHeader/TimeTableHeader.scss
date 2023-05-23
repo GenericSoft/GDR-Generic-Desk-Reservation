@@ -1,23 +1,12 @@
 @import '../../common/styles/colors';
 @import '../../common/styles/functions';
 
-// .App {
-//     font-family: sans-serif;
-//     text-align: center;
-//     min-height: 700px;
-//     background-color: paleturquoise;
-//     margin: 0;
-//     padding: 20px;
-//     width: 100%;
-//   }
-  /* FONT IMPORTS */
   .table {
     width: 90%;
     margin: auto;
   }
   
   .icon {
-    // font-family: "Material Icons", serif;
     font-style: normal;
     display: inline-block;
     vertical-align: middle;
@@ -136,7 +125,6 @@
   .calendar .header {
     text-transform: uppercase;
     font-weight: 700;
-    // font-size: 115%;
     border-bottom: 1px solid var(--border-color);
     display: flex;
   }
@@ -147,7 +135,6 @@
   }
   
   .calendar .header .icon:hover {
-    /*transform: scale(1.75);*/
     transition: 0.25s ease-out;
     color: var(--main-color);
   }
@@ -171,7 +158,6 @@
   
   .calendar .body .cell {
     position: relative;
-    // height: 2em;
     border-right: 1px solid var(--border-color);
     overflow: hidden;
     cursor: pointer;
@@ -201,22 +187,9 @@
     border-bottom: 1px solid var(--border-color);
   }
   
-  /* .calendar .body .row:last-child {
-    border-bottom: none;
-  } */
-  
   .calendar .body .cell:last-child {
     border-right: none;
   }
-  
-//   .calendar .body .cell .number {
-//     position: absolute;
-//     font-size: 82.5%;
-//     line-height: 1;
-//     top: 0.75em;
-//     right: 0.75em;
-//     font-weight: 700;
-//   }
   
   .calendar .body .disabled {
     color: var(--text-color-light);
