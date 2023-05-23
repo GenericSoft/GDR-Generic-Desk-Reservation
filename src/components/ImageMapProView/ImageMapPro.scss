@@ -1,7 +1,7 @@
-.imp-objects div {
+.imp-objects div:not(div.imp-object.imp-object-text) {
   background: green;
 }
 
-.imp-object-highlighted {
-  background: none !important;
-}
+// .imp-object-highlighted {
+//   background: none !important;
+// }

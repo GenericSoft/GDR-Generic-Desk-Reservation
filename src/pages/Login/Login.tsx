@@ -9,7 +9,6 @@ import Button from 'react-bootstrap/Button';
 import { toError } from '../../utils/error';
 import { useAppDispatch } from '../../redux/store';
 import { loginUser } from '../../redux/reducers/userReducer';
-import CheckLocalStorage from '../../components/CheckLocalStorage/CheckLocalStorage';
 import ImageMapProView from '../../components/ImageMapProView/ImageMapProView';
 
 const Login = () => {
@@ -85,7 +84,6 @@ const Login = () => {
           Login
         </Button>
       </Form>
-      <CheckLocalStorage />
     </FormContainer>
   );
 };

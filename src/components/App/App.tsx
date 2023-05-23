@@ -10,10 +10,16 @@ import Registration from '../../pages/Registration/Registration';
 import Login from '../../pages/Login/Login';
 
 import PrivateRoutes from '../../utils/PrivateRoutes';
+import TimeTable from '../../components/TimeTable/TimeTable';
+import Test from '../../pages/Test/Test';
+import ImageMapProView from '../ImageMapProView/ImageMapProView';
+import CheckLocalStorage from '../CheckLocalStorage/CheckLocalStorage';
+import Dashboard from './Dashboard';
 
 function App() {
   return (
     <div className="App">
+      <CheckLocalStorage />
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -21,6 +27,9 @@ function App() {
         <Route path="/*" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
+        <Route path="/" element={<Test />} />
+        <Route path="/view" element={<ImageMapProView />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );
