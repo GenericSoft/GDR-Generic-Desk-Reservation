@@ -9,9 +9,11 @@ import UserImage from '../UserImage/UserImage';
 
 import { useAppSelector } from '../../redux/store';
 
-function NavigationBar() {
-  const currentUser = useAppSelector((state) => state.user);
+import { useUserActions } from '../../redux/reducers/userReducer';
 
+const NavigationBar = () => {
+  const currentUser = useAppSelector((state) => state.user);
+  const actions = useUserActions();
   let nameLogo = '';
 
   if (currentUser.firstName && currentUser.lastName) {
@@ -49,8 +51,9 @@ function NavigationBar() {
             nameLogo={nameLogo}
           />
         </Navbar.Collapse>
+        <button onClick={() => actions.logoutUser()}>Log out</button>
       </Container>
     </Navbar>
   );
-}
+};
 export default NavigationBar;

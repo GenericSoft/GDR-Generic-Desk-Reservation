@@ -9,12 +9,11 @@ import './App.scss';
 import { useAppSelector } from '../../redux/store';
 import routes from '../../utils/routes';
 // Components
-
 function App() {
-  const user = useAppSelector((state) => state.user);
-  const loggedUser = user.firstName || '';
+  const userData = useAppSelector((state) => state.user);
+  const isLoggedUser = userData.userId ? true : false;
 
-  const routing = useRoutes(routes(loggedUser));
+  const routing = useRoutes(routes(isLoggedUser));
 
   return (
     // <ThemeProvider theme={theme}>
