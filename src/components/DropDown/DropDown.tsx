@@ -28,7 +28,7 @@ type User = {
   nameLogo: string;
 };
 
-function DropDown(user: User) {
+const DropDown = (user: User) => {
   return (
     <NavDropdown id="nav-dropdown" className="drop-down" title="" align="end">
       <NavDropdown.Item className="drop-down__profile-item">
@@ -91,5 +91,5 @@ function DropDown(user: User) {
       </NavDropdown.Item>
     </NavDropdown>
   );
-}
+};
 export default DropDown;

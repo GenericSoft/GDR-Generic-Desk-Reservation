@@ -1,6 +1,6 @@
-import NavigationBar from '../../components/Navigation/NavigationBar';
+import NavigationBar from '../../components/NavigationBar/NavigationBar';
 
-function Dashboard() {
+const Dashboard = () => {
   return <NavigationBar />;
-}
+};
 export default Dashboard;
