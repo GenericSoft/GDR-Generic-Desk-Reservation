@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 import { registerUserType, firebaseUserType } from '../../interfaces/User';
 import { auth, db } from '../../firebase';
@@ -79,10 +80,17 @@ export const loginUserRequest = async (userData: {
       token,
       profilePic: userInfo?.profilePic,
     };
-
     return user;
   } catch (error) {
     throw toError(error, true);
+  }
+};
+
+export const logoutUsetRequest = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    throw toError(error);
   }
 };
 
