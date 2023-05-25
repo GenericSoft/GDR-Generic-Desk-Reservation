@@ -10,6 +10,11 @@ import {
   subWeeks,
 } from 'date-fns';
 import './TimeTableHeader.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCircleChevronLeft,
+  faCircleChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
 
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -90,15 +95,25 @@ const Calendar = () => {
     const dateFormat = 'MMM yyyy';
 
     return (
-      <div className="header">
+      <div className="header mt-2 pb-2">
         <div className="col col-start">
           <div className="icon" onClick={() => changeWeekHandle('prev')}>
-            prev week
+            <FontAwesomeIcon
+              icon={faCircleChevronLeft}
+              size="xl"
+              style={{ color: '#724d7e' }}
+            />
           </div>
         </div>
         <span>{format(currentMonth, dateFormat)}</span>
         <div className="col col-end" onClick={() => changeWeekHandle('next')}>
-          <div className="icon">next week</div>
+          <div className="icon">
+            <FontAwesomeIcon
+              icon={faCircleChevronRight}
+              size="xl"
+              style={{ color: '#724d7e' }}
+            />
+          </div>
         </div>
       </div>
     );
