@@ -2,7 +2,6 @@
 // Router
 import { Navigate, Route, Routes } from 'react-router-dom';
 // Style
-// import theme from '../../utils/muiTheme';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
@@ -12,11 +11,8 @@ import Login from '../../pages/Login/Login';
 
 import PrivateRoutes from '../../utils/PrivateRoutes';
 
-// Components
 function App() {
   return (
-    // <ThemeProvider theme={theme}>
-    // <div className="App">{routing}</div>
     <div className="App">
       <Routes>
         <Route element={<PrivateRoutes />}>
@@ -27,7 +23,6 @@ function App() {
         <Route path="/register" element={<Registration />} />
       </Routes>
     </div>
-    // </ThemeProvider>
   );
 }
 
