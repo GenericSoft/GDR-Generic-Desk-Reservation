@@ -40,16 +40,6 @@
     box-sizing: border-box;
   }
   
-  body {
-    font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    font-size: 1em;
-    font-weight: 300;
-    line-height: 1.5;
-    color: var(--text-color);
-    background: var(--bg-color);
-    position: relative;
-  }
-  
   header {
     display: block;
     width: 100%;
@@ -173,11 +163,6 @@
     transition: 0.5s ease-out;
   }
   
-  .calendar .body .selected {
-    border-left: 10px solid transparent;
-    border-image: linear-gradient(45deg, #1a8fff 0%, #53cbf1 40%);
-    border-image-slice: 1;
-  }
   .calendar .body .today {
     border-left: 10px solid transparent;
     border-image: linear-gradient(45deg, $primary 0%, lighten($primary, 80%) 40%);

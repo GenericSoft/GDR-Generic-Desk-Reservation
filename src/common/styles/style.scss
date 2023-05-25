@@ -2,3 +2,8 @@
 @import './typography';
 @import './buttons';
 @import './colors';
+@import './helpers';
+
+.App {
+    background-color: $background;
+}
