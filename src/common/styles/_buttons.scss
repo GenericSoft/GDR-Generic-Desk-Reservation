@@ -15,11 +15,9 @@
     } @else {
       color: $dark;
     }
-  }
-  .btn-#{nth($color,1)}:hover {
-    //
-  }
-  .btn-#{nth($color,1)}:active {
-    //
+    &:hover,
+    &:active {
+      background-color: lighten(nth($color, 2), 15%) !important;
+    }
   }
 }

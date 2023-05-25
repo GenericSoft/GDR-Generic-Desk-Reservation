@@ -9,7 +9,6 @@ import Button from 'react-bootstrap/Button';
 import { toError } from '../../utils/error';
 import { useAppDispatch } from '../../redux/store';
 import { loginUser } from '../../redux/reducers/userReducer';
-import ImageMapProView from '../../components/ImageMapProView/ImageMapProView';
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);

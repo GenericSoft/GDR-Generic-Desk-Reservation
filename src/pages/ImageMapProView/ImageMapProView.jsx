@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { useAppSelector } from '../../redux/store';
+
+import ModalContainer from '../../components/ModalContainer/ModalContainer';
+
+import { saveDateRequest } from '../../api/reservationDeskBackend/calendarApi';
 
 import './ImageMapPro.scss';
-import ModalContainer from '../Modal/Modal';
 
 const ImageMapProView = () => {
-  // const [image, setImage] = useState(null);
-  const [localStorageData, setLocalStorageData] = useState(
-    localStorage.getItem('imageMapProSaves')
-  );
+  const localStorageData = localStorage.getItem('imageMapProSaves');
+  const [deskId, setDeskId] = useState();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  // console.log('image', image);
+  const userId = useAppSelector((state) => state.user.userId);
+
+  const currDate = location.state.currDate;
 
   useEffect(() => {
     const srcFilePath = `${process.env.PUBLIC_URL}/assets/lib/imp/image-map-pro.min.js`;
@@ -26,45 +34,27 @@ const ImageMapProView = () => {
       // eslint-disable-next-line
       ImageMapPro.init('#image-map-pro', JSON.parse(localStorageData)[0]);
 
-      // console.log('OBJECT', JSON.parse(localStorageData)[0]);
-      // eslint-disable-next-line
-      //   console.log(ImageMapPro);
-      //   console.log(JSON.parse(localStorageData)[0]);
-
       // eslint-disable-next-line
       ImageMapPro.subscribe((action) => {
         if (action.type === 'objectClick') {
-          // Do something
           const id = action.payload.object;
 
-          console.log(action.payload);
+          setDeskId(id);
 
           const img = document.querySelector(
             'div[data-object-id="' + id + '"]'
           );
           const attribute = img.getAttribute('data-title');
 
-          console.log(attribute);
-
           if (attribute !== 'Text') {
-            console.log('HEY');
-
-            console.log(img.style);
-            console.log(img.style.background);
-
             if (!img.style.background) {
-              console.log('HERE');
               img.style.background = 'green';
             }
 
             if (img.style.background === 'green') {
               img.style.background = 'red';
-              console.log('change to red');
-              console.log(img.style.background);
             } else {
               img.style.background = 'green';
-              console.log('change to green');
-              console.log(img.style.background);
             }
           }
         }
@@ -75,13 +65,27 @@ const ImageMapProView = () => {
     // ImageMapPro.unsubscribe(0);
 
     // eslint-disable-next-line
-    // console.log(ImageMapPro.unsubscribe());
     // eslint-disable-next-line
     // return () => ImageMapPro.unsubscribe(0);
   }, []);
 
+  const handleOnClick = () => {
+    const allDayData = {
+      date: currDate,
+      deskId,
+      userId,
+    };
+
+    saveDateRequest(allDayData);
+    navigate('/dashboard');
+  };
+
   return (
-    <ModalContainer title="Viewer" navigateRoute="/dashboard">
+    <ModalContainer
+      title="Viewer"
+      navigateRoute="/dashboard"
+      handleOnClick={handleOnClick}
+    >
       <div id="image-map-pro"></div>
     </ModalContainer>
   );
