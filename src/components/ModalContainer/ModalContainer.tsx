@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
-
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+
+import './ModalContainer.scss';
 
 type ModalContainerProps = {
   title: string;
   children: React.ReactNode;
   navigateRoute: string;
+  handleOnClick?: () => void;
 };
 
 const ModalContainer = ({
   title,
   children,
   navigateRoute,
+  handleOnClick,
 }: ModalContainerProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <Modal
       show={true}
@@ -26,6 +32,11 @@ const ModalContainer = ({
     >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
+        {location.pathname === '/view' && (
+          <Button className="modal-btn" onClick={handleOnClick}>
+            Save
+          </Button>
+        )}
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>
     </Modal>

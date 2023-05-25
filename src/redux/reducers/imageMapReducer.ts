@@ -22,7 +22,6 @@ export const saveImageMapToFirebase = createAsyncThunk<
 >('imageMapPro/saveJSONStatus', async (imageMapJSON) => {
   try {
     const imageMap = await saveImageToFirebaseRequest(imageMapJSON);
-    console.log('REDUCER THUNK imageMap', imageMap);
 
     return imageMap;
   } catch (error) {
@@ -36,8 +35,6 @@ export const roomSetupSlice = createSlice({
   reducers: {
     setRoom: (state, action: PayloadAction<Room>) => {
       const { imageMapJSON, reservedDesks } = action.payload;
-
-      console.log('action.payload');
 
       return {
         ...state,
@@ -57,8 +54,6 @@ export const roomSetupSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(saveImageMapToFirebase.fulfilled, (state, action) => {
       const imageMapJSON = action.payload;
-
-      console.log('REDUX', imageMapJSON);
 
       return {
         ...state,
