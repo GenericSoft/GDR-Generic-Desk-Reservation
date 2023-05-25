@@ -8,6 +8,7 @@ import {
 
 import {
   loginUserRequest,
+  logoutUsetRequest,
   registerUserRequest,
 } from '../../api/reservationDeskBackend/userApi';
 import { toError } from '../../utils/error';
@@ -40,6 +41,17 @@ export const loginUser = createAsyncThunk<userType, loginUserType>(
   }
 );
 
+export const logoutUser = createAsyncThunk(
+  'users/logoutUserStatus',
+  async () => {
+    try {
+      await logoutUsetRequest();
+    } catch (err) {
+      throw toError(err);
+    }
+  }
+);
+
 const initialState: userType = {
   userId: '',
   firstName: '',
@@ -66,15 +78,6 @@ export const userSlice = createSlice({
         token,
       };
     },
-    logoutUser: (state) => ({
-      ...state,
-      userId: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      profilePic: '',
-      token: '',
-    }),
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -95,7 +98,6 @@ export const userSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       const { userId, email, token, firstName, lastName, profilePic } =
         action.payload;
-
       return {
         ...state,
         userId,
@@ -107,6 +109,20 @@ export const userSlice = createSlice({
       };
     });
     builder.addCase(loginUser.rejected, (state, action) => {
+      throw new Error(action.error.message);
+    });
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      return {
+        ...state,
+        userId: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        profilePic: '',
+        token: '',
+      };
+    });
+    builder.addCase(logoutUser.rejected, (state, action) => {
       throw new Error(action.error.message);
     });
   },
