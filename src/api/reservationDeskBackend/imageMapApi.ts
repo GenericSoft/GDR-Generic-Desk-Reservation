@@ -1,12 +1,5 @@
-import { auth, db } from '../../firebase';
-import {
-  doc,
-  setDoc,
-  getDoc,
-  getDocs,
-  collection,
-  updateDoc,
-} from 'firebase/firestore';
+import { db } from '../../firebase';
+import { doc, getDocs, collection, updateDoc } from 'firebase/firestore';
 import { toError } from '../../utils/error';
 
 export const saveImageToFirebaseRequest = async (
@@ -15,16 +8,12 @@ export const saveImageToFirebaseRequest = async (
   try {
     const imageMapId = await getImageMapIdRequest();
 
-    console.log('imageMapId', imageMapId);
-
     if (imageMapId) {
       const docRef = doc(db, 'imageMap', imageMapId);
 
       await updateDoc(docRef, {
         imageJSON: imageMapJSON,
       });
-
-      console.log('REQUEST imageMapJSON', imageMapJSON);
 
       return imageMapJSON;
     } else {
@@ -42,9 +31,6 @@ export const getImageMapIdRequest = async () => {
   let imageMapId = '';
 
   docsSnap.forEach((doc) => {
-    console.log(doc.id);
-    console.log(doc.data());
-
     imageMapId = doc.id;
   });
 

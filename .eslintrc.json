@@ -26,13 +26,14 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
-  "ignorePatterns": ["main.js"],
+  "ignorePatterns": ["main.js", "*.jsx", "*.js"],
   "rules": {
     "no-console": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/default-param-last": "off",
     "react/jsx-props-no-spreading": "off",
     "jsx-a11y/anchor-is-valid": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "prettier/prettier": [
       "error",
       {

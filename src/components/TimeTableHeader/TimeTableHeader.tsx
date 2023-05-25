@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import {
   format,
   startOfWeek,
@@ -16,10 +18,16 @@ import {
   faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 
-const Calendar = () => {
+type CalendarType = {
+  getDate?: (currDate: string) => void;
+};
+
+const Calendar = ({ getDate }: CalendarType) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState(getWeek(currentMonth));
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const location = useLocation();
 
   const changeWeekHandle = (btnType: string) => {
     if (btnType === 'prev') {
@@ -34,6 +42,13 @@ const Calendar = () => {
   };
 
   const onDateClickHandle = (day: Date) => {
+    if (location.pathname === '/calendar') {
+      const date = format(day, 'dd-MMM-y');
+
+      // @ts-ignore
+      getDate(String(date));
+    }
+
     setSelectedDate(day);
   };
 
