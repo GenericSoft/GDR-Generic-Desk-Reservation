@@ -1,5 +1,6 @@
+@import '../../common/styles/colors';
 .nav {
-  background: #191e27;
+  background: $dark;
   padding: 0;
   margin: 0;
 
@@ -7,12 +8,11 @@
     &-container {
       padding: 0;
       margin: 0;
-      margin-left: 6rem;
     }
   }
   &__user-data {
     &--name {
-      color: white;
+      color: $white;
       padding: 0;
       margin: 0;
       margin-right: 3px;

@@ -61,7 +61,7 @@ const Login = () => {
     }
   };
   return (
-    <FormContainer onClick={() => navigate('/')} isLoginPage={true}>
+    <FormContainer onClick={() => navigate('/register')} isLoginPage={true}>
       <h3 className="text-color-primary">Login</h3>
       <Form onSubmit={handleSubmit}>
         <InputField
