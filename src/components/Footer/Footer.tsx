@@ -50,7 +50,6 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer-information">
-          {/* <div>E-mail: info@genericsoft.eu</div> */}
           <div>
             <small className="text-color-grey">
               Copyright ©2023 Generic Soft All right reserved
