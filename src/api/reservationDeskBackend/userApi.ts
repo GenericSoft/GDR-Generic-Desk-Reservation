@@ -86,7 +86,7 @@ export const loginUserRequest = async (userData: {
   }
 };
 
-export const logoutUsetRequest = async () => {
+export const logoutUserRequest = async () => {
   try {
     await signOut(auth);
   } catch (error) {
