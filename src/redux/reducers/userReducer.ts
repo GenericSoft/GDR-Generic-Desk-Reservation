@@ -8,7 +8,7 @@ import {
 
 import {
   loginUserRequest,
-  logoutUsetRequest,
+  logoutUserRequest,
   registerUserRequest,
 } from '../../api/reservationDeskBackend/userApi';
 import { toError } from '../../utils/error';
@@ -45,7 +45,7 @@ export const logoutUser = createAsyncThunk(
   'users/logoutUserStatus',
   async () => {
     try {
-      await logoutUsetRequest();
+      await logoutUserRequest();
     } catch (err) {
       throw toError(err);
     }
