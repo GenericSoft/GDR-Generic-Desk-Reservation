@@ -70,7 +70,7 @@ export const loginUserRequest = async (userData: {
     const response = await signInWithEmailAndPassword(auth, email, password);
     const token = await response.user.getIdToken();
 
-    const userInfo = await retrieveUserInformation(response.user.uid);
+    const userInfo = await retrieveUserInformationRequest(response.user.uid);
 
     const user = {
       userId: response.user.uid,
@@ -94,7 +94,7 @@ export const logoutUserRequest = async () => {
   }
 };
 
-export const retrieveUserInformation = async (userId: string) => {
+export const retrieveUserInformationRequest = async (userId: string) => {
   const docRef = doc(db, 'users', userId);
   const docSnap = await getDoc(docRef);
 
