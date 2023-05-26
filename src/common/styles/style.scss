@@ -4,11 +4,10 @@
 @import './colors';
 @import './helpers';
 
-#image-map-pro-editor {
-  width: 100%;
-  height: 100%;
+.App {
+  background-color: $background;
 }
 
-// .btn-close {
-//   background: white !important;
-// }
+.modal-header {
+  background-color: $primary;
+}
