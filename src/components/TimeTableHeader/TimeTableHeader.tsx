@@ -81,11 +81,7 @@ const Calendar = ({ getDate }: CalendarType) => {
         days.push(
           <div
             className={`col cell ${
-              isSameDay(day, new Date())
-                ? 'today'
-                : isSameDay(day, selectedDate)
-                ? 'selected'
-                : ''
+              isSameDay(day, selectedDate) ? 'selected' : ''
             }`}
             key={day.getTime()}
             onClick={() => {
