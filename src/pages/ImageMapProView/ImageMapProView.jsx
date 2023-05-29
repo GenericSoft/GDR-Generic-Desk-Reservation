@@ -34,6 +34,7 @@ const ImageMapProView = () => {
       // eslint-disable-next-line
       ImageMapPro.init('#image-map-pro', JSON.parse(localStorageData)[0]);
 
+      // explain in comment what it does
       // eslint-disable-next-line
       ImageMapPro.subscribe((action) => {
         if (action.type === 'objectClick') {

@@ -8,6 +8,7 @@ import DropDown from '../DropDown/DropDown';
 import UserImage from '../UserImage/UserImage';
 
 import { useAppSelector } from '../../redux/store';
+import ReserveDeskButton from '../ReserveDeskButton/ReserveDeskButton';
 
 const NavigationBar = () => {
   const currentUser = useAppSelector((state) => state.user);
@@ -32,6 +33,7 @@ const NavigationBar = () => {
           />
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-end nav__user-data">
+          <ReserveDeskButton />
           <Navbar.Text className="nav__user-data--name">
             {currentUser.firstName}
           </Navbar.Text>
