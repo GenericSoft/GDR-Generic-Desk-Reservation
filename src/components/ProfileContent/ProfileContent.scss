@@ -1,0 +1,86 @@
+@import '../../common/styles/colors';
+
+.row {
+  margin: 0;
+  padding: 0;
+  .col {
+    p {
+      margin: 0;
+    }
+    margin: 0;
+    padding: 0;
+  }
+}
+.card-box{
+  border: none;
+  margin: 0;
+  padding: 0;
+  &__body{
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.profile-content-container>*:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.first-row{
+  background:#fff;
+  padding-bottom: 1.5rem;
+  .col{
+    color: $darkgrey;
+    &:not(:last-child){
+      margin-bottom: 1rem;
+    }
+  }
+  &__email-column{
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+.card-content {
+  &__text {
+    font-style: italic;
+    color: $white;
+    margin: 0;
+    text-align: center;
+    background: $orange;
+    padding: 3rem;
+  }
+  &__title {
+    color: $darkgrey;
+    margin: 0;
+    padding: 1rem;
+  }
+  &__body {
+    color: $darkgrey;
+  }
+}
+
+.second-row {
+  .col-sm {
+    margin: 0;
+    background: white;
+    &:not(:last-child) {
+      margin-right: 25px;
+    }
+  }
+  &__col{
+    display: flex;
+    padding: 2rem;
+    color: $darkgrey;
+    &--flex-number{
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .primary-color{
+    color: $primary;
+  }
+   .success-color{
+    color: $success;
+  }
+}

@@ -11,13 +11,6 @@ import { useAppSelector } from '../../redux/store';
 
 const NavigationBar = () => {
   const currentUser = useAppSelector((state) => state.user);
-  let nameLogo = '';
-
-  if (currentUser.firstName && currentUser.lastName) {
-    nameLogo =
-      currentUser.firstName.substring(0, 1).toUpperCase() +
-      currentUser.lastName.substring(0, 1).toUpperCase();
-  }
 
   return (
     <Navbar className="nav">
@@ -38,14 +31,15 @@ const NavigationBar = () => {
 
           <DropDown
             firstName={currentUser.firstName || ''}
+            lastName={currentUser.lastName || ''}
             image={currentUser.profilePic || ''}
             email={currentUser.email}
-            nameLogo={nameLogo}
           />
 
           <UserImage
             userImage={currentUser.profilePic || ''}
-            nameLogo={nameLogo}
+            firstName={currentUser.firstName || ''}
+            lastName={currentUser.lastName || ''}
           />
         </Navbar.Collapse>
       </Container>
