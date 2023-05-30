@@ -13,6 +13,7 @@ import PrivateRoutes from '../../utils/PrivateRoutes';
 import Calendar from '../../pages/Calendar/Calendar';
 import ImageMapProView from '../../pages/ImageMapProView/ImageMapProView';
 import ImageMapProEditor from '../../pages/ImageMapProEditor/ImageMapProEditor';
+import Profile from '../../pages/Profile/Profile';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/view" element={<ImageMapProView />} />
           <Route path="/editor" element={<ImageMapProEditor />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/*" element={<Navigate to="/dashboard" />} />
         </Route>
         <Route path="/*" element={<Navigate to="/login" />} />
