@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 
 import { useAppSelector } from '../../redux/store';
 
 import ModalContainer from '../../components/ModalContainer/ModalContainer';
 
-import { saveDateRequest } from '../../api/reservationDeskBackend/calendarApi';
+import {
+  saveDateRequest,
+  getReservedDesksByDate,
+} from '../../api/reservationDeskBackend/calendarApi';
 
+import { waitForElementToBeAppended } from '../../utils/waitForElementToBeAppended';
 import './ImageMapPro.scss';
 
 const ImageMapProView = () => {
@@ -21,54 +24,65 @@ const ImageMapProView = () => {
   const currDate = location.state.currDate;
   const srcFilePath = `${process.env.PUBLIC_URL}/assets/lib/imp/image-map-pro.min.js`;
 
+  const fetchReservedDesks = async (currDate) => {
+    const desks = await getReservedDesksByDate(currDate);
+    if (desks) {
+      desks.data().desks.forEach((element) => {
+        document.querySelector(
+          'div[data-object-id="' + element.deskId + '"]'
+        ).style.background = 'red';
+        document
+          .querySelector('div[data-object-id="' + element.deskId + '"]')
+          .setAttribute('reserved', 'reserved');
+      });
+    }
+  };
+
   useEffect(() => {
-    // if (!document.getElementById('view-script'))
     const script = document.createElement('script');
     script.src = srcFilePath;
     script.async = true;
     script.id = 'view-script';
-
-    // const script = document.getElementById('view-script');
 
     document.querySelector('#root .App').appendChild(script);
 
     script.onload = () => {
       // eslint-disable-next-line
       ImageMapPro.init('#image-map-pro', JSON.parse(localStorageData)[0]);
+      //show reserved desks
+      fetchReservedDesks(currDate);
 
-      // explain in comment what it does
-      // eslint-disable-next-line
-      ImageMapPro.subscribe((action) => {
-        if (action.type === 'objectClick') {
-          const id = action.payload.object;
+      waitForElementToBeAppended(
+        '.imp-objects',
+        document.getElementById('image-map-pro')
+      ).then((elm) => {
+        document.querySelectorAll('.imp-object').forEach((img) => {
+          img.addEventListener('click', () => {
+            const id = img.getAttribute('data-object-id');
+            if (!img.getAttribute('reserved')) {
+              setDeskId(id);
 
-          setDeskId(id);
+              const attribute = img.getAttribute('data-title');
 
-          const img = document.querySelector(
-            'div[data-object-id="' + id + '"]'
-          );
-          const attribute = img.getAttribute('data-title');
+              if (attribute !== 'Text') {
+                if (!img.style.background) {
+                  img.style.background = 'green';
+                }
 
-          if (attribute !== 'Text') {
-            if (!img.style.background) {
-              img.style.background = 'green';
-            }
-
-            if (img.style.background === 'green') {
-              img.style.background = 'red';
+                if (img.style.background === 'green') {
+                  img.style.background = 'red';
+                } else {
+                  img.style.background = 'green';
+                }
+              }
             } else {
-              img.style.background = 'green';
+              alert('This desk is already reserved for the day!');
             }
-          }
-        }
+          });
+        });
       });
     };
 
-    // eslint-disable-next-line
-    // ImageMapPro.unsubscribe(0);
-
-    // eslint-disable-next-line
-    // eslint-disable-next-line
     return () => {
       const stylesElements = document.querySelectorAll('.viewer-styles');
       document.querySelector('#root .App').removeChild(script);
@@ -76,22 +90,23 @@ const ImageMapProView = () => {
     };
   }, []);
 
-  const handleOnClick = () => {
+  const handleOnClick = async () => {
     const allDayData = {
       date: currDate,
       deskId,
       userId,
     };
 
-    saveDateRequest(allDayData);
-    navigate('/dashboard');
+    if (deskId) {
+      await saveDateRequest(allDayData);
+      navigate('/dashboard');
+    } else {
+      alert('Please, select a desk!');
+    }
   };
 
   return (
     <div>
-      {/* <Helmet>
-        <script id="view-script" src={srcFilePath}></script>
-      </Helmet> */}
       <ModalContainer
         title="Viewer"
         navigateRoute="/dashboard"

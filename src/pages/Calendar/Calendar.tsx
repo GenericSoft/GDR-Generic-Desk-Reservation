@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ModalContainer from '../../components/ModalContainer/ModalContainer';
 import TimeTableHeader from '../../components/TimeTableHeader/TimeTableHeader';
 
-import { Button, Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import './Calendar.scss';
 
 const Calendar = () => {
@@ -19,9 +19,10 @@ const Calendar = () => {
     <ModalContainer title="Viewer" navigateRoute="/dashboard">
       <TimeTableHeader getDate={getDate} />
       <div className="d-flex justify-content-center mt-5 mb-3">
-        <Form>
+        {/* will be useful for later  */}
+        {/* <Form>
           <Form.Check checked type="radio" label="All day event" id="1" />
-        </Form>
+        </Form> */}
       </div>
       <div className="d-flex justify-content-center mt-3 mb-5">
         <Button

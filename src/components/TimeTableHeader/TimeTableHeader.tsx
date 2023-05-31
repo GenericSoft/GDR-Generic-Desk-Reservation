@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import {
@@ -20,25 +20,31 @@ import {
 
 type CalendarType = {
   getDate?: (currDate: string) => void;
+  onShowWeek?: (week: Date) => void;
 };
 
-const Calendar = ({ getDate }: CalendarType) => {
+const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState(getWeek(currentMonth));
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   const location = useLocation();
+
+  useEffect(() => {
+    if (onShowWeek) {
+      onShowWeek(currentMonth);
+    }
+  }, [currentMonth]);
 
   const changeWeekHandle = (btnType: string) => {
     if (btnType === 'prev') {
       setCurrentMonth(subWeeks(currentMonth, 1));
       setCurrentWeek(getWeek(subWeeks(currentMonth, 1)));
-      console.log(currentWeek);
     }
     if (btnType === 'next') {
       setCurrentMonth(addWeeks(currentMonth, 1));
       setCurrentWeek(getWeek(addWeeks(currentMonth, 1)));
     }
+    console.log(currentWeek);
   };
 
   const onDateClickHandle = (day: Date) => {
@@ -73,6 +79,7 @@ const Calendar = ({ getDate }: CalendarType) => {
     let days = [];
     let day = startDate;
     let formattedDate = '';
+
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
