@@ -104,14 +104,16 @@ const ImageMapProView = () => {
           });
         });
       };
+
+      return () => {
+        const stylesElements = document.querySelectorAll('.viewer-styles');
+        // document
+        //   .querySelector('#root .App')
+        //   .removeChild(document.getElementById(script));
+        document.getElementById('view-script').remove();
+        stylesElements.forEach((el) => el.remove());
+      };
     }
-    return () => {
-      const stylesElements = document.querySelectorAll('.viewer-styles');
-      document
-        .querySelector('#root .App')
-        .removeChild(document.getElementById('view-script'));
-      stylesElements.forEach((el) => el.remove());
-    };
   }, [imageMapJSON]);
 
   const handleOnClick = async () => {
