@@ -19,7 +19,6 @@ import { waitForElementToBeAppended } from '../../utils/waitForElementToBeAppend
 import './ImageMapPro.scss';
 
 const ImageMapProView = () => {
-  // const localStorageData = localStorage.getItem('imageMapProSaves');
   const [deskId, setDeskId] = useState();
   const location = useLocation();
   const navigate = useNavigate();
@@ -49,30 +48,29 @@ const ImageMapProView = () => {
     const imageId = await getImageMapIdRequest();
 
     const json = await getImageMapJSONRequest(imageId);
+
     setImageMapJSON(json);
   };
 
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = srcFilePath;
-    script.async = true;
-    script.id = 'view-script';
     getImageMapJSON();
   }, []);
 
   useEffect(() => {
     if (imageMapJSON) {
-      const srcFilePath = `${process.env.PUBLIC_URL}/assets/lib/imp/image-map-pro.min.js`;
-
       const script = document.createElement('script');
+
       script.src = srcFilePath;
       script.async = true;
 
       script.id = 'view-script';
 
+      document.querySelector('#root .App').appendChild(script);
+
       script.onload = () => {
         // eslint-disable-next-line
-        ImageMapPro.init('#image-map-pro', JSON.parse(localStorageData)[0]);
+        ImageMapPro.init('#image-map-pro', JSON.parse(imageMapJSON)[0]);
+
         //show reserved desks
         fetchReservedDesks(currDate);
 
@@ -109,7 +107,9 @@ const ImageMapProView = () => {
     }
     return () => {
       const stylesElements = document.querySelectorAll('.viewer-styles');
-      document.querySelector('#root .App').removeChild(script);
+      document
+        .querySelector('#root .App')
+        .removeChild(document.getElementById('view-script'));
       stylesElements.forEach((el) => el.remove());
     };
   }, [imageMapJSON]);
