@@ -10,14 +10,21 @@ import {
   getReservedDesksByDate,
 } from '../../api/reservationDeskBackend/calendarApi';
 
+import {
+  getImageMapIdRequest,
+  getImageMapJSONRequest,
+} from '../../api/reservationDeskBackend/imageMapApi';
+
 import { waitForElementToBeAppended } from '../../utils/waitForElementToBeAppended';
 import './ImageMapPro.scss';
 
 const ImageMapProView = () => {
-  const localStorageData = localStorage.getItem('imageMapProSaves');
+  // const localStorageData = localStorage.getItem('imageMapProSaves');
   const [deskId, setDeskId] = useState();
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [imageMapJSON, setImageMapJSON] = useState('');
 
   const userId = useAppSelector((state) => state.user.userId);
 
@@ -38,57 +45,74 @@ const ImageMapProView = () => {
     }
   };
 
+  const getImageMapJSON = async () => {
+    const imageId = await getImageMapIdRequest();
+
+    const json = await getImageMapJSONRequest(imageId);
+    setImageMapJSON(json);
+  };
+
   useEffect(() => {
     const script = document.createElement('script');
     script.src = srcFilePath;
     script.async = true;
     script.id = 'view-script';
+    getImageMapJSON();
+  }, []);
 
-    document.querySelector('#root .App').appendChild(script);
+  useEffect(() => {
+    if (imageMapJSON) {
+      const srcFilePath = `${process.env.PUBLIC_URL}/assets/lib/imp/image-map-pro.min.js`;
 
-    script.onload = () => {
-      // eslint-disable-next-line
-      ImageMapPro.init('#image-map-pro', JSON.parse(localStorageData)[0]);
-      //show reserved desks
-      fetchReservedDesks(currDate);
+      const script = document.createElement('script');
+      script.src = srcFilePath;
+      script.async = true;
 
-      waitForElementToBeAppended(
-        '.imp-objects',
-        document.getElementById('image-map-pro')
-      ).then((elm) => {
-        document.querySelectorAll('.imp-object').forEach((img) => {
-          img.addEventListener('click', () => {
-            const id = img.getAttribute('data-object-id');
-            if (!img.getAttribute('reserved')) {
-              setDeskId(id);
+      script.id = 'view-script';
 
-              const attribute = img.getAttribute('data-title');
+      script.onload = () => {
+        // eslint-disable-next-line
+        ImageMapPro.init('#image-map-pro', JSON.parse(localStorageData)[0]);
+        //show reserved desks
+        fetchReservedDesks(currDate);
 
-              if (attribute !== 'Text') {
-                if (!img.style.background) {
-                  img.style.background = 'green';
+        waitForElementToBeAppended(
+          '.imp-objects',
+          document.getElementById('image-map-pro')
+        ).then((elm) => {
+          document.querySelectorAll('.imp-object').forEach((img) => {
+            img.addEventListener('click', () => {
+              const id = img.getAttribute('data-object-id');
+              if (!img.getAttribute('reserved')) {
+                setDeskId(id);
+
+                const attribute = img.getAttribute('data-title');
+
+                if (attribute !== 'Text') {
+                  if (!img.style.background) {
+                    img.style.background = 'green';
+                  }
+
+                  if (img.style.background === 'green') {
+                    img.style.background = 'red';
+                  } else {
+                    img.style.background = 'green';
+                  }
                 }
-
-                if (img.style.background === 'green') {
-                  img.style.background = 'red';
-                } else {
-                  img.style.background = 'green';
-                }
+              } else {
+                alert('This desk is already reserved for the day!');
               }
-            } else {
-              alert('This desk is already reserved for the day!');
-            }
+            });
           });
         });
-      });
-    };
-
+      };
+    }
     return () => {
       const stylesElements = document.querySelectorAll('.viewer-styles');
       document.querySelector('#root .App').removeChild(script);
       stylesElements.forEach((el) => el.remove());
     };
-  }, []);
+  }, [imageMapJSON]);
 
   const handleOnClick = async () => {
     const allDayData = {
