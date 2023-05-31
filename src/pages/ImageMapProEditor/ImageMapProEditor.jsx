@@ -6,8 +6,23 @@ import { saveImageMapToFirebase } from '../../redux/reducers/imageMapReducer';
 
 import ModalContainer from '../../components/ModalContainer/ModalContainer';
 
+import {
+  getImageMapIdRequest,
+  getImageMapJSONRequest,
+} from '../../api/reservationDeskBackend/imageMapApi';
+
 const ImageMapProEditor = () => {
   const dispatch = useAppDispatch();
+
+  const getImageMapJSON = async () => {
+    const imageId = await getImageMapIdRequest();
+    const json = await getImageMapJSONRequest(imageId);
+
+    localStorage.setItem('imageMapProSaves', json);
+    localStorage.setItem('imageMapProLastSave', imageId);
+  };
+
+  getImageMapJSON();
 
   useEffect(() => {
     const srcFilePath = `${process.env.PUBLIC_URL}/assets/lib/imp/editor/main.js`;
