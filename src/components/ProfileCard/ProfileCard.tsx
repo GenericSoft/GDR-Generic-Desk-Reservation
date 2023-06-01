@@ -12,6 +12,7 @@ type UserDataType = {
   firstName: string;
   lastName: string;
   email: string;
+  onClick: () => void;
 };
 
 import './ProfileCard.scss';
@@ -20,7 +21,6 @@ import { Container } from 'react-bootstrap';
 const ProfileCard = (user: UserDataType) => {
   return (
     <Card style={{ width: '18rem' }} className="profile-card-container">
-      {/* <Card.Img variant="top" src="holder.js/100px180?text=Image cap" /> */}
       <Container className="user-data-container">
         <UserImage
           firstName={user.firstName}
@@ -48,7 +48,7 @@ const ProfileCard = (user: UserDataType) => {
           <span>9</span>
         </ListGroup.Item>
         <ListGroup.Item>
-          <Card.Link href="#">
+          <Card.Link href="#" onClick={user.onClick}>
             <FontAwesomeIcon icon={faPenToSquare} />
             Edit profile
           </Card.Link>
