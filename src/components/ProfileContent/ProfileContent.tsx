@@ -3,10 +3,35 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-type userDataType = { firstName: string; lastName: string; email: string };
+import { useRef } from 'react';
+
+type userDataType = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  readOnlyValue: boolean;
+};
 
 import './ProfileContent.scss';
+import InputField from '../InputField/InputField';
 const ProfileContent = (userData: userDataType) => {
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const countyRef = useRef<HTMLInputElement>(null);
+  const occupationRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const birthdayRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  const getAllNewValues = () => {
+    //test if the values are getting
+    if (firstNameRef.current && countyRef.current) {
+      console.log(firstNameRef.current.value);
+      console.log(countyRef.current.value);
+      firstNameRef.current.value = '';
+      countyRef.current.value = '';
+    }
+  };
+
   return (
     <Container className="profile-content-container">
       <Row className="first-row">
@@ -23,31 +48,79 @@ const ProfileContent = (userData: userDataType) => {
         <Col sm>
           <Row>
             <Col>First Name</Col>
-            <Col>{userData.firstName}</Col>
+            <Col>
+              <InputField
+                className="profile-form"
+                reference={firstNameRef}
+                placeholder={userData.firstName}
+                readOnlyValue={userData.readOnlyValue}
+              />
+            </Col>
           </Row>
           <Row>
             <Col>Country</Col>
-            <Col>Sofiya</Col>
+            <Col>
+              {' '}
+              <InputField
+                className="profile-form"
+                reference={countyRef}
+                placeholder="Sofiya"
+                readOnlyValue={userData.readOnlyValue}
+              />
+            </Col>
           </Row>
           <Row>
             <Col>Occupation</Col>
-            <Col>web developer</Col>
+            <Col>
+              {' '}
+              <InputField
+                className="profile-form"
+                reference={occupationRef}
+                placeholder="Developer"
+                readOnlyValue={userData.readOnlyValue}
+              />
+            </Col>
           </Row>
         </Col>
         <Col sm>
           <Row>
             <Col>Last Name</Col>
-            <Col>{userData.lastName}</Col>
+            <Col>
+              {' '}
+              <InputField
+                className="profile-form"
+                reference={lastNameRef}
+                placeholder={userData.lastName}
+                readOnlyValue={userData.readOnlyValue}
+              />
+            </Col>
           </Row>
           <Row>
             <Col>Birthday</Col>
-            <Col>9 September 1998</Col>
+            <Col>
+              {' '}
+              <InputField
+                className="profile-form"
+                reference={birthdayRef}
+                placeholder="9 Semptember 1998"
+                readOnlyValue={userData.readOnlyValue}
+              />
+            </Col>
           </Row>
           <Row>
             <Col>Email</Col>
-            <Col className="first-row__email-column">{userData.email}</Col>
+            <Col className="first-row__email-column">
+              {' '}
+              <InputField
+                className="profile-form"
+                reference={emailRef}
+                placeholder={userData.email}
+                readOnlyValue={userData.readOnlyValue}
+              />
+            </Col>
           </Row>
         </Col>
+        <button onClick={getAllNewValues}>edit Profile</button>
       </Row>
       <Row className="second-row">
         <Col sm className="second-row__col">

@@ -62,12 +62,14 @@ const Login = () => {
       <h3 className="text-color-primary">Login</h3>
       <Form onSubmit={handleSubmit}>
         <InputField
+          className="mb-3 one-line inp"
           reference={emailRef}
           placeholder="&nbsp;"
           label="Email address"
           type="email"
         />
         <InputField
+          className="mb-3 one-line inp"
           reference={passwordRef}
           placeholder="&nbsp;"
           label="Password"

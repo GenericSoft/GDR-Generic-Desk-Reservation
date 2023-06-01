@@ -2,11 +2,16 @@ import React from 'react';
 
 import Form from 'react-bootstrap/Form';
 
+import './InputField.scss';
+
 type InputFieldProps = {
   reference: React.RefObject<HTMLInputElement>;
   placeholder: string;
-  label: string;
+  label?: string;
   type?: string;
+  readOnlyValue?: boolean;
+  defaultValue?: string;
+  className: string;
 };
 
 const InputField = ({
@@ -14,10 +19,19 @@ const InputField = ({
   placeholder,
   label,
   type,
+  readOnlyValue,
+  className,
 }: InputFieldProps) => {
   return (
-    <Form.Group className="mb-3 one-line inp" controlId="formBasicEmail">
-      <Form.Control ref={reference} placeholder={placeholder} type={type} />
+    <Form.Group className={className} controlId="formBasicEmail">
+      <Form.Control
+        className={`disabled-${readOnlyValue}`}
+        ref={reference}
+        placeholder={placeholder}
+        type={type}
+        plaintext={readOnlyValue}
+        readOnly={readOnlyValue}
+      />
       <span className="label">{label}</span>
       <span className="focus-bg"></span>
     </Form.Group>

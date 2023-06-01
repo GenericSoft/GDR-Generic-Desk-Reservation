@@ -1,6 +1,7 @@
 // import ThemeProvider from '@mui/material/styles/ThemeProvider';
 // Router
 import { Navigate, Route, Routes } from 'react-router-dom';
+
 // Style
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
@@ -17,7 +18,7 @@ import Profile from '../../pages/Profile/Profile';
 
 function App() {
   return (
-    <div className="App">
+    <div className={`App`}>
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
