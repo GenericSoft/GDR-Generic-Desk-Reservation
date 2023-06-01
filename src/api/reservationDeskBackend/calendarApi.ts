@@ -19,9 +19,16 @@ type allDayDataType = {
   userId: string;
 };
 
-export const saveDateRequest = async (allDayData: allDayDataType) => {
+export const saveDateRequest = async (
+  allDayData: allDayDataType,
+  floorName: string
+) => {
   const { date, deskId, userId } = allDayData;
-  const docRef = doc(db, 'calendar', date);
+
+  // check if calendar floor exists - not sure if it is needed for now
+  // const check = await getIfCalendarExists(floorName);
+
+  const docRef = doc(db, `calendar-${floorName}`, date);
 
   // TODO: if date exist, an update to the document must be made
   const data = {
@@ -96,9 +103,12 @@ export const saveDateRequest = async (allDayData: allDayDataType) => {
   }
 };
 
-export const getReservedDesksByDate = async (datePicked: string) => {
+export const getReservedDesksByDate = async (
+  datePicked: string,
+  imageMapId: string
+) => {
   try {
-    const docRef = doc(db, 'calendar', datePicked);
+    const docRef = doc(db, `calendar-${imageMapId}`, datePicked);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -117,4 +127,17 @@ export const getAllReservations = async () => {
   } catch (error) {
     throw toError(error);
   }
+};
+
+export const getIfCalendarExists = async (floorName: string) => {
+  const calendarId = `calendar-${floorName}`;
+  const calendarRef = await getAllReservations();
+
+  calendarRef.forEach((doc) => {
+    if (doc.id === calendarId) {
+      return true;
+    }
+  });
+
+  return false;
 };

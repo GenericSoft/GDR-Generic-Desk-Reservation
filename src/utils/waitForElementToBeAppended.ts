@@ -18,3 +18,20 @@ export function waitForElementToBeAppended(target: string, scope: Node) {
     });
   });
 }
+
+export function observeChangesOfChildren(element: HTMLDivElement) {
+  return new Promise((resolve) => {
+    const observer = new MutationObserver((mutationList) => {
+      for (const mutation of mutationList) {
+        if (mutation.type === 'childList') {
+          resolve('BS');
+          observer.disconnect();
+        }
+      }
+    });
+
+    const observerConfig = { childList: true };
+
+    observer.observe(element, observerConfig);
+  });
+}
