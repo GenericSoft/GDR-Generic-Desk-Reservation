@@ -42,8 +42,6 @@ export const getImageMapJSONRequest = async (imageMapId: string) => {
   if (docSnap.exists()) {
     const imageMap = docSnap.data();
 
-    console.log('imageMap', imageMap);
-
     return imageMap.imageJSON;
   }
 };
