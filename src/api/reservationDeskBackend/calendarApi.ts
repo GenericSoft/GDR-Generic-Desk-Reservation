@@ -21,14 +21,16 @@ type allDayDataType = {
 
 export const saveDateRequest = async (
   allDayData: allDayDataType,
-  floorName: string
+  floorName?: string
 ) => {
   const { date, deskId, userId } = allDayData;
 
   // check if calendar floor exists - not sure if it is needed for now
   // const check = await getIfCalendarExists(floorName);
 
-  const docRef = doc(db, `calendar-${floorName}`, date);
+  const calendarName = floorName ? `calendar-${floorName}` : 'calendar';
+
+  const docRef = doc(db, calendarName, date);
 
   // TODO: if date exist, an update to the document must be made
   const data = {

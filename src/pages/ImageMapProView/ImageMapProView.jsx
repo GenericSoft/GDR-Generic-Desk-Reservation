@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../../redux/store';
@@ -19,6 +19,7 @@ import {
   observeChangesOfChildren,
   waitForElementToBeAppended,
 } from '../../utils/waitForElementToBeAppended';
+
 import './ImageMapPro.scss';
 
 const ImageMapProView = () => {
@@ -110,7 +111,11 @@ const ImageMapProView = () => {
 
     if (deskId) {
       const imageMapId = getImageMapId();
+      // save in the collection where the desks for the current floor are stored
       await saveDateRequest(allDayData, imageMapId);
+
+      // save in the collection where data for all days is stored, it will be needed when rendering the information in the table from where each user will work
+      await saveDateRequest(allDayData);
       navigate('/dashboard');
     } else {
       alert('Please, select a desk!');
