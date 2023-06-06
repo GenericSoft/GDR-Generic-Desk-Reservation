@@ -14,11 +14,21 @@ export interface userType {
   userId: string;
   firstName?: string;
   lastName?: string;
+  jobRole?: string;
   email: string;
   profilePic?: string;
   token: string;
 }
+export interface ReturnedFieldsType {
+  firstName: string | undefined;
+  lastName: string | undefined;
+  jobRole: string | undefined;
+}
 
+export interface updateUserType {
+  userId: string;
+  newFields: { firstName: string; lastName: string; jobRole: string };
+}
 export interface firebaseUserType {
   email: string;
   firstName: string;

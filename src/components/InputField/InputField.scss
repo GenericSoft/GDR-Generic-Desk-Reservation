@@ -7,8 +7,12 @@
     &:focus{
       border-color: none;
       box-shadow: none;
+    }  
+  }
+  &--job-role{
+    input{
+      font-style: italic;
     }
-    
   }
  
 }

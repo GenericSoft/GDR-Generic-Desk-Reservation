@@ -1,35 +1,84 @@
+import { useRef } from 'react';
+
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useAppDispatch } from '../../redux/store';
 
-import { useRef } from 'react';
+import { editUser } from '../../redux/reducers/userReducer';
 
-type userDataType = {
+type UserPropsType = {
   firstName: string;
   lastName: string;
+  jobRole?: string;
   email: string;
+  userId: string;
   readOnlyValue: boolean;
 };
 
 import './ProfileContent.scss';
 import InputField from '../InputField/InputField';
-const ProfileContent = (userData: userDataType) => {
+
+const ProfileContent = (userProps: UserPropsType) => {
+  const dispatch = useAppDispatch();
+
   const firstNameRef = useRef<HTMLInputElement>(null);
-  const countyRef = useRef<HTMLInputElement>(null);
+  // const countyRef = useRef<HTMLInputElement>(null);
   const occupationRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
-  const birthdayRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
+  // const birthdayRef = useRef<HTMLInputElement>(null);
+
+  if (
+    userProps.readOnlyValue &&
+    firstNameRef.current &&
+    lastNameRef.current &&
+    occupationRef.current
+  ) {
+    firstNameRef.current.value = '';
+    occupationRef.current.value = '';
+    // countyRef.current!.value = '';
+    // occupationRef.current!.value = '';
+    lastNameRef.current.value = '';
+    // birthdayRef.current!.value = '';
+  }
 
   const getAllNewValues = () => {
-    //test if the values are getting
-    if (firstNameRef.current && countyRef.current) {
-      console.log(firstNameRef.current.value);
-      console.log(countyRef.current.value);
+    // let newValues = {};
+    const userData = {
+      userId: userProps.userId,
+      newFields: { firstName: '', lastName: '', jobRole: '' },
+    };
+
+    if (
+      firstNameRef.current &&
+      // countyRef.current &&
+      occupationRef.current &&
+      lastNameRef.current
+      // birthdayRef.current
+    ) {
+      // newValues = {
+      //   firstName: firstNameRef.current.value,
+      //   // countyRef: countyRef.current.value,
+      //   jobRole: occupationRef.current.value,
+      //   lastName: lastNameRef.current.value,
+      //   // birthdayRef: birthdayRef.current.value,
+      // };
+      userData.newFields.firstName =
+        firstNameRef.current.value || userProps.firstName;
+      userData.newFields.lastName =
+        lastNameRef.current.value || userProps.lastName;
+      userData.newFields.jobRole =
+        occupationRef.current.value || userProps.jobRole || '';
+      // countyRef.current!.value = ''
+      occupationRef.current.value = '';
       firstNameRef.current.value = '';
-      countyRef.current.value = '';
+      lastNameRef.current.value = '';
+      // birthdayRef.current!.value = '';
     }
+
+    // const userData = { userId: userProps.userId, newFields: newValues };
+    dispatch(editUser(userData));
   };
 
   return (
@@ -52,12 +101,12 @@ const ProfileContent = (userData: userDataType) => {
               <InputField
                 className="profile-form"
                 reference={firstNameRef}
-                placeholder={userData.firstName}
-                readOnlyValue={userData.readOnlyValue}
+                placeholder={userProps.firstName}
+                readOnlyValue={userProps.readOnlyValue}
               />
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Col>Country</Col>
             <Col>
               {' '}
@@ -65,19 +114,21 @@ const ProfileContent = (userData: userDataType) => {
                 className="profile-form"
                 reference={countyRef}
                 placeholder="Sofiya"
-                readOnlyValue={userData.readOnlyValue}
+                readOnlyValue={userProps.readOnlyValue}
               />
             </Col>
-          </Row>
+          </Row> */}
           <Row>
             <Col>Occupation</Col>
             <Col>
               {' '}
               <InputField
-                className="profile-form"
+                className={`profile-form ${
+                  !userProps.jobRole && 'profile-form--job-role'
+                }`}
                 reference={occupationRef}
-                placeholder="Developer"
-                readOnlyValue={userData.readOnlyValue}
+                placeholder={userProps.jobRole || 'please add your job role'}
+                readOnlyValue={userProps.readOnlyValue}
               />
             </Col>
           </Row>
@@ -90,12 +141,12 @@ const ProfileContent = (userData: userDataType) => {
               <InputField
                 className="profile-form"
                 reference={lastNameRef}
-                placeholder={userData.lastName}
-                readOnlyValue={userData.readOnlyValue}
+                placeholder={userProps.lastName}
+                readOnlyValue={userProps.readOnlyValue}
               />
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Col>Birthday</Col>
             <Col>
               {' '}
@@ -103,24 +154,16 @@ const ProfileContent = (userData: userDataType) => {
                 className="profile-form"
                 reference={birthdayRef}
                 placeholder="9 Semptember 1998"
-                readOnlyValue={userData.readOnlyValue}
+                readOnlyValue={userProps.readOnlyValue}
               />
             </Col>
-          </Row>
+          </Row> */}
           <Row>
             <Col>Email</Col>
-            <Col className="first-row__email-column">
-              {' '}
-              <InputField
-                className="profile-form"
-                reference={emailRef}
-                placeholder={userData.email}
-                readOnlyValue={userData.readOnlyValue}
-              />
-            </Col>
+            <Col className="first-row__email-column">{userProps.email}</Col>
           </Row>
         </Col>
-        <button onClick={getAllNewValues}>edit Profile</button>
+        <button onClick={getAllNewValues}>save</button>
       </Row>
       <Row className="second-row">
         <Col sm className="second-row__col">
