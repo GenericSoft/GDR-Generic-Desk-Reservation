@@ -4,9 +4,12 @@ import {
   registerUserType,
   loginUserType,
   userType,
+  updateUserType,
+  ReturnedFieldsType,
 } from '../../interfaces/User';
 
 import {
+  editUserRequest,
   loginUserRequest,
   logoutUserRequest,
   registerUserRequest,
@@ -41,6 +44,18 @@ export const loginUser = createAsyncThunk<userType, loginUserType>(
   }
 );
 
+export const editUser = createAsyncThunk<ReturnedFieldsType, updateUserType>(
+  'users/editUserStatus',
+  async (userData) => {
+    try {
+      const response: ReturnedFieldsType = await editUserRequest(userData);
+      return response;
+    } catch (err) {
+      throw toError(err);
+    }
+  }
+);
+
 export const logoutUser = createAsyncThunk(
   'users/logoutUserStatus',
   async () => {
@@ -56,6 +71,7 @@ const initialState: userType = {
   userId: '',
   firstName: '',
   lastName: '',
+  jobRole: '',
   email: '',
   profilePic: '',
   token: '',
@@ -123,6 +139,18 @@ export const userSlice = createSlice({
       };
     });
     builder.addCase(logoutUser.rejected, (state, action) => {
+      throw new Error(action.error.message);
+    });
+    builder.addCase(editUser.fulfilled, (state, action) => {
+      const { firstName, lastName, jobRole } = action.payload;
+      return {
+        ...state,
+        firstName,
+        lastName,
+        jobRole,
+      };
+    });
+    builder.addCase(editUser.rejected, (state, action) => {
       throw new Error(action.error.message);
     });
   },

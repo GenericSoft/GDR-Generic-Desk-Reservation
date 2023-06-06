@@ -9,6 +9,7 @@ import './Profile.scss';
 import ProfileContent from '../../components/ProfileContent/ProfileContent';
 const Profile = () => {
   const user = useAppSelector((state) => state.user);
+
   const [readOnlyValue, setReadOnlyValue] = useState(true);
 
   const editClick = () => {
@@ -29,7 +30,9 @@ const Profile = () => {
         <ProfileContent
           firstName={user.firstName || ''}
           lastName={user.lastName || ''}
+          jobRole={user.jobRole || ''}
           email={user.email}
+          userId={user.userId}
           readOnlyValue={readOnlyValue}
         />
       </Container>
