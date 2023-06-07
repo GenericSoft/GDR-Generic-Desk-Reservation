@@ -13,7 +13,10 @@ const Profile = () => {
   const [readOnlyValue, setReadOnlyValue] = useState(true);
 
   const editClick = () => {
-    setReadOnlyValue((currentState) => !currentState);
+    setReadOnlyValue(false);
+  };
+  const cancelEditClick = () => {
+    setReadOnlyValue(true);
   };
   return (
     <Container fluid className="profile-container">
@@ -34,6 +37,7 @@ const Profile = () => {
           email={user.email}
           userId={user.userId}
           readOnlyValue={readOnlyValue}
+          cancelEditClick={cancelEditClick}
         />
       </Container>
     </Container>
