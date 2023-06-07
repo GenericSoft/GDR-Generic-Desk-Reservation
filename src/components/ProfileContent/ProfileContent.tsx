@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
@@ -15,6 +15,7 @@ type UserPropsType = {
   email: string;
   userId: string;
   readOnlyValue: boolean;
+  cancelEditClick: () => void;
 };
 
 import './ProfileContent.scss';
@@ -22,62 +23,81 @@ import InputField from '../InputField/InputField';
 
 const ProfileContent = (userProps: UserPropsType) => {
   const dispatch = useAppDispatch();
+  const [errorMsg, setErrorMsg] = useState<string>('');
+  const isDisabledButton = userProps.readOnlyValue;
 
   const firstNameRef = useRef<HTMLInputElement>(null);
-  // const countyRef = useRef<HTMLInputElement>(null);
+  const countyRef = useRef<HTMLInputElement>(null);
   const occupationRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
-  // const birthdayRef = useRef<HTMLInputElement>(null);
+  const birthdayRef = useRef<HTMLInputElement>(null);
 
-  if (
-    userProps.readOnlyValue &&
+  const currentRefs =
     firstNameRef.current &&
     lastNameRef.current &&
-    occupationRef.current
-  ) {
-    firstNameRef.current.value = '';
-    occupationRef.current.value = '';
-    // countyRef.current!.value = '';
-    // occupationRef.current!.value = '';
-    lastNameRef.current.value = '';
-    // birthdayRef.current!.value = '';
-  }
+    occupationRef.current &&
+    countyRef.current &&
+    birthdayRef.current;
 
-  const getAllNewValues = () => {
-    // let newValues = {};
+  const cancelEditProfile = () => {
+    errorMsg && setErrorMsg('');
+    if (currentRefs) {
+      firstNameRef.current.value = '';
+      occupationRef.current.value = '';
+      countyRef.current.value = '';
+      lastNameRef.current.value = '';
+      birthdayRef.current.value = '';
+    }
+    userProps.cancelEditClick();
+  };
+
+  const updateProfileFieldsDb = () => {
     const userData = {
       userId: userProps.userId,
       newFields: { firstName: '', lastName: '', jobRole: '' },
     };
 
-    if (
-      firstNameRef.current &&
-      // countyRef.current &&
-      occupationRef.current &&
-      lastNameRef.current
-      // birthdayRef.current
-    ) {
-      // newValues = {
-      //   firstName: firstNameRef.current.value,
-      //   // countyRef: countyRef.current.value,
-      //   jobRole: occupationRef.current.value,
-      //   lastName: lastNameRef.current.value,
-      //   // birthdayRef: birthdayRef.current.value,
-      // };
-      userData.newFields.firstName =
-        firstNameRef.current.value || userProps.firstName;
-      userData.newFields.lastName =
-        lastNameRef.current.value || userProps.lastName;
-      userData.newFields.jobRole =
-        occupationRef.current.value || userProps.jobRole || '';
-      // countyRef.current!.value = ''
+    if (currentRefs) {
+      const firstName = firstNameRef.current.value;
+      const lastName = lastNameRef.current.value;
+      const occupation = occupationRef.current.value;
+      const country = countyRef.current.value;
+      const birthday = birthdayRef.current.value;
+
+      if (firstName.length < 4) {
+        setErrorMsg(
+          'This name is to short. Please choose a name with at least 4 letters'
+        );
+        return;
+      }
+      if (lastName.length < 2) {
+        setErrorMsg(
+          'This last name is to short. Please enter another last name'
+        );
+        return;
+      }
+      if (occupation.length === 0) {
+        setErrorMsg('Pleas enter your job role');
+        return;
+      }
+      if (country.length === 0) {
+        setErrorMsg('Pleas enter country');
+        return;
+      }
+      if (birthday.length === 0) {
+        setErrorMsg('Pleas enter you birthday data');
+        return;
+      }
+      userData.newFields.firstName = firstName || userProps.firstName;
+      userData.newFields.lastName = lastName || userProps.lastName;
+      userData.newFields.jobRole = occupation || userProps.jobRole || '';
+      countyRef.current.value = '';
       occupationRef.current.value = '';
       firstNameRef.current.value = '';
       lastNameRef.current.value = '';
-      // birthdayRef.current!.value = '';
+      birthdayRef.current.value = '';
     }
 
-    // const userData = { userId: userProps.userId, newFields: newValues };
     dispatch(editUser(userData));
   };
 
@@ -106,18 +126,18 @@ const ProfileContent = (userProps: UserPropsType) => {
               />
             </Col>
           </Row>
-          {/* <Row>
+          <Row>
             <Col>Country</Col>
             <Col>
               {' '}
               <InputField
                 className="profile-form"
                 reference={countyRef}
-                placeholder="Sofiya"
+                placeholder=""
                 readOnlyValue={userProps.readOnlyValue}
               />
             </Col>
-          </Row> */}
+          </Row>
           <Row>
             <Col>Occupation</Col>
             <Col>
@@ -146,24 +166,45 @@ const ProfileContent = (userProps: UserPropsType) => {
               />
             </Col>
           </Row>
-          {/* <Row>
+          <Row>
             <Col>Birthday</Col>
             <Col>
               {' '}
               <InputField
                 className="profile-form"
                 reference={birthdayRef}
-                placeholder="9 Semptember 1998"
+                placeholder=""
                 readOnlyValue={userProps.readOnlyValue}
               />
             </Col>
-          </Row> */}
+          </Row>
           <Row>
             <Col>Email</Col>
             <Col className="first-row__email-column">{userProps.email}</Col>
           </Row>
         </Col>
-        <button onClick={getAllNewValues}>save</button>
+        <Row className="first-row__buttons">
+          {errorMsg && (
+            <div className="first-row__buttons--error error-message">
+              {errorMsg}
+            </div>
+          )}
+
+          <button
+            disabled={isDisabledButton}
+            className="first-row__buttons--cancel"
+            onClick={cancelEditProfile}
+          >
+            cancel
+          </button>
+          <button
+            disabled={isDisabledButton}
+            className="first-row__buttons--save"
+            onClick={updateProfileFieldsDb}
+          >
+            save
+          </button>
+        </Row>
       </Row>
       <Row className="second-row">
         <Col sm className="second-row__col">
