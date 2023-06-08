@@ -13,8 +13,18 @@ import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 import { toError } from '../../utils/error';
 
 export const registerUserRequest = async (userData: registerUserType) => {
+  const email = userData.email.trim();
+  const password = userData.password.trim();
+  const firstName = userData.firstName.trim();
+  const lastName = userData.lastName.trim();
+
+  const isValid = Boolean(firstName && lastName && email && password);
+
   try {
-    const { email, password, firstName, lastName } = userData;
+    if (!isValid) {
+      throw new Error('fields not filled');
+    }
+
     const result = await createUserWithEmailAndPassword(auth, email, password);
     const token = await result.user.getIdToken();
 
@@ -28,13 +38,17 @@ export const registerUserRequest = async (userData: registerUserType) => {
     const user = {
       userId: result.user.uid,
       email: result.user.email as string,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
+      firstName,
+      lastName,
       token,
     };
 
     return user;
   } catch (error) {
+    if (!isValid) {
+      throw toError(error);
+    }
+
     throw toError(error, true);
   }
 };
@@ -68,8 +82,15 @@ export const loginUserRequest = async (userData: {
   email: string;
   password: string;
 }) => {
+  const email = userData.email.trim();
+  const password = userData.password.trim();
+
+  const isValid = Boolean(email && password);
+
   try {
-    const { email, password } = userData;
+    if (!isValid) {
+      throw new Error('fields not filled');
+    }
 
     const response = await signInWithEmailAndPassword(auth, email, password);
     const token = await response.user.getIdToken();
@@ -86,6 +107,10 @@ export const loginUserRequest = async (userData: {
     };
     return user;
   } catch (error) {
+    if (!isValid) {
+      throw toError(error);
+    }
+
     throw toError(error, true);
   }
 };

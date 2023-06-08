@@ -1,0 +1,7 @@
+@mixin response($breakpoint) {
+  @if $breakpoint==tablet {
+    @media(max-width:900px){
+        @content
+    }
+  }
+}

@@ -1,27 +1,62 @@
 import { db } from '../../firebase';
-import { doc, getDocs, collection, updateDoc } from 'firebase/firestore';
+import {
+  doc,
+  getDocs,
+  collection,
+  updateDoc,
+  getDoc,
+  setDoc,
+} from 'firebase/firestore';
 import { toError } from '../../utils/error';
 
-export const saveImageToFirebaseRequest = async (
-  imageMapJSON: string | undefined
-) => {
+export const saveImageToFirebaseRequest = async (imageMapJSON: string) => {
   try {
-    const imageMapId = await getImageMapIdRequest();
+    const imageMapId = JSON.parse(imageMapJSON)[0].id;
 
-    if (imageMapId) {
-      const docRef = doc(db, 'imageMap', imageMapId);
+    const doesItExists = await checkIfDocumentExists(imageMapId);
 
+    const docRef = doc(db, 'imageMap', imageMapId);
+    if (doesItExists) {
       await updateDoc(docRef, {
         imageJSON: imageMapJSON,
       });
 
       return imageMapJSON;
     } else {
-      return;
+      await setDoc(docRef, {
+        imageJSON: imageMapJSON,
+        nameRoom: '',
+        reservedDesks: [],
+      });
     }
   } catch (error) {
     throw toError(error);
   }
+};
+
+export const getImageMapJSONRequest = async (imageMapId: string) => {
+  const docRef = doc(db, 'imageMap', imageMapId);
+
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const imageMap = docSnap.data();
+
+    return imageMap.imageJSON;
+  }
+};
+
+export const checkIfDocumentExists = async (imageId: string) => {
+  const colRef = collection(db, 'imageMap');
+  const docsSnap = await getDocs(colRef);
+
+  docsSnap.forEach((doc) => {
+    if (imageId === doc.id) {
+      return true;
+    }
+  });
+
+  return false;
 };
 
 export const getImageMapIdRequest = async () => {

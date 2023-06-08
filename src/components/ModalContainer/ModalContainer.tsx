@@ -30,8 +30,9 @@ const ModalContainer = ({
         navigate(navigateRoute);
       }}
     >
-      <Modal.Header closeButton>
-        <Modal.Title>{title}</Modal.Title>
+      <Modal.Header closeButton closeVariant="white">
+        <Modal.Title className="text-white">{title}</Modal.Title>
+        {/* //TODO: create a better variable for location */}
         {location.pathname === '/view' && (
           <Button className="modal-btn" onClick={handleOnClick}>
             Save

@@ -6,7 +6,10 @@ import InputField from '../../components/InputField/InputField';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+
 import { toError } from '../../utils/error';
+import { validateLogin } from '../../utils/validations';
+
 import { useAppDispatch } from '../../redux/store';
 import { loginUser } from '../../redux/reducers/userReducer';
 
@@ -35,30 +38,24 @@ const Login = () => {
       password,
     };
 
-    if (email && password) {
-      try {
-        errorMsg && setErrorMsg('');
+    // if (email && password) {
+    try {
+      errorMsg && setErrorMsg('');
 
-        await dispatch(loginUser(formValues));
+      await dispatch(loginUser(formValues));
 
-        //clear the input after successful submit
-        emailRef.current.value = '';
-        passwordRef.current.value = '';
-        navigate('/dashboard', { replace: true });
-      } catch (error) {
-        const err = toError(error);
-
-        if (err.message === 'auth/wrong-password') {
-          setErrorMsg('Email or password is incorrect!');
-        }
-
-        if (err.message === 'auth/user-not-found') {
-          setErrorMsg('No such user exists!');
-        }
-      }
-    } else {
-      setErrorMsg('Please fill all the fields!');
+      //clear the input after successful submit
+      emailRef.current.value = '';
+      passwordRef.current.value = '';
+      navigate('/dashboard', { replace: true });
+    } catch (error) {
+      const err = toError(error);
+      const errMessage = validateLogin(err);
+      setErrorMsg(errMessage);
     }
+    // } else {
+    //   setErrorMsg('Please fill all the fields!');
+    // }
   };
   return (
     <FormContainer onClick={() => navigate('/register')} isLoginPage={true}>

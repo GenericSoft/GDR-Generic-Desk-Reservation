@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -9,9 +10,10 @@ import InputField from '../../components/InputField/InputField';
 import { useAppDispatch } from '../../redux/store';
 import { registerUser } from '../../redux/reducers/userReducer';
 
-import './Registration.scss';
+import { validateRegister } from '../../utils/validations';
 import { toError } from '../../utils/error';
-import { useNavigate } from 'react-router';
+
+import './Registration.scss';
 
 const Registration = () => {
   const firstNameRef = useRef<HTMLInputElement>(null);
@@ -49,35 +51,21 @@ const Registration = () => {
       password,
     };
 
-    if (firstName && lastName && email && password) {
-      try {
-        errorMsg && setErrorMsg('');
+    try {
+      errorMsg && setErrorMsg('');
 
-        await dispatch(registerUser(formValues));
+      await dispatch(registerUser(formValues));
 
-        //clear the input after successful submit
-        firstNameRef.current.value = '';
-        lastNameRef.current.value = '';
-        emailRef.current.value = '';
-        passwordRef.current.value = '';
-        navigate('/dashboard', { replace: true });
-      } catch (error) {
-        const err = toError(error);
-
-        if (err.message === 'auth/email-already-in-use') {
-          setErrorMsg('This email is already in use!');
-        }
-
-        if (err.message === 'auth/invalid-email') {
-          setErrorMsg('The email is invalid!');
-        }
-
-        if (err.message === 'auth/weak-password') {
-          setErrorMsg('Password must be at least 6 characters!');
-        }
-      }
-    } else {
-      setErrorMsg('Please fill all the fields!');
+      //clear the input after successful submit
+      firstNameRef.current.value = '';
+      lastNameRef.current.value = '';
+      emailRef.current.value = '';
+      passwordRef.current.value = '';
+      navigate('/dashboard', { replace: true });
+    } catch (error) {
+      const err = toError(error);
+      const errMessage = validateRegister(err);
+      setErrorMsg(errMessage);
     }
   };
 
