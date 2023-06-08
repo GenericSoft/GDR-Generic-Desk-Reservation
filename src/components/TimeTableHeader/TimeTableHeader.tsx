@@ -10,6 +10,11 @@ import {
   getWeek,
   addWeeks,
   subWeeks,
+  startOfMonth,
+  subMonths,
+  addMonths,
+  eachDayOfInterval,
+  sub,
 } from 'date-fns';
 import './TimeTableHeader.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +22,7 @@ import {
   faCircleChevronLeft,
   faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
+import { fr } from 'date-fns/locale';
 
 type CalendarType = {
   getDate?: (currDate: string) => void;
@@ -27,13 +33,40 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState(getWeek(currentMonth));
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [firstDayOfWeek, setFirstDayOfWeek] = useState(new Date());
+  // const [daysOfMonth, setDaysOfMonth] = useState([]);
+  // const [nextMonth, setNextMonth] = useState(
+  //   addMonths(new Date(currentMonth), 1)
+  // );
   const location = useLocation();
+
+  const isInReservePage = location.pathname === '/calendar';
 
   useEffect(() => {
     if (onShowWeek) {
       onShowWeek(currentMonth);
+      // console.log(currentMonth);
     }
   }, [currentMonth]);
+
+  useEffect(() => {
+    setCurrentMonth(startOfMonth(new Date()));
+    setFirstDayOfWeek(startOfWeek(new Date(), { locale: fr, weekStartsOn: 1 }));
+    console.log(firstDayOfWeek);
+  }, []);
+
+  // useEffect(() => {
+  //   console.log('CURRENT MONTH', currentMonth);
+
+  //   setNextMonth(addMonths(new Date(currentMonth), 1));
+  // }, [currentMonth]);
+
+  // console.log('nextMonth', nextMonth);
+  // console.log('currentMonth', currentMonth);
+  // console.log('selectedDate', selectedDate);
+
+  // console.log('currMonth', currMonth);
+  // console.log('firstDayOfWeek', firstDayOfWeek);
 
   const changeWeekHandle = (btnType: string) => {
     if (btnType === 'prev') {
@@ -47,15 +80,43 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
     console.log(currentWeek);
   };
 
+  const changeMonthHandle = (btnType: string) => {
+    if (btnType === 'prev') {
+      setCurrentMonth(startOfMonth(subMonths(new Date(currentMonth), 1)));
+      console.log('PREV ', startOfMonth(subMonths(new Date(currentMonth), 1)));
+    }
+
+    if (btnType === 'next') {
+      setCurrentMonth(addMonths(new Date(currentMonth), 1));
+      console.log('NEXT ', addMonths(new Date(currentMonth), 1));
+    }
+  };
+
+  const renderMonthDays = () => {
+    // console.log('RENDER MONTH', currentMonth);
+    // console.log('RENDER MONTh, ', sub(nextMonth, { days: 1 }));
+
+    const arr = eachDayOfInterval({
+      start: currentMonth,
+      end: sub(addMonths(new Date(currentMonth), 1), { days: 1 }),
+    });
+
+    // console.log(arr);
+
+    return arr;
+  };
+
   const onDateClickHandle = (day: Date) => {
     if (location.pathname === '/calendar') {
       const date = format(day, 'dd-MMM-y');
+      console.log(date);
 
       // @ts-ignore
       getDate(String(date));
     }
 
     setSelectedDate(day);
+    console.log(day);
   };
 
   const renderDays = () => {
@@ -71,9 +132,18 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
     }
     return <div className="days row">{days}</div>;
   };
+
   const renderCells = () => {
+    console.log('renderCells');
+
+    const arr = renderMonthDays();
+    // console.log(arr[0]);
+    // console.log(arr[arr.length - 1]);
+
     const startDate = startOfWeek(currentMonth, { weekStartsOn: 1 });
-    const endDate = lastDayOfWeek(currentMonth, { weekStartsOn: 1 });
+    const endDate = isInReservePage
+      ? arr[arr.length - 1]
+      : lastDayOfWeek(currentMonth, { weekStartsOn: 1 });
     const dateFormat = 'd';
     const rows = [];
     let days = [];
@@ -115,7 +185,14 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
     return (
       <div className="header mt-2 pb-2">
         <div className="col col-start">
-          <div className="icon" onClick={() => changeWeekHandle('prev')}>
+          <div
+            className="icon"
+            onClick={
+              isInReservePage
+                ? () => changeMonthHandle('prev')
+                : () => changeWeekHandle('prev')
+            }
+          >
             <FontAwesomeIcon
               icon={faCircleChevronLeft}
               size="xl"
@@ -124,7 +201,14 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
           </div>
         </div>
         <span>{format(currentMonth, dateFormat)}</span>
-        <div className="col col-end" onClick={() => changeWeekHandle('next')}>
+        <div
+          className="col col-end"
+          onClick={
+            isInReservePage
+              ? () => changeMonthHandle('next')
+              : () => changeWeekHandle('next')
+          }
+        >
           <div className="icon">
             <FontAwesomeIcon
               icon={faCircleChevronRight}
@@ -141,6 +225,7 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
       {renderFooter()}
       {renderDays()}
       {renderCells()}
+      {/* <button onClick={renderMonthDays}>CLICK ME</button> */}
     </div>
   );
 };
