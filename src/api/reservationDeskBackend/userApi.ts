@@ -120,6 +120,7 @@ export const editUserRequest = async (userData: updateUserType) => {
   const userDoc = doc(db, 'users', userId);
   try {
     await updateDoc(userDoc, newFields);
+
     const userInfo = await retrieveUserInformationRequest(userId);
     const updatedUser = {
       firstName: userInfo && userInfo.firstName,

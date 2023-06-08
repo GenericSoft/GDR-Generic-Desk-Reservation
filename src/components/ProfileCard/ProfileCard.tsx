@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarDays,
@@ -10,22 +11,23 @@ import {
 
 import './ProfileCard.scss';
 import UserImage from '../UserImage/UserImage';
-import { Container } from 'react-bootstrap';
-type UserDataType = {
-  userImage: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  onClick: () => void;
+
+import { useAppSelector } from '../../redux/store';
+
+type PropsType = {
+  activeEditClick: () => void;
 };
-const ProfileCard = (user: UserDataType) => {
+
+const ProfileCard = (props: PropsType) => {
+  const user = useAppSelector((state) => state.user);
+
   return (
     <Card className="profile-card-container">
       <Container className="user-data-container">
         <UserImage
-          firstName={user.firstName}
-          lastName={user.lastName}
-          userImage={user.userImage}
+          firstName={user.firstName || ''}
+          lastName={user.lastName || ''}
+          userImage={user.profilePic || ''}
         />
         <Card.Title className="user-data-container__title">{`${user.firstName} ${user.lastName}`}</Card.Title>
         <Card.Text className="user-data-container__email">
@@ -54,7 +56,7 @@ const ProfileCard = (user: UserDataType) => {
           <span>9</span>
         </ListGroup.Item>
         <ListGroup.Item>
-          <Card.Link href="#" onClick={user.onClick}>
+          <Card.Link href="#" onClick={props.activeEditClick}>
             <FontAwesomeIcon icon={faPenToSquare} />
             Edit profile
           </Card.Link>

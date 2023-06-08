@@ -28,6 +28,7 @@ const InputField = ({
         className={`disabled-${readOnlyValue}`}
         ref={reference}
         placeholder={placeholder}
+        defaultValue={placeholder}
         type={type}
         plaintext={readOnlyValue}
         readOnly={readOnlyValue}
