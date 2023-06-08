@@ -33,5 +33,28 @@ const validateRegister = (err: Error) => {
 
   return 'An unexpected error occurred!';
 };
+type userInputsType = {
+  firstName: string;
+  lastName: string;
+  occupation: string;
+  country: string;
+  birthday: string;
+};
+const validateEditProfile = (userInputsData: userInputsType) => {
+  const { firstName, lastName, occupation, country, birthday } = userInputsData;
+  if (firstName.length === 0 || lastName.length) {
+    return 'Please fill all the fields!';
+  }
+  if (occupation.length === 0) {
+    return 'Please add your job role!';
+  }
+  if (country.length === 0) {
+    return 'Please enter country!';
+  }
+  if (birthday.length === 0) {
+    return 'Please enter country!';
+  }
+  return '';
+};
 
-export { validateLogin, validateRegister };
+export { validateLogin, validateRegister, validateEditProfile };
