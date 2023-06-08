@@ -1,12 +1,11 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 
-import './NavigationBar.scss';
-import logo from '../../resources/images/GenericSoft_Logo_White.svg';
-
 import DropDown from '../DropDown/DropDown';
 import UserImage from '../UserImage/UserImage';
 
+import './NavigationBar.scss';
+import logo from '../../resources/images/GenericSoft_Logo_White.svg';
 import { useAppSelector } from '../../redux/store';
 
 const NavigationBar = () => {
