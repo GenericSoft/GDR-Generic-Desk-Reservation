@@ -40,6 +40,9 @@
     color: $darkgrey;
     &:not(:last-child) {
       margin-bottom: 1rem;
+      @include response(tablet) {
+        margin-bottom: 0.5rem;
+      }
     }
   }
   & .col-sm {
@@ -81,6 +84,9 @@
     @include response(tablet) {
       padding: 2rem;
     }
+    @include response(phone) {
+      padding: 1rem;
+    }
   }
   &__title {
     color: $darkgrey;
@@ -98,10 +104,10 @@
     background: white;
     &:not(:last-child) {
       margin-right: 25px;
-      @include response(tablet) {
-        flex-basis: 100%;
+      @include response(phone) {
+        // flex-basis: 100%;
         margin-right: 0;
-        margin-bottom: 15px;
+        margin-bottom:1rem;
       }
     }
   }
@@ -111,6 +117,15 @@
     color: $darkgrey;
     @include response(tablet) {
       padding: 1rem;
+    }
+    @include response(phone) {
+      flex-basis: 100%;
+      padding: 5px;
+    }
+    &--container-data p{
+      @include response(phone) {
+        margin-bottom: 0.3rem;
+      }
     }
 
     &--flex-number {

@@ -222,7 +222,7 @@ const ProfileContent = (userProps: UserPropsType) => {
           <Col sm={4} className="second-row__col--flex-number success-color">
             35
           </Col>
-          <Col sm={8}>
+          <Col sm={8} className="second-row__col--container-data">
             <Card.Text className="second-row__col--title success-color">
               ThemeForest CMS
             </Card.Text>
