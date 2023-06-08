@@ -5,8 +5,12 @@ import {
   faCalendarDays,
   faPenToSquare,
   faUser,
+  faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
 
+import './ProfileCard.scss';
+import UserImage from '../UserImage/UserImage';
+import { Container } from 'react-bootstrap';
 type UserDataType = {
   userImage: string;
   firstName: string;
@@ -14,13 +18,9 @@ type UserDataType = {
   email: string;
   onClick: () => void;
 };
-
-import './ProfileCard.scss';
-import UserImage from '../UserImage/UserImage';
-import { Container } from 'react-bootstrap';
 const ProfileCard = (user: UserDataType) => {
   return (
-    <Card style={{ width: '18rem' }} className="profile-card-container">
+    <Card className="profile-card-container">
       <Container className="user-data-container">
         <UserImage
           firstName={user.firstName}
@@ -39,6 +39,12 @@ const ProfileCard = (user: UserDataType) => {
           <Card.Link href="#">
             <FontAwesomeIcon icon={faUser} className="drop-down__icon" />
             Profile
+          </Card.Link>
+        </ListGroup.Item>
+        <ListGroup.Item>
+          <Card.Link href="/dashboard">
+            <FontAwesomeIcon icon={faChartLine} className="drop-down__icon" />
+            Dashboard
           </Card.Link>
         </ListGroup.Item>
         <ListGroup.Item className="list-group-flush__flex-item">
