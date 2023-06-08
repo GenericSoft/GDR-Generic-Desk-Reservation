@@ -41,16 +41,16 @@
     padding: 0;
   }
 }
-.list-group-flush{
-    &__flex-item{
-        display: flex;
-        justify-content:space-between;
-        align-items:center;
+.list-group-flush {
+  &__flex-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-        span{
-            background:$orange;
-            padding: 0 6px;
-            border-radius: 25%;
-        }
+    span {
+      background: $orange;
+      padding: 0 6px;
+      border-radius: 25%;
     }
+  }
 }

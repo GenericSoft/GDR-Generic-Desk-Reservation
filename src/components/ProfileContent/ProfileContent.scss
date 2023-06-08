@@ -1,4 +1,5 @@
 @import '../../common/styles/colors';
+@import '../../common/styles/mixins';
 
 .row {
   margin: 0;
@@ -23,15 +24,27 @@
 
 .profile-content-container > *:not(:last-child) {
   margin-bottom: 2rem;
+  @include response(tablet) {
+    margin-bottom: 1rem;
+  }
 }
 
 .first-row {
   background: #fff;
   padding-bottom: 1.5rem;
+  @include response(tablet) {
+    padding-bottom: 0;
+  }
+  
   .col {
     color: $darkgrey;
     &:not(:last-child) {
       margin-bottom: 1rem;
+    }
+  }
+  & .col-sm {
+    @include response(tablet) {
+      flex-basis: 100%;
     }
   }
   &__email-column {
@@ -52,7 +65,7 @@
     &--save {
       color: $success;
     }
-    &--error{
+    &--error {
       text-align: center;
     }
   }
@@ -65,6 +78,9 @@
     text-align: center;
     background: $orange;
     padding: 3rem;
+    @include response(tablet) {
+      padding: 2rem;
+    }
   }
   &__title {
     color: $darkgrey;
@@ -82,12 +98,21 @@
     background: white;
     &:not(:last-child) {
       margin-right: 25px;
+      @include response(tablet) {
+        flex-basis: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
     }
   }
   &__col {
     display: flex;
     padding: 2rem;
     color: $darkgrey;
+    @include response(tablet) {
+      padding: 1rem;
+    }
+
     &--flex-number {
       font-weight: bold;
       display: flex;

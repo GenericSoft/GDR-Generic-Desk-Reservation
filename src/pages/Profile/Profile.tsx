@@ -3,9 +3,8 @@ import Container from 'react-bootstrap/Container';
 import { useAppSelector } from '../../redux/store';
 import { useState } from 'react';
 
-import ProfileCard from '../../components/ProfileCard/ProfileCard';
-
 import './Profile.scss';
+import ProfileCard from '../../components/ProfileCard/ProfileCard';
 import ProfileContent from '../../components/ProfileContent/ProfileContent';
 const Profile = () => {
   const user = useAppSelector((state) => state.user);
