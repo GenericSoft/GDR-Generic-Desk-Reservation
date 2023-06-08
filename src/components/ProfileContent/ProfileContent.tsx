@@ -5,8 +5,10 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useAppDispatch } from '../../redux/store';
-
 import { editUser } from '../../redux/reducers/userReducer';
+
+import InputField from '../InputField/InputField';
+import './ProfileContent.scss';
 
 type UserPropsType = {
   firstName: string;
@@ -18,13 +20,10 @@ type UserPropsType = {
   cancelEditClick: () => void;
 };
 
-import './ProfileContent.scss';
-import InputField from '../InputField/InputField';
-
 const ProfileContent = (userProps: UserPropsType) => {
   const dispatch = useAppDispatch();
   const [errorMsg, setErrorMsg] = useState<string>('');
-  const isDisabledButton = userProps.readOnlyValue;
+  const isProfileInEditMode = !userProps.readOnlyValue;
 
   const firstNameRef = useRef<HTMLInputElement>(null);
   const countyRef = useRef<HTMLInputElement>(null);
@@ -183,28 +182,28 @@ const ProfileContent = (userProps: UserPropsType) => {
             <Col className="first-row__email-column">{userProps.email}</Col>
           </Row>
         </Col>
-        <Row className="first-row__buttons">
-          {errorMsg && (
-            <div className="first-row__buttons--error error-message">
-              {errorMsg}
-            </div>
-          )}
+        {isProfileInEditMode && (
+          <Row className="first-row__buttons">
+            {errorMsg && (
+              <div className="first-row__buttons--error error-message">
+                {errorMsg}
+              </div>
+            )}
 
-          <button
-            disabled={isDisabledButton}
-            className="first-row__buttons--cancel"
-            onClick={cancelEditProfile}
-          >
-            cancel
-          </button>
-          <button
-            disabled={isDisabledButton}
-            className="first-row__buttons--save"
-            onClick={updateProfileFieldsDb}
-          >
-            save
-          </button>
-        </Row>
+            <button
+              className="first-row__buttons--cancel"
+              onClick={cancelEditProfile}
+            >
+              cancel
+            </button>
+            <button
+              className="first-row__buttons--save"
+              onClick={updateProfileFieldsDb}
+            >
+              save
+            </button>
+          </Row>
+        )}
       </Row>
       <Row className="second-row">
         <Col sm className="second-row__col">

@@ -1,17 +1,17 @@
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Container } from 'react-bootstrap';
-
-import { logoutUser } from '../../redux/reducers/userReducer';
-import { useAppDispatch } from '../../redux/store';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUser,
   faRightFromBracket,
   faFolder,
   faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
+
+import { logoutUser } from '../../redux/reducers/userReducer';
+import { useAppDispatch } from '../../redux/store';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './DropDown.scss';
 import UserImage from '../UserImage/UserImage';
@@ -46,7 +46,7 @@ const DropDown = (user: User) => {
         </Container>
       </NavDropdown.Item>
       <Dropdown.Divider />
-      <NavDropdown.Item href="#">
+      <NavDropdown.Item href="/profile">
         <FontAwesomeIcon icon={faUser} className="drop-down__icon" /> Profile
       </NavDropdown.Item>
 
