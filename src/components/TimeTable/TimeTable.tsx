@@ -15,6 +15,7 @@ const TimeTable = () => {
   const [reservations, setReservations] = useState<DocumentData>([]);
   const [shownWeek, setShownWeek] = useState(new Date());
   const [week, setWeek] = useState<string[]>([]);
+
   const fetchUsers = async () => {
     const users = await getAllUsers();
     if (users) {

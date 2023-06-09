@@ -114,7 +114,7 @@ const ImageMapProView = () => {
       // save in the collection where the desks for the current floor are stored
       await saveDateRequest(allDayData, imageMapId);
 
-      // save in the collection where data for all days is stored, it will be needed when rendering the information in the table from where each user will work
+      // save in the collection where data for all days is stored, it will be needed when rendering the information in the table where it's listed from where each user will work
       await saveDateRequest(allDayData);
       navigate('/dashboard');
     } else {
