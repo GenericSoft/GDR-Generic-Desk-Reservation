@@ -15,11 +15,14 @@ import UserImage from '../UserImage/UserImage';
 import { useAppSelector } from '../../redux/store';
 
 type PropsType = {
-  activeEditClick: () => void;
+  activeEditClick: (prop: boolean) => void;
 };
 
 const ProfileCard = (props: PropsType) => {
   const user = useAppSelector((state) => state.user);
+  const editClick = () => {
+    props.activeEditClick(false);
+  };
 
   return (
     <Card className="profile-card-container">
@@ -56,7 +59,7 @@ const ProfileCard = (props: PropsType) => {
           <span>9</span>
         </ListGroup.Item>
         <ListGroup.Item>
-          <Card.Link href="#" onClick={props.activeEditClick}>
+          <Card.Link href="#" onClick={editClick}>
             <FontAwesomeIcon icon={faPenToSquare} />
             Edit profile
           </Card.Link>
