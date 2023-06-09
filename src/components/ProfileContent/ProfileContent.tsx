@@ -15,7 +15,7 @@ import { useAppSelector } from '../../redux/store';
 
 type PropsType = {
   isProfileInEditMode: boolean;
-  cancelEditClick: () => void;
+  cancelEditClick: (prop: boolean) => void;
 };
 
 const ProfileContent = (props: PropsType) => {
@@ -45,7 +45,7 @@ const ProfileContent = (props: PropsType) => {
       lastNameRef.current.value = user.lastName || '';
       birthdayRef.current.value = '';
     }
-    props.cancelEditClick();
+    props.cancelEditClick(true);
   };
 
   const updateProfileFieldsDb = () => {
