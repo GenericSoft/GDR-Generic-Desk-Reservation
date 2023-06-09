@@ -35,7 +35,7 @@
   @include response(tablet) {
     padding-bottom: 0;
   }
-  
+
   .col {
     color: $darkgrey;
     &:not(:last-child) {
@@ -55,6 +55,12 @@
     overflow: hidden;
   }
   &__buttons {
+    @include response(tablet) {
+      margin-bottom: 10px;
+    }
+    @include response(phone) {
+      margin-bottom: 5px;
+    }
     &--cancel,
     &--save {
       flex-basis: 35%;
@@ -87,6 +93,9 @@
     @include response(phone) {
       padding: 1rem;
     }
+    @include response(little-phone) {
+      padding: 0.5rem;
+    }
   }
   &__title {
     color: $darkgrey;
@@ -105,9 +114,8 @@
     &:not(:last-child) {
       margin-right: 25px;
       @include response(phone) {
-        // flex-basis: 100%;
         margin-right: 0;
-        margin-bottom:1rem;
+        margin-bottom: 1rem;
       }
     }
   }
@@ -122,7 +130,10 @@
       flex-basis: 100%;
       padding: 5px;
     }
-    &--container-data p{
+    @include response(little-phone) {
+      justify-content:space-around;
+    }
+    &--container-data p {
       @include response(phone) {
         margin-bottom: 0.3rem;
       }

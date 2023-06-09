@@ -9,4 +9,9 @@
       @content;
     }
   }
+  @if $breakpoint==little-phone {
+    @media (max-width: 530px) {
+      @content;
+    }
+  }
 }

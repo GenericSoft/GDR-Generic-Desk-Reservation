@@ -210,7 +210,7 @@ const ProfileContent = (userProps: UserPropsType) => {
           <Col sm={4} className="second-row__col--flex-number primary-color">
             35
           </Col>
-          <Col sm={8}>
+          <Col sm={8} className="second-row__col--container-data">
             <Card.Text className="second-row__col--title primary-color">
               Envato Website
             </Card.Text>
