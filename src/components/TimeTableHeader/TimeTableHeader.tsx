@@ -22,7 +22,6 @@ import {
   faCircleChevronLeft,
   faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
-import { fr } from 'date-fns/locale';
 
 type CalendarType = {
   getDate?: (currDate: string) => void;
@@ -33,11 +32,7 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState(getWeek(currentMonth));
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [firstDayOfWeek, setFirstDayOfWeek] = useState(new Date());
-  // const [daysOfMonth, setDaysOfMonth] = useState([]);
-  // const [nextMonth, setNextMonth] = useState(
-  //   addMonths(new Date(currentMonth), 1)
-  // );
+
   const location = useLocation();
 
   const isInReservePage = location.pathname === '/calendar';
@@ -45,28 +40,14 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
   useEffect(() => {
     if (onShowWeek) {
       onShowWeek(currentMonth);
-      // console.log(currentMonth);
     }
   }, [currentMonth]);
 
   useEffect(() => {
-    setCurrentMonth(startOfMonth(new Date()));
-    setFirstDayOfWeek(startOfWeek(new Date(), { locale: fr, weekStartsOn: 1 }));
-    console.log(firstDayOfWeek);
+    if (isInReservePage) {
+      setCurrentMonth(startOfMonth(new Date()));
+    }
   }, []);
-
-  // useEffect(() => {
-  //   console.log('CURRENT MONTH', currentMonth);
-
-  //   setNextMonth(addMonths(new Date(currentMonth), 1));
-  // }, [currentMonth]);
-
-  // console.log('nextMonth', nextMonth);
-  // console.log('currentMonth', currentMonth);
-  // console.log('selectedDate', selectedDate);
-
-  // console.log('currMonth', currMonth);
-  // console.log('firstDayOfWeek', firstDayOfWeek);
 
   const changeWeekHandle = (btnType: string) => {
     if (btnType === 'prev') {
@@ -83,40 +64,31 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
   const changeMonthHandle = (btnType: string) => {
     if (btnType === 'prev') {
       setCurrentMonth(startOfMonth(subMonths(new Date(currentMonth), 1)));
-      console.log('PREV ', startOfMonth(subMonths(new Date(currentMonth), 1)));
     }
 
     if (btnType === 'next') {
       setCurrentMonth(addMonths(new Date(currentMonth), 1));
-      console.log('NEXT ', addMonths(new Date(currentMonth), 1));
     }
   };
 
   const renderMonthDays = () => {
-    // console.log('RENDER MONTH', currentMonth);
-    // console.log('RENDER MONTh, ', sub(nextMonth, { days: 1 }));
-
-    const arr = eachDayOfInterval({
+    const monthDays = eachDayOfInterval({
       start: currentMonth,
       end: sub(addMonths(new Date(currentMonth), 1), { days: 1 }),
     });
 
-    // console.log(arr);
-
-    return arr;
+    return monthDays;
   };
 
   const onDateClickHandle = (day: Date) => {
-    if (location.pathname === '/calendar') {
+    if (isInReservePage) {
       const date = format(day, 'dd-MMM-y');
-      console.log(date);
 
       // @ts-ignore
       getDate(String(date));
     }
 
     setSelectedDate(day);
-    console.log(day);
   };
 
   const renderDays = () => {
@@ -134,15 +106,11 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
   };
 
   const renderCells = () => {
-    console.log('renderCells');
-
-    const arr = renderMonthDays();
-    // console.log(arr[0]);
-    // console.log(arr[arr.length - 1]);
+    const monthDays = renderMonthDays();
 
     const startDate = startOfWeek(currentMonth, { weekStartsOn: 1 });
     const endDate = isInReservePage
-      ? arr[arr.length - 1]
+      ? monthDays[monthDays.length - 1]
       : lastDayOfWeek(currentMonth, { weekStartsOn: 1 });
     const dateFormat = 'd';
     const rows = [];
@@ -225,7 +193,6 @@ const Calendar = ({ getDate, onShowWeek }: CalendarType) => {
       {renderFooter()}
       {renderDays()}
       {renderCells()}
-      {/* <button onClick={renderMonthDays}>CLICK ME</button> */}
     </div>
   );
 };
