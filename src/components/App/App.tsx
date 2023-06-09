@@ -18,7 +18,7 @@ import Profile from '../../pages/Profile/Profile';
 
 function App() {
   return (
-    <div className={`App`}>
+    <div className="App">
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
