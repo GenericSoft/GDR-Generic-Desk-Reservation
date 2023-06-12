@@ -36,23 +36,11 @@ const validateRegister = (err: Error) => {
 type userInputsType = {
   firstName: string;
   lastName: string;
-  jobRole: string;
-  country: string;
-  birthday: string;
 };
 const validateEditProfile = (userInputsData: userInputsType) => {
-  const { firstName, lastName, jobRole, country, birthday } = userInputsData;
+  const { firstName, lastName } = userInputsData;
   if (firstName.length === 0 || lastName.length === 0) {
     return 'Please fill all the fields!';
-  }
-  if (jobRole.length === 0) {
-    return 'Please add your job role!';
-  }
-  if (country.length === 0) {
-    return 'Please enter country!';
-  }
-  if (birthday.length === 0) {
-    return 'Please enter country!';
   }
   return '';
 };

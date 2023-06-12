@@ -57,7 +57,12 @@ const DropDown = (userProps: UserPropsType) => {
         <FontAwesomeIcon icon={faUser} className="drop-down__icon" /> Profile
       </NavDropdown.Item>
 
-      <NavDropdown.Item href="#">
+      <NavDropdown.Item
+        href="#"
+        onClick={() => {
+          navigate('/dashboard');
+        }}
+      >
         <FontAwesomeIcon icon={faChartLine} className="drop-down__icon" />
         Dashboard
       </NavDropdown.Item>

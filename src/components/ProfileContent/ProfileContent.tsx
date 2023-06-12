@@ -14,6 +14,7 @@ import './ProfileContent.scss';
 import { validateEditProfile } from '../../utils/validations';
 
 import { useAppSelector } from '../../redux/store';
+import { EditUserDataType } from '../../interfaces/User';
 
 type ProfileContentProps = {
   isProfileInEditMode: boolean;
@@ -27,14 +28,14 @@ const ProfileContent = (props: ProfileContentProps) => {
 
   const firstNameRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
-  const occupationRef = useRef<HTMLInputElement>(null);
+  const jobRoleRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
   const birthdayRef = useRef<HTMLInputElement>(null);
 
   const currentRefs =
     firstNameRef.current &&
     lastNameRef.current &&
-    occupationRef.current &&
+    jobRoleRef.current &&
     countryRef.current &&
     birthdayRef.current;
 
@@ -42,7 +43,7 @@ const ProfileContent = (props: ProfileContentProps) => {
     errorMsg && setErrorMsg('');
     if (currentRefs) {
       firstNameRef.current.value = user.firstName || '';
-      occupationRef.current.value = user.jobRole || '';
+      jobRoleRef.current.value = user.jobRole || '';
       countryRef.current.value = '';
       lastNameRef.current.value = user.lastName || '';
       birthdayRef.current.value = '';
@@ -51,30 +52,29 @@ const ProfileContent = (props: ProfileContentProps) => {
   };
 
   const updateProfileFieldsDb = () => {
-    const userData = {
+    const userData: EditUserDataType = {
       userId: user.userId,
-      newFields: { firstName: '', lastName: '', jobRole: '' },
+      newFields: { firstName: '', lastName: '' },
     };
 
     if (currentRefs) {
       const firstNameInputValue = firstNameRef.current.value;
       const lastNameInputValue = lastNameRef.current.value;
-      const jobRoleInputValue = occupationRef.current.value;
-      const countryInputValue = countryRef.current.value;
-      const birthdayInputValue = birthdayRef.current.value;
+      const jobRoleInputValue = jobRoleRef.current.value;
 
       const errMessage = validateEditProfile({
         firstName: firstNameInputValue,
         lastName: lastNameInputValue,
-        jobRole: jobRoleInputValue,
-        country: countryInputValue,
-        birthday: birthdayInputValue,
       });
       setErrorMsg(errMessage);
 
       userData.newFields.firstName = firstNameInputValue;
       userData.newFields.lastName = lastNameInputValue;
-      userData.newFields.jobRole = jobRoleInputValue;
+
+      if (jobRoleInputValue || user.jobRole) {
+        userData.newFields.jobRole = jobRoleInputValue;
+      }
+
       if (errMessage) {
         return;
       }
@@ -116,9 +116,9 @@ const ProfileContent = (props: ProfileContentProps) => {
             <Col>
               {' '}
               <InputField
-                className="profile-form"
+                className="profile-form profile-form--empty"
                 reference={countryRef}
-                placeholder="country"
+                placeholder="your country"
                 readOnlyValue={props.isProfileInEditMode}
               />
             </Col>
@@ -129,10 +129,10 @@ const ProfileContent = (props: ProfileContentProps) => {
               {' '}
               <InputField
                 className={`profile-form ${
-                  !user.jobRole && 'profile-form--job-role'
+                  !user.jobRole && 'profile-form--empty'
                 }`}
-                reference={occupationRef}
-                placeholder={user.jobRole || 'please add your job role'}
+                reference={jobRoleRef}
+                placeholder={user.jobRole || 'your job role'}
                 defaultValue={user.jobRole || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
@@ -158,9 +158,9 @@ const ProfileContent = (props: ProfileContentProps) => {
             <Col>
               {' '}
               <InputField
-                className="profile-form"
+                className="profile-form profile-form--empty"
                 reference={birthdayRef}
-                placeholder="birthday"
+                placeholder="your birthday"
                 readOnlyValue={props.isProfileInEditMode}
               />
             </Col>
