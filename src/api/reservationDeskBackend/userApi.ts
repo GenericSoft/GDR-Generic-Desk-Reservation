@@ -3,9 +3,13 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { registerUserType, firebaseUserType } from '../../interfaces/User';
+import {
+  registerUserType,
+  firebaseUserType,
+  updateUserType,
+} from '../../interfaces/User';
 import { auth, db } from '../../firebase';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 import { toError } from '../../utils/error';
 
 export const registerUserRequest = async (userData: registerUserType) => {
@@ -107,6 +111,23 @@ export const loginUserRequest = async (userData: {
       throw toError(error);
     }
 
+    throw toError(error, true);
+  }
+};
+
+export const editUserRequest = async (userData: updateUserType) => {
+  const { userId, newFields } = userData;
+  const userDoc = doc(db, 'users', userId);
+  try {
+    await updateDoc(userDoc, newFields);
+    const userInfo = await retrieveUserInformationRequest(userId);
+    const updatedUser = {
+      firstName: userInfo && userInfo.firstName,
+      lastName: userInfo && userInfo.lastName,
+      jobRole: userInfo && userInfo.jobRole,
+    };
+    return updatedUser;
+  } catch (error) {
     throw toError(error, true);
   }
 };

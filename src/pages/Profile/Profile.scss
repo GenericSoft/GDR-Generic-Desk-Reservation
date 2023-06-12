@@ -1,0 +1,21 @@
+@import '../../common/styles/colors';
+
+.profile-container{
+    height: 100vh;
+    background: $grey;
+    margin: 0;
+    padding:1.5rem 2.5rem;
+    display: flex;
+    &>*{
+        padding: 0;
+        margin: 0;
+    }
+    &__profile-card{
+        padding: 0;
+        margin: 0;
+        flex: 0 0 25%;
+    }
+  
+}
+
+

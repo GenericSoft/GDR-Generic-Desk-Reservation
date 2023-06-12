@@ -1,0 +1,155 @@
+@import '../../common/styles/colors';
+@import '../../common/styles/mixins';
+
+.row {
+  margin: 0;
+  padding: 0;
+  .col {
+    p {
+      margin: 0;
+    }
+    margin: 0;
+    padding: 0;
+  }
+}
+.card-box {
+  border: none;
+  margin: 0;
+  padding: 0;
+  &__body {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.profile-content-container > *:not(:last-child) {
+  margin-bottom: 2rem;
+  @include response(tablet) {
+    margin-bottom: 1rem;
+  }
+}
+
+.first-row {
+  background: #fff;
+  padding-bottom: 1.5rem;
+  @include response(tablet) {
+    padding-bottom: 0;
+  }
+
+  .col {
+    color: $darkgrey;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+      @include response(tablet) {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+  & .col-sm {
+    @include response(tablet) {
+      flex-basis: 100%;
+    }
+  }
+  &__email-column {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  &__buttons {
+    @include response(tablet) {
+      margin-bottom: 10px;
+    }
+    @include response(phone) {
+      margin-bottom: 5px;
+    }
+    &--cancel,
+    &--save {
+      flex-basis: 35%;
+      border: none;
+    }
+    justify-content: space-around;
+
+    &--cancel {
+      color: $danger;
+    }
+    &--save {
+      color: $success;
+    }
+    &--error {
+      text-align: center;
+    }
+  }
+}
+.card-content {
+  &__text {
+    font-style: italic;
+    color: $white;
+    margin: 0;
+    text-align: center;
+    background: $orange;
+    padding: 3rem;
+    @include response(tablet) {
+      padding: 2rem;
+    }
+    @include response(phone) {
+      padding: 1rem;
+    }
+    @include response(little-phone) {
+      padding: 0.5rem;
+    }
+  }
+  &__title {
+    color: $darkgrey;
+    margin: 0;
+    padding: 1rem;
+  }
+  &__body {
+    color: $darkgrey;
+  }
+}
+
+.second-row {
+  .col-sm {
+    margin: 0;
+    background: white;
+    &:not(:last-child) {
+      margin-right: 25px;
+      @include response(phone) {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+  &__col {
+    display: flex;
+    padding: 2rem;
+    color: $darkgrey;
+    @include response(tablet) {
+      padding: 1rem;
+    }
+    @include response(phone) {
+      flex-basis: 100%;
+      padding: 5px;
+    }
+    @include response(little-phone) {
+      justify-content:space-around;
+    }
+    &--container-data p {
+      @include response(phone) {
+        margin-bottom: 0.3rem;
+      }
+    }
+
+    &--flex-number {
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .primary-color {
+    color: $primary;
+  }
+  .success-color {
+    color: $success;
+  }
+}

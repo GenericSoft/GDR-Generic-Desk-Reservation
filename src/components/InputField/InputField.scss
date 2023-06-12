@@ -1,0 +1,25 @@
+@import '../../common/styles/colors';
+@import '../../common/styles/functions';
+.profile-form{
+  input {
+    padding: 0;
+    color: inherit;
+    &:focus{
+      border-color: none;
+      box-shadow: none;
+    }  
+  }
+  &--job-role{
+    input{
+      font-style: italic;
+    }
+  }
+ 
+}
+.disabled {
+
+  &-false {
+    background: lighten($orange,60%);
+    padding: 3px;
+  }
+}

@@ -1,11 +1,6 @@
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Container } from 'react-bootstrap';
-
-import { logoutUser } from '../../redux/reducers/userReducer';
-import { useAppDispatch } from '../../redux/store';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUser,
   faRightFromBracket,
@@ -13,14 +8,19 @@ import {
   faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
 
+import { logoutUser } from '../../redux/reducers/userReducer';
+import { useAppDispatch } from '../../redux/store';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import './DropDown.scss';
 import UserImage from '../UserImage/UserImage';
 
 type User = {
   firstName: string;
+  lastName: string;
   email: string;
   image: string;
-  nameLogo: string;
 };
 
 const DropDown = (user: User) => {
@@ -31,7 +31,11 @@ const DropDown = (user: User) => {
   return (
     <NavDropdown id="nav-dropdown" className="drop-down" title="" align="end">
       <NavDropdown.Item className="drop-down__profile-item">
-        <UserImage userImage={user.image} nameLogo={user.nameLogo} />
+        <UserImage
+          userImage={user.image}
+          firstName={user.firstName || ''}
+          lastName={user.lastName || ''}
+        />
         <Container className="drop-down__user-content">
           <Container className="drop-down__user-content--name">
             <p>{user.firstName}</p>
@@ -42,7 +46,7 @@ const DropDown = (user: User) => {
         </Container>
       </NavDropdown.Item>
       <Dropdown.Divider />
-      <NavDropdown.Item href="#">
+      <NavDropdown.Item href="/profile">
         <FontAwesomeIcon icon={faUser} className="drop-down__icon" /> Profile
       </NavDropdown.Item>
 
