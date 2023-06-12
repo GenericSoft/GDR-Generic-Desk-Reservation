@@ -51,6 +51,7 @@ const ProfileCard = (props: ProfileCardProps) => {
         </ListGroup.Item>
         <ListGroup.Item>
           <Card.Link
+            href="#"
             onClick={() => {
               navigate('/dashboard');
             }}
