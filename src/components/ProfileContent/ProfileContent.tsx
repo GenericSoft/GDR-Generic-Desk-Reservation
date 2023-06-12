@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 import { useAppDispatch } from '../../redux/store';
 import { editUser } from '../../redux/reducers/userReducer';
 
@@ -13,18 +15,18 @@ import { validateEditProfile } from '../../utils/validations';
 
 import { useAppSelector } from '../../redux/store';
 
-type PropsType = {
+type ProfileContentProps = {
   isProfileInEditMode: boolean;
   cancelEditClick: (prop: boolean) => void;
 };
 
-const ProfileContent = (props: PropsType) => {
+const ProfileContent = (props: ProfileContentProps) => {
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [errorMsg, setErrorMsg] = useState<string>('');
 
   const firstNameRef = useRef<HTMLInputElement>(null);
-  const countyRef = useRef<HTMLInputElement>(null);
+  const countryRef = useRef<HTMLInputElement>(null);
   const occupationRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
   const birthdayRef = useRef<HTMLInputElement>(null);
@@ -33,7 +35,7 @@ const ProfileContent = (props: PropsType) => {
     firstNameRef.current &&
     lastNameRef.current &&
     occupationRef.current &&
-    countyRef.current &&
+    countryRef.current &&
     birthdayRef.current;
 
   const cancelEditProfile = () => {
@@ -41,7 +43,7 @@ const ProfileContent = (props: PropsType) => {
     if (currentRefs) {
       firstNameRef.current.value = user.firstName || '';
       occupationRef.current.value = user.jobRole || '';
-      countyRef.current.value = '';
+      countryRef.current.value = '';
       lastNameRef.current.value = user.lastName || '';
       birthdayRef.current.value = '';
     }
@@ -57,14 +59,14 @@ const ProfileContent = (props: PropsType) => {
     if (currentRefs) {
       const firstNameInputValue = firstNameRef.current.value;
       const lastNameInputValue = lastNameRef.current.value;
-      const occupationInputValue = occupationRef.current.value;
-      const countryInputValue = countyRef.current.value;
+      const jobRoleInputValue = occupationRef.current.value;
+      const countryInputValue = countryRef.current.value;
       const birthdayInputValue = birthdayRef.current.value;
 
       const errMessage = validateEditProfile({
         firstName: firstNameInputValue,
         lastName: lastNameInputValue,
-        occupation: occupationInputValue,
+        jobRole: jobRoleInputValue,
         country: countryInputValue,
         birthday: birthdayInputValue,
       });
@@ -72,10 +74,12 @@ const ProfileContent = (props: PropsType) => {
 
       userData.newFields.firstName = firstNameInputValue;
       userData.newFields.lastName = lastNameInputValue;
-      userData.newFields.jobRole = occupationInputValue;
+      userData.newFields.jobRole = jobRoleInputValue;
       if (errMessage) {
         return;
       }
+      birthdayRef.current.value = '';
+      countryRef.current.value = '';
     }
 
     dispatch(editUser(userData));
@@ -102,6 +106,7 @@ const ProfileContent = (props: PropsType) => {
                 className="profile-form"
                 reference={firstNameRef}
                 placeholder={user.firstName || ''}
+                defaultValue={user.firstName || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
             </Col>
@@ -112,14 +117,14 @@ const ProfileContent = (props: PropsType) => {
               {' '}
               <InputField
                 className="profile-form"
-                reference={countyRef}
-                placeholder=""
+                reference={countryRef}
+                placeholder="country"
                 readOnlyValue={props.isProfileInEditMode}
               />
             </Col>
           </Row>
           <Row>
-            <Col>Occupation</Col>
+            <Col>Job Role</Col>
             <Col>
               {' '}
               <InputField
@@ -128,6 +133,7 @@ const ProfileContent = (props: PropsType) => {
                 }`}
                 reference={occupationRef}
                 placeholder={user.jobRole || 'please add your job role'}
+                defaultValue={user.jobRole || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
             </Col>
@@ -142,6 +148,7 @@ const ProfileContent = (props: PropsType) => {
                 className="profile-form"
                 reference={lastNameRef}
                 placeholder={user.lastName || ''}
+                defaultValue={user.lastName || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
             </Col>
@@ -153,7 +160,7 @@ const ProfileContent = (props: PropsType) => {
               <InputField
                 className="profile-form"
                 reference={birthdayRef}
-                placeholder=""
+                placeholder="birthday"
                 readOnlyValue={props.isProfileInEditMode}
               />
             </Col>
@@ -171,18 +178,18 @@ const ProfileContent = (props: PropsType) => {
               </div>
             )}
 
-            <button
+            <Button
               className="first-row__buttons--cancel"
               onClick={cancelEditProfile}
             >
               cancel
-            </button>
-            <button
+            </Button>
+            <Button
               className="first-row__buttons--save"
               onClick={updateProfileFieldsDb}
             >
               save
-            </button>
+            </Button>
           </Row>
         )}
       </Row>

@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Container } from 'react-bootstrap';
@@ -14,11 +16,12 @@ import UserImage from '../UserImage/UserImage';
 
 import { useAppSelector } from '../../redux/store';
 
-type PropsType = {
+type ProfileCardProps = {
   activeEditClick: (prop: boolean) => void;
 };
 
-const ProfileCard = (props: PropsType) => {
+const ProfileCard = (props: ProfileCardProps) => {
+  const navigate = useNavigate();
   const user = useAppSelector((state) => state.user);
   const editClick = () => {
     props.activeEditClick(false);
@@ -47,7 +50,11 @@ const ProfileCard = (props: PropsType) => {
           </Card.Link>
         </ListGroup.Item>
         <ListGroup.Item>
-          <Card.Link href="/dashboard">
+          <Card.Link
+            onClick={() => {
+              navigate('/dashboard');
+            }}
+          >
             <FontAwesomeIcon icon={faChartLine} className="drop-down__icon" />
             Dashboard
           </Card.Link>
