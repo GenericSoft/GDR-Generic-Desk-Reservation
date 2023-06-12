@@ -17,6 +17,7 @@ type InputFieldProps = {
 const InputField = ({
   reference,
   placeholder,
+  defaultValue,
   label,
   type,
   readOnlyValue,
@@ -28,7 +29,7 @@ const InputField = ({
         className={`disabled-${readOnlyValue}`}
         ref={reference}
         placeholder={placeholder}
-        defaultValue={placeholder}
+        defaultValue={defaultValue}
         type={type}
         plaintext={readOnlyValue}
         readOnly={readOnlyValue}

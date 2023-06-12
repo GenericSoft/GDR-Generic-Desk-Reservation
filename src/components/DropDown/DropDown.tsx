@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Container } from 'react-bootstrap';
@@ -16,14 +18,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './DropDown.scss';
 import UserImage from '../UserImage/UserImage';
 
-type User = {
+type UserPropsType = {
   firstName: string;
   lastName: string;
   email: string;
   image: string;
 };
 
-const DropDown = (user: User) => {
+const DropDown = (userProps: UserPropsType) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const logoutFunc = async () => {
     await dispatch(logoutUser());
@@ -32,21 +35,25 @@ const DropDown = (user: User) => {
     <NavDropdown id="nav-dropdown" className="drop-down" title="" align="end">
       <NavDropdown.Item className="drop-down__profile-item">
         <UserImage
-          userImage={user.image}
-          firstName={user.firstName || ''}
-          lastName={user.lastName || ''}
+          userImage={userProps.image}
+          firstName={userProps.firstName || ''}
+          lastName={userProps.lastName || ''}
         />
         <Container className="drop-down__user-content">
           <Container className="drop-down__user-content--name">
-            <p>{user.firstName}</p>
+            <p>{userProps.firstName}</p>
           </Container>
           <Container className="drop-down__user-content--email">
-            <p>{user.email}</p>
+            <p>{userProps.email}</p>
           </Container>
         </Container>
       </NavDropdown.Item>
       <Dropdown.Divider />
-      <NavDropdown.Item href="/profile">
+      <NavDropdown.Item
+        onClick={() => {
+          navigate('/profile');
+        }}
+      >
         <FontAwesomeIcon icon={faUser} className="drop-down__icon" /> Profile
       </NavDropdown.Item>
 

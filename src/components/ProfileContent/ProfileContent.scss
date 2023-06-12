@@ -43,8 +43,12 @@
     &__buttons {
       &--cancel,
       &--save {
+        background: $grey;
         flex-basis: 35%;
         border: none;
+        &:hover{
+          // background:red!important;
+        }
       }
       justify-content: space-around;
 

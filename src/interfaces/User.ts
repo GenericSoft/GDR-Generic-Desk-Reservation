@@ -25,7 +25,7 @@ export interface ReturnedFieldsType {
   jobRole: string | undefined;
 }
 
-export interface updateUserType {
+export interface EditUserDataType {
   userId: string;
   newFields: { firstName: string; lastName: string; jobRole: string };
 }

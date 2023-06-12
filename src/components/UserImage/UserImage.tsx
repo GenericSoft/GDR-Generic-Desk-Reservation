@@ -1,22 +1,22 @@
 import Container from 'react-bootstrap/Container';
-type UserData = { userImage: string; firstName: string; lastName: string };
+type PropsType = { userImage: string; firstName: string; lastName: string };
 
 import './UserImage.scss';
 
-const UserImage = (userData: UserData) => {
+const UserImage = (props: PropsType) => {
   let nameLogo = '';
 
-  if (userData.firstName && userData.lastName) {
+  if (props.firstName && props.lastName) {
     nameLogo =
-      userData.firstName.substring(0, 1).toUpperCase() +
-      userData.lastName.substring(0, 1).toUpperCase();
+      props.firstName.substring(0, 1).toUpperCase() +
+      props.lastName.substring(0, 1).toUpperCase();
   }
 
-  return !userData.userImage ? (
+  return !props.userImage ? (
     <Container className="logo-container profile-image">{nameLogo}</Container>
   ) : (
     <img
-      src={userData.userImage}
+      src={props.userImage}
       className="user-image profile-image"
       alt="user photo"
     />

@@ -4,7 +4,7 @@ import {
   registerUserType,
   loginUserType,
   userType,
-  updateUserType,
+  EditUserDataType,
   ReturnedFieldsType,
 } from '../../interfaces/User';
 
@@ -44,7 +44,7 @@ export const loginUser = createAsyncThunk<userType, loginUserType>(
   }
 );
 
-export const editUser = createAsyncThunk<ReturnedFieldsType, updateUserType>(
+export const editUser = createAsyncThunk<ReturnedFieldsType, EditUserDataType>(
   'users/editUserStatus',
   async (userData) => {
     try {

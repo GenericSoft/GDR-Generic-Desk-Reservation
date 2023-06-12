@@ -6,7 +6,7 @@ import {
 import {
   registerUserType,
   firebaseUserType,
-  updateUserType,
+  EditUserDataType,
 } from '../../interfaces/User';
 import { auth, db } from '../../firebase';
 import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
@@ -115,7 +115,7 @@ export const loginUserRequest = async (userData: {
   }
 };
 
-export const editUserRequest = async (userData: updateUserType) => {
+export const editUserRequest = async (userData: EditUserDataType) => {
   const { userId, newFields } = userData;
   const userDoc = doc(db, 'users', userId);
   try {
