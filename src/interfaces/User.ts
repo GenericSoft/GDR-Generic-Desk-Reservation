@@ -22,12 +22,12 @@ export interface userType {
 export interface ReturnedFieldsType {
   firstName: string | undefined;
   lastName: string | undefined;
-  jobRole: string | undefined;
+  jobRole?: string | undefined;
 }
 
 export interface EditUserDataType {
   userId: string;
-  newFields: { firstName: string; lastName: string; jobRole: string };
+  newFields: { firstName: string; lastName: string; jobRole?: string };
 }
 export interface firebaseUserType {
   email: string;
