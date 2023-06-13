@@ -2,6 +2,7 @@
 @import '../../common/styles/functions';
   .profile-form {
     input {
+      text-transform: capitalize;
       padding: 0;
       color: inherit;
       &:focus {
