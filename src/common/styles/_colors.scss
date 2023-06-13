@@ -17,7 +17,7 @@ $colors: ('primary', $primary), ('secondary', $secondary),
   ('success', $success),
   ('danger', $danger),
   ('orange', $orange), ('yellow', $yellow),
-  ('dark', $dark), ('grey', $grey), ('white', $white),
+  ('dark', $dark),('darkgrey', $darkgrey), ('grey', $grey), ('white', $white),
   ('background', $background);
 
 @each $color in $colors {

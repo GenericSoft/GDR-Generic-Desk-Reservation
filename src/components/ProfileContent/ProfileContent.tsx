@@ -179,13 +179,15 @@ const ProfileContent = (props: ProfileContentProps) => {
             )}
 
             <Button
-              className="first-row__buttons--cancel"
+              className="btn-orange mt-2 first-row__buttons--cancel"
+              // className="first-row__buttons--cancel"
               onClick={cancelEditProfile}
             >
               cancel
             </Button>
             <Button
-              className="first-row__buttons--save"
+              className="btn-orange mt-2 first-row__buttons--save"
+              // className="first-row__buttons--save"
               onClick={updateProfileFieldsDb}
             >
               save
