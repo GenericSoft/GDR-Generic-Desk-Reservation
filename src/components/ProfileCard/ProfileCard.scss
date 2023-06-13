@@ -1,7 +1,7 @@
 @import '../../common/styles/colors';
 
 .profile-card-container {
-  background: $orange;
+  background: $primary;
   color: $white;
   border: none;
   .profile-card-body {
@@ -47,7 +47,8 @@
           align-items:center;
   
           span{
-              background:$orange;
+              background:$primary;
+              color: $white;
               padding: 0 6px;
               border-radius: 25%;
           }
