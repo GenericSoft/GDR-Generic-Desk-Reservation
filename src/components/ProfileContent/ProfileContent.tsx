@@ -58,9 +58,10 @@ const ProfileContent = (props: ProfileContentProps) => {
     };
 
     if (currentRefs) {
-      const firstNameInputValue = firstNameRef.current.value;
-      const lastNameInputValue = lastNameRef.current.value;
-      const jobRoleInputValue = jobRoleRef.current.value;
+      const firstNameInputValue = firstNameRef.current.value.trim();
+      console.log(firstNameInputValue);
+      const lastNameInputValue = lastNameRef.current.value.trim();
+      const jobRoleInputValue = jobRoleRef.current.value.trim();
 
       const errMessage = validateEditProfile({
         firstName: firstNameInputValue,
@@ -78,6 +79,8 @@ const ProfileContent = (props: ProfileContentProps) => {
       if (errMessage) {
         return;
       }
+      firstNameRef.current.value = firstNameRef.current.value.trim();
+      lastNameRef.current.value = lastNameRef.current.value.trim();
       birthdayRef.current.value = '';
       countryRef.current.value = '';
     }

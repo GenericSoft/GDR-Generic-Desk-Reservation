@@ -8,8 +8,8 @@ const UserImage = (props: PropsType) => {
 
   if (props.firstName && props.lastName) {
     nameLogo =
-      props.firstName.substring(0, 1).toUpperCase() +
-      props.lastName.substring(0, 1).toUpperCase();
+      props.firstName.trim().substring(0, 1).toUpperCase() +
+      props.lastName.trim().substring(0, 1).toUpperCase();
   }
 
   return !props.userImage ? (

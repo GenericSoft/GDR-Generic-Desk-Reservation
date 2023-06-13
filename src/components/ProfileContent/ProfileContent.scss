@@ -42,7 +42,7 @@
     }
     &__buttons {
       justify-content: space-around;
-      &--btn{
+      &--btn {
         font-weight: bold;
         flex-basis: 35%;
       }
@@ -50,8 +50,8 @@
         text-align: center;
       }
     }
-    .btn-cancel{
-      border:solid 2px $secondary;
+    .btn-cancel {
+      border: solid 2px $secondary;
       color: $dark;
     }
   }
@@ -67,7 +67,7 @@
     &__title {
       color: $darkgrey;
       margin: 0;
-      padding: 1rem;
+      padding: 1rem 0.7rem;
     }
     &__body {
       color: $darkgrey;
