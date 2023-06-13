@@ -182,17 +182,15 @@ const ProfileContent = (props: ProfileContentProps) => {
 
             <Button
               className="btn-secondary mt-2 first-row__buttons--btn btn-cancel"
-              // className="first-row__buttons--cancel"
               onClick={cancelEditProfile}
             >
-              cancel
+              Cancel
             </Button>
             <Button
               className="btn-primary mt-2 first-row__buttons--btn"
-              // className="first-row__buttons--save"
               onClick={updateProfileFieldsDb}
             >
-              save
+              Save
             </Button>
           </Row>
         )}
