@@ -16,7 +16,7 @@
     }
     .disabled {
       &-false {
-        background: lighten($orange, 60%);
+        background: lighten($primary, 60%);
         padding: 3px;
         &:focus{
         background: none;
