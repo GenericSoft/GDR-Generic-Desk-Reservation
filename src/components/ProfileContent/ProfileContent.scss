@@ -41,14 +41,12 @@
       overflow: hidden;
     }
     &__buttons {
+      justify-content: space-around;
       &--cancel,
       &--save {
-        background: $grey;
+        font-weight: bold;
         flex-basis: 35%;
-        border: none;
       }
-      justify-content: space-around;
-
       &--cancel {
         color: $danger;
       }
