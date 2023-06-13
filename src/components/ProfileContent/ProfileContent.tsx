@@ -59,7 +59,6 @@ const ProfileContent = (props: ProfileContentProps) => {
 
     if (currentRefs) {
       const firstNameInputValue = firstNameRef.current.value.trim();
-      console.log(firstNameInputValue);
       const lastNameInputValue = lastNameRef.current.value.trim();
       const jobRoleInputValue = jobRoleRef.current.value.trim();
 
