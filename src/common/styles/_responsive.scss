@@ -1,0 +1,32 @@
+$xsm: 374px;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+
+//For Extra Small
+@mixin xsm {
+  @media screen and (max-width: ($xsm)) {
+    @content;
+  }
+}
+
+//For Small
+@mixin sm {
+  @media screen and (max-width: ($sm)) {
+    @content;
+  }
+}
+
+//For Medium
+@mixin md {
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
+}
+
+//For large
+@mixin lg {
+  @media screen and (max-width: ($lg)) {
+    @content;
+  }
+}
