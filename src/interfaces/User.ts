@@ -15,6 +15,8 @@ export interface userType {
   firstName?: string;
   lastName?: string;
   jobRole?: string;
+  country?: string;
+  birthday?: string;
   email: string;
   profilePic?: string;
   token: string;
@@ -23,17 +25,27 @@ export interface ReturnedFieldsType {
   firstName: string | undefined;
   lastName: string | undefined;
   jobRole?: string | undefined;
+  country?: string | undefined;
+  birthday?: string | undefined;
 }
 
 export interface EditUserDataType {
   userId: string;
-  newFields: { firstName: string; lastName: string; jobRole?: string };
+  newFields: {
+    firstName: string;
+    lastName: string;
+    jobRole?: string;
+    country?: string;
+    birthday?: string;
+  };
 }
 export interface firebaseUserType {
   email: string;
   firstName: string;
   lastName: string;
   jobRole: string;
+  country: string;
+  birthday: string;
   myDesk: {
     deskNum: number;
   };

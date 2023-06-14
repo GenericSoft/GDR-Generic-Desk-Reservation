@@ -12,6 +12,7 @@
   }
   &__user-data {
     &--name {
+      text-transform: capitalize;
       color: $white;
       padding: 0;
       margin: 0;
