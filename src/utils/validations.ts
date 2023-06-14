@@ -1,3 +1,8 @@
+type userInputsType = {
+  firstName: string;
+  lastName: string;
+};
+
 const validateLogin = (err: Error) => {
   if (err.message === 'fields not filled') {
     return 'Please fill all the fields!';
@@ -33,10 +38,7 @@ const validateRegister = (err: Error) => {
 
   return 'An unexpected error occurred!';
 };
-type userInputsType = {
-  firstName: string;
-  lastName: string;
-};
+
 const validateEditProfile = (userInputsData: userInputsType) => {
   const { firstName, lastName } = userInputsData;
   if (firstName.length === 0 || lastName.length === 0) {
