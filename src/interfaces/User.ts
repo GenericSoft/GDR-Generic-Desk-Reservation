@@ -21,7 +21,7 @@ export interface userType {
   profilePic?: string;
   token: string;
 }
-export interface ReturnedFieldsType {
+export interface ProfileInfoType {
   firstName: string | undefined;
   lastName: string | undefined;
   jobRole?: string | undefined;

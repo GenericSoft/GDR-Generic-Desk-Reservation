@@ -9,23 +9,22 @@ import {
   faFolder,
   faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { logoutUser } from '../../redux/reducers/userReducer';
 import { useAppDispatch } from '../../redux/store';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import './DropDown.scss';
 import UserImage from '../UserImage/UserImage';
 
-type UserPropsType = {
+type UserProps = {
   firstName: string;
   lastName: string;
   email: string;
   image: string;
 };
 
-const DropDown = (userProps: UserPropsType) => {
+const DropDown = ({ firstName, lastName, email, image }: UserProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const logoutFunc = async () => {
@@ -35,16 +34,16 @@ const DropDown = (userProps: UserPropsType) => {
     <NavDropdown id="nav-dropdown" className="drop-down" title="" align="end">
       <NavDropdown.Item className="drop-down__profile-item">
         <UserImage
-          userImage={userProps.image}
-          firstName={userProps.firstName || ''}
-          lastName={userProps.lastName || ''}
+          userImage={image}
+          firstName={firstName || ''}
+          lastName={lastName || ''}
         />
         <Container className="drop-down__user-content">
           <Container className="drop-down__user-content--name">
-            <p>{userProps.firstName}</p>
+            <p>{firstName}</p>
           </Container>
           <Container className="drop-down__user-content--email">
-            <p>{userProps.email}</p>
+            <p>{email}</p>
           </Container>
         </Container>
       </NavDropdown.Item>
