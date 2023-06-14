@@ -44,9 +44,9 @@ const ProfileContent = (props: ProfileContentProps) => {
     if (currentRefs) {
       firstNameRef.current.value = user.firstName || '';
       jobRoleRef.current.value = user.jobRole || '';
-      countryRef.current.value = '';
+      countryRef.current.value = user.country || '';
       lastNameRef.current.value = user.lastName || '';
-      birthdayRef.current.value = '';
+      birthdayRef.current.value = user.birthday || '';
     }
     props.cancelEditClick(true);
   };
@@ -61,6 +61,8 @@ const ProfileContent = (props: ProfileContentProps) => {
       const firstNameInputValue = firstNameRef.current.value.trim();
       const lastNameInputValue = lastNameRef.current.value.trim();
       const jobRoleInputValue = jobRoleRef.current.value.trim();
+      const countryInputValue = countryRef.current.value.trim();
+      const birthdayInputValue = birthdayRef.current.value.trim();
 
       const errMessage = validateEditProfile({
         firstName: firstNameInputValue,
@@ -74,14 +76,20 @@ const ProfileContent = (props: ProfileContentProps) => {
       if (jobRoleInputValue || user.jobRole) {
         userData.newFields.jobRole = jobRoleInputValue;
       }
+      if (countryInputValue || user.country) {
+        userData.newFields.country = countryInputValue;
+      }
+      if (birthdayInputValue || user.birthday) {
+        userData.newFields.birthday = birthdayInputValue;
+      }
 
       if (errMessage) {
         return;
       }
       firstNameRef.current.value = firstNameRef.current.value.trim();
       lastNameRef.current.value = lastNameRef.current.value.trim();
-      birthdayRef.current.value = '';
-      countryRef.current.value = '';
+      birthdayRef.current.value = birthdayRef.current.value.trim();
+      countryRef.current.value = countryRef.current.value.trim();
     }
 
     dispatch(editUser(userData));
@@ -118,9 +126,12 @@ const ProfileContent = (props: ProfileContentProps) => {
             <Col>
               {' '}
               <InputField
-                className="profile-form profile-form--empty"
+                className={`profile-form ${
+                  !user.country && 'profile-form--empty'
+                }`}
                 reference={countryRef}
-                placeholder="your country"
+                placeholder={user.country || 'your country'}
+                defaultValue={user.country || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
             </Col>
@@ -160,9 +171,12 @@ const ProfileContent = (props: ProfileContentProps) => {
             <Col>
               {' '}
               <InputField
-                className="profile-form profile-form--empty"
+                className={`profile-form ${
+                  !user.birthday && 'profile-form--empty'
+                }`}
                 reference={birthdayRef}
-                placeholder="your birthday"
+                placeholder={user.birthday || 'your birthday'}
+                defaultValue={user.birthday || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
             </Col>

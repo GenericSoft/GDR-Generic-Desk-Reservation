@@ -126,6 +126,8 @@ export const editUserRequest = async (userData: EditUserDataType) => {
       firstName: userInfo && userInfo.firstName,
       lastName: userInfo && userInfo.lastName,
       jobRole: userInfo && userInfo.jobRole,
+      country: userInfo && userInfo.country,
+      birthday: userInfo && userInfo.birthday,
     };
     return updatedUser;
   } catch (error) {

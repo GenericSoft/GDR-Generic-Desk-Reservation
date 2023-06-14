@@ -142,12 +142,15 @@ export const userSlice = createSlice({
       throw new Error(action.error.message);
     });
     builder.addCase(editUser.fulfilled, (state, action) => {
-      const { firstName, lastName, jobRole } = action.payload;
+      const { firstName, lastName, jobRole, country, birthday } =
+        action.payload;
       return {
         ...state,
         firstName,
         lastName,
         jobRole,
+        country,
+        birthday,
       };
     });
     builder.addCase(editUser.rejected, (state, action) => {
