@@ -1,6 +1,6 @@
-import Container from 'react-bootstrap/Container';
 type PropsType = { userImage: string; firstName: string; lastName: string };
 
+import Container from 'react-bootstrap/Container';
 import './UserImage.scss';
 
 const UserImage = (props: PropsType) => {
