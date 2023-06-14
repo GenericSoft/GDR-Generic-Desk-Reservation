@@ -6,6 +6,8 @@
 
 .App {
   background-color: $background;
+  position: relative;
+  min-height: 100%;
 }
 
 .modal-header {
