@@ -43,6 +43,7 @@ const validateEdit = (err: Error) => {
   if (err) {
     return 'An unexpected error occurred!';
   }
+  return '';
 };
 
 const validateEditProfile = (userInputsData: userInputsType) => {
