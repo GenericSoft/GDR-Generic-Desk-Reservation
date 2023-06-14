@@ -5,16 +5,17 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-
-import { useAppDispatch } from '../../redux/store';
-import { editUser } from '../../redux/reducers/userReducer';
+import { Spinner } from 'react-bootstrap';
 
 import InputField from '../InputField/InputField';
 import './ProfileContent.scss';
-import { validateEditProfile } from '../../utils/validations';
+import { validateEdit, validateEditProfile } from '../../utils/validations';
 
+import { editUser } from '../../redux/reducers/userReducer';
+import { useAppDispatch } from '../../redux/store';
 import { useAppSelector } from '../../redux/store';
 import { EditUserDataType } from '../../interfaces/User';
+import { toError } from '../../utils/error';
 
 type ProfileContentProps = {
   isProfileInEditMode: boolean;
@@ -22,9 +23,10 @@ type ProfileContentProps = {
 };
 
 const ProfileContent = (props: ProfileContentProps) => {
-  const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
   const [errorMsg, setErrorMsg] = useState<string>('');
+  const [loadingRequest, setLoadingRequest] = useState(false);
 
   const firstNameRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
@@ -41,6 +43,7 @@ const ProfileContent = (props: ProfileContentProps) => {
 
   const cancelEditProfile = () => {
     errorMsg && setErrorMsg('');
+
     if (currentRefs) {
       firstNameRef.current.value = user.firstName || '';
       jobRoleRef.current.value = user.jobRole || '';
@@ -51,7 +54,7 @@ const ProfileContent = (props: ProfileContentProps) => {
     props.cancelEditClick(true);
   };
 
-  const updateProfileFieldsDb = () => {
+  const updateProfileFieldsDb = async () => {
     const userData: EditUserDataType = {
       userId: user.userId,
       newFields: { firstName: '', lastName: '' },
@@ -92,7 +95,18 @@ const ProfileContent = (props: ProfileContentProps) => {
       countryRef.current.value = countryRef.current.value.trim();
     }
 
-    dispatch(editUser(userData));
+    try {
+      setLoadingRequest(true);
+      await dispatch(editUser(userData)).then(() => {
+        setLoadingRequest(false);
+      });
+      props.cancelEditClick(true);
+    } catch (error) {
+      const err = toError(error);
+      const errMessage = validateEdit(err);
+      setErrorMsg(errMessage);
+      setLoadingRequest(false);
+    }
   };
 
   return (
@@ -115,7 +129,7 @@ const ProfileContent = (props: ProfileContentProps) => {
               <InputField
                 className="profile-form"
                 reference={firstNameRef}
-                placeholder={user.firstName || ''}
+                placeholder=""
                 defaultValue={user.firstName || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
@@ -130,7 +144,7 @@ const ProfileContent = (props: ProfileContentProps) => {
                   !user.country && 'profile-form--empty'
                 }`}
                 reference={countryRef}
-                placeholder={user.country || 'your country'}
+                placeholder={!props.isProfileInEditMode ? '' : 'your country'}
                 defaultValue={user.country || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
@@ -145,7 +159,7 @@ const ProfileContent = (props: ProfileContentProps) => {
                   !user.jobRole && 'profile-form--empty'
                 }`}
                 reference={jobRoleRef}
-                placeholder={user.jobRole || 'your job role'}
+                placeholder={!props.isProfileInEditMode ? '' : 'your job'}
                 defaultValue={user.jobRole || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
@@ -160,7 +174,7 @@ const ProfileContent = (props: ProfileContentProps) => {
               <InputField
                 className="profile-form"
                 reference={lastNameRef}
-                placeholder={user.lastName || ''}
+                placeholder=""
                 defaultValue={user.lastName || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
@@ -175,7 +189,7 @@ const ProfileContent = (props: ProfileContentProps) => {
                   !user.birthday && 'profile-form--empty'
                 }`}
                 reference={birthdayRef}
-                placeholder={user.birthday || 'your birthday'}
+                placeholder={!props.isProfileInEditMode ? '' : 'your birthday'}
                 defaultValue={user.birthday || ''}
                 readOnlyValue={props.isProfileInEditMode}
               />
@@ -186,8 +200,22 @@ const ProfileContent = (props: ProfileContentProps) => {
             <Col className="first-row__email-column">{user.email}</Col>
           </Row>
         </Col>
+        {/* {loadingRequest && (
+          <Row>
+            <Col colSpan={8} className="first-row__center-spinner">
+              <Spinner animation="grow" className="bg-primary" />
+            </Col>
+          </Row>
+        )} */}
         {!props.isProfileInEditMode && (
           <Row className="first-row__buttons">
+            {loadingRequest && (
+              <Row>
+                <Col colSpan={8} className="first-row__center-spinner">
+                  <Spinner animation="grow" className="bg-primary" />
+                </Col>
+              </Row>
+            )}
             {errorMsg && (
               <div className="first-row__buttons--error error-message">
                 {errorMsg}

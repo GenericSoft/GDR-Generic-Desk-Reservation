@@ -54,6 +54,10 @@
       border: solid 2px $secondary;
       color: $dark;
     }
+    &__center-spinner{
+    display: flex;
+    justify-content: center;
+    }
   }
   .card-content {
     &__text {

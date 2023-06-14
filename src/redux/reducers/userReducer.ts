@@ -51,7 +51,7 @@ export const editUser = createAsyncThunk<ReturnedFieldsType, EditUserDataType>(
       const response: ReturnedFieldsType = await editUserRequest(userData);
       return response;
     } catch (err) {
-      throw toError(err);
+      throw toError(err, true);
     }
   }
 );
