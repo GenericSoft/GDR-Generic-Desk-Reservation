@@ -5,7 +5,7 @@ import {
   loginUserType,
   userType,
   EditUserDataType,
-  ReturnedFieldsType,
+  ProfileInfoType,
 } from '../../interfaces/User';
 
 import {
@@ -44,11 +44,11 @@ export const loginUser = createAsyncThunk<userType, loginUserType>(
   }
 );
 
-export const editUser = createAsyncThunk<ReturnedFieldsType, EditUserDataType>(
+export const editUser = createAsyncThunk<ProfileInfoType, EditUserDataType>(
   'users/editUserStatus',
   async (userData) => {
     try {
-      const response: ReturnedFieldsType = await editUserRequest(userData);
+      const response: ProfileInfoType = await editUserRequest(userData);
       return response;
     } catch (err) {
       throw toError(err, true);
