@@ -39,6 +39,12 @@ const validateRegister = (err: Error) => {
   return 'An unexpected error occurred!';
 };
 
+const validateEdit = (err: Error) => {
+  if (err) {
+    return 'An unexpected error occurred!';
+  }
+};
+
 const validateEditProfile = (userInputsData: userInputsType) => {
   const { firstName, lastName } = userInputsData;
   if (firstName.length === 0 || lastName.length === 0) {
@@ -47,4 +53,4 @@ const validateEditProfile = (userInputsData: userInputsType) => {
   return '';
 };
 
-export { validateLogin, validateRegister, validateEditProfile };
+export { validateLogin, validateRegister, validateEditProfile, validateEdit };
