@@ -1,3 +1,5 @@
+@import '../../common/styles/responsive';
+
 .form-page {
   &-wrapper {
     position: relative;
@@ -36,15 +38,16 @@
 }
 
 .image {
+  height: 100%;
+  width: 90%;
+  object-fit: fill;
+
   &-container {
     flex: 1 1 0;
     background-color: #724d7e;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
   }
-  height: 100%;
-  width: 90%;
-  object-fit: fill;
 }
 
 .blue-triangle1 {
@@ -57,4 +60,61 @@
   z-index: 0;
   background: url('../../resources/images/Purple_triangle.png') 0 0 repeat;
   transform: rotate(30deg);
+}
+
+@include xlg {
+  .form-page-container {
+    &.register {
+      width: 80vw;
+    }
+  }
+}
+
+@include lg {
+  .form-page-container {
+    &.register {
+      width: 90vw;
+    }
+  }
+}
+
+@include md {
+  .form-page-container {
+    &.register,
+    &.login {
+      width: 50vw;
+    }
+  }
+
+  .form-container {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  .image-container {
+    display: none;
+  }
+
+  .blue-triangle1 {
+    display: none;
+  }
+}
+
+@include md-2 {
+  .form-page-container {
+    &.register,
+    &.login {
+      width: 65vw;
+    }
+  }
+}
+
+@include sm {
+  .form-page-container {
+    &.register,
+    &.login {
+      width: 75vw;
+      height: 60vh;
+    }
+  }
 }

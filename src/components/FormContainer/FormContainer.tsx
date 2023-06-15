@@ -18,13 +18,15 @@ const FormContainer = ({
   return (
     <div className="form-page-wrapper">
       <div className="blue-triangle1"></div>
-      <div className="form-page-container">
+      <div
+        className={`form-page-container ${isLoginPage ? 'login' : 'register'}`}
+      >
         {!isLoginPage && (
           <div className="image-container">
             <img className="image" src={RegistrationImage} alt="form-pic" />
           </div>
         )}
-        <div className={`form-container ${isLoginPage ? 'login' : ''}`}>
+        <div className={`form-container ${isLoginPage ? 'login' : 'register'}`}>
           <FormHeader onClick={onClick} isLoginPage={isLoginPage} />
           <div className="form-body">{children}</div>
         </div>
