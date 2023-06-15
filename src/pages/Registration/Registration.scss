@@ -1,5 +1,6 @@
 @import '../../common/styles/colors';
 @import '../../common/styles/buttons';
+@import '../../common/styles/responsive';
 
 .form {
   &-body {
@@ -23,82 +24,16 @@
   margin-block: 20px;
   color: $danger;
 }
+
 .form-control {
   border: 0;
   border-radius: 0;
 }
-.inp {
-  position: relative;
-  width: 100%;
-  max-width: 280px;
-  border-radius: 3px;
-  overflow: hidden;
-}
-.inp .label {
-  position: absolute;
-  top: 20px;
-  left: 12px;
-  font-size: 16px;
-  color: rgba(0, 0, 0, 0.5);
-  font-weight: 500;
-  transform-origin: 0 0;
-  transform: translate3d(0, 0, 0);
-  transition: all 0.2s ease;
-  pointer-events: none;
-}
-.inp .focus-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.05);
-  transform: scaleX(0);
-  transform-origin: left;
-}
-.inp input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 100%;
-  border: 0;
-  font-family: inherit;
-  padding: 16px 12px 0 12px;
-  height: 56px;
-  font-size: 16px;
-  font-weight: 400;
-  background: rgba(0, 0, 0, 0.02);
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
-  color: #000;
-  transition: all 0.15s ease;
-}
-.inp input:hover {
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
-}
-.inp input:not(:-moz-placeholder-shown) + .label {
-  color: rgba(0, 0, 0, 0.5);
-  transform: translate3d(0, -12px, 0) scale(0.75);
-}
-.inp input:not(:-ms-input-placeholder) + .label {
-  color: rgba(0, 0, 0, 0.5);
-  transform: translate3d(0, -12px, 0) scale(0.75);
-}
-.inp input:not(:placeholder-shown) + .label {
-  color: rgba(0, 0, 0, 0.5);
-  transform: translate3d(0, -12px, 0) scale(0.75);
-}
-.inp input:focus {
-  outline: none;
-  box-shadow: inset 0 -2px 0 $primary;
-  border: 1px solid grey;
-  border-bottom: 0;
-  border-radius: 3px;
-}
-.inp input:focus + .label {
-  color: $primary;
-  transform: translate3d(0, -12px, 0) scale(0.75);
-}
-.inp input:focus + .label + .focus-bg {
-  transform: scaleX(1);
-  transition: all 0.4s ease;
+
+@include md-2 {
+  .form {
+    &-body {
+      padding-inline: 30px;
+    }
+  }
 }

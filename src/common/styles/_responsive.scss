@@ -1,7 +1,9 @@
 $xsm: 374px;
 $sm: 576px;
+$md-2: 700px;
 $md: 768px;
 $lg: 992px;
+$xlg: 1200px;
 
 //For Extra Small
 @mixin xsm {
@@ -17,6 +19,12 @@ $lg: 992px;
   }
 }
 
+@mixin md-2 {
+  @media screen and (max-width: ($md-2)) {
+    @content;
+  }
+}
+
 //For Medium
 @mixin md {
   @media screen and (max-width: ($md)) {
@@ -27,6 +35,12 @@ $lg: 992px;
 //For large
 @mixin lg {
   @media screen and (max-width: ($lg)) {
+    @content;
+  }
+}
+
+@mixin xlg {
+  @media screen and (max-width: ($xlg)) {
     @content;
   }
 }
