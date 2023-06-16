@@ -1,0 +1,28 @@
+@import '../../common/styles/colors';
+
+.current-day {
+  color: $primary;
+  text-align: center;
+  margin-block: 20px;
+}
+.day-viewers-wrapper {
+  display: flex;
+  margin: 0 auto;
+  width: 89vw;
+  gap: 20px;
+}
+
+.day-viewer {
+  &-container {
+    width: 50%;
+    height: 150px;
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid $primary;
+    border-radius: 20px;
+  }
+
+  &-title {
+    margin-bottom: 20px;
+  }
+}

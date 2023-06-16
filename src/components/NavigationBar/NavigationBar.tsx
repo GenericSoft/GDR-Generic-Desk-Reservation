@@ -41,6 +41,8 @@ const NavigationBar = () => {
             userImage={currentUser.profilePic || ''}
             firstName={currentUser.firstName || ''}
             lastName={currentUser.lastName || ''}
+            color="#724d7e"
+            background="#edebeb"
           />
         </Navbar.Collapse>
       </Container>

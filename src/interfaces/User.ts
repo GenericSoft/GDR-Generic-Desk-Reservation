@@ -19,7 +19,7 @@ export interface userType {
   birthday?: string;
   email: string;
   profilePic?: string;
-  token: string;
+  token?: string;
 }
 export interface ProfileInfoType {
   firstName: string | undefined;

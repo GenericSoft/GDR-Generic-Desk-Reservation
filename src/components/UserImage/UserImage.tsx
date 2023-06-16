@@ -1,7 +1,14 @@
-type PropsType = { userImage: string; firstName: string; lastName: string };
-
 import Container from 'react-bootstrap/Container';
 import './UserImage.scss';
+
+type PropsType = {
+  userImage?: string;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  color?: string;
+  background?: string;
+  // showTooltip?: () => void;
+};
 
 const UserImage = (props: PropsType) => {
   let nameLogo = '';
@@ -12,14 +19,22 @@ const UserImage = (props: PropsType) => {
       props.lastName.trim().substring(0, 1).toUpperCase();
   }
 
-  return !props.userImage ? (
-    <Container className="logo-container profile-image">{nameLogo}</Container>
-  ) : (
-    <img
-      src={props.userImage}
-      className="user-image profile-image"
-      alt="user photo"
-    />
+  return (
+    <Container
+      className="logo-container profile-image"
+      style={{ color: props.color, background: props.background }}
+      // onClick={props.showTooltip}
+    >
+      {props.userImage ? (
+        <img
+          src={props.userImage}
+          className="user-image profile-image"
+          alt="user photo"
+        />
+      ) : (
+        nameLogo
+      )}
+    </Container>
   );
 };
 
