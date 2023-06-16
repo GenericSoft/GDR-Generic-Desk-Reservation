@@ -10,7 +10,17 @@ import { Spinner } from 'react-bootstrap';
 import { getAllReservations } from '../../api/reservationDeskBackend/calendarApi';
 import { format, startOfWeek, add } from 'date-fns';
 
-const TimeTable = () => {
+import { QuerySnapshot } from 'firebase/firestore';
+
+type TimeTableProps = {
+  setCurrentReservations: React.Dispatch<QuerySnapshot<DocumentData>>;
+  setCurrentUsers: React.Dispatch<QuerySnapshot<DocumentData>>;
+};
+
+const TimeTable = ({
+  setCurrentReservations,
+  setCurrentUsers,
+}: TimeTableProps) => {
   const [users, setUsers] = useState<DocumentData>([]);
   const [reservations, setReservations] = useState<DocumentData>([]);
   const [shownWeek, setShownWeek] = useState(new Date());
@@ -20,6 +30,7 @@ const TimeTable = () => {
     const users = await getAllUsers();
     if (users) {
       setUsers(users);
+      setCurrentUsers(users);
     }
   };
 
@@ -27,6 +38,7 @@ const TimeTable = () => {
     const deskReservations = await getAllReservations();
     if (deskReservations) {
       setReservations(deskReservations);
+      setCurrentReservations(deskReservations);
     }
   };
 

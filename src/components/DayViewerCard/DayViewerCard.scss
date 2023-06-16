@@ -1,0 +1,26 @@
+@import '../../common/styles/colors';
+
+.day-viewer {
+  &-container {
+    width: 50%;
+    height: 150px;
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid $primary;
+    border-radius: 20px;
+  }
+
+  &-title {
+    margin-bottom: 20px;
+  }
+
+  &-card-users-container {
+    display: flex;
+    gap: 10px;
+  }
+
+  &-no-users {
+    color: $primary;
+    font-size: 18px;
+  }
+}
