@@ -1,10 +1,11 @@
 import React from 'react';
 
 import UserImage from '../UserImage/UserImage';
+import CustomTooltip from '../CustomTooltip/CustomTooltip';
+
+import { userType } from '../../interfaces/User';
 
 import './DayViewerCard.scss';
-import { userType } from '../../interfaces/User';
-import CustomTooltip from '../CustomTooltip/CustomTooltip';
 
 type DayViewerCardProps = {
   title: string;
@@ -13,8 +14,6 @@ type DayViewerCardProps = {
 };
 
 const DayViewerCard = ({ title, titleColor, users }: DayViewerCardProps) => {
-  // const [show, setShow] = useState<boolean>(false);
-
   return (
     <div className="day-viewer-container">
       <h4 className="day-viewer-title" style={{ color: titleColor }}>
@@ -29,7 +28,6 @@ const DayViewerCard = ({ title, titleColor, users }: DayViewerCardProps) => {
               text={`${user.firstName} ${user.lastName}`}
             >
               <UserImage
-                // showTooltip={() => setShow((state) => !state)}
                 firstName={user.firstName}
                 lastName={user.lastName}
                 userImage={user.profilePic}

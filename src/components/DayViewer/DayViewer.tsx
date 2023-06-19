@@ -25,6 +25,7 @@ const DayViewer = ({ currentReservations, currentUsers }: DayViewerProps) => {
   const getUsersWorkplace = () => {
     const workingFromOffice: userType[] = [];
     const workingFromHome: userType[] = [];
+    let currentDayExists: boolean;
 
     currentUsers?.forEach((doc) => {
       const user = doc.data() as userType;
@@ -33,6 +34,7 @@ const DayViewer = ({ currentReservations, currentUsers }: DayViewerProps) => {
       currentReservations?.forEach((dateDoc) => {
         const dateInfo = dateDoc.data();
         if (dateInfo.day === currentDay) {
+          currentDayExists = true;
           dateInfo.desks.forEach((desk: { deskId: string; usersArray: [] }) => {
             desk.usersArray.forEach(
               (deskUser: { hours: string; userId: string }) => {
@@ -50,6 +52,9 @@ const DayViewer = ({ currentReservations, currentUsers }: DayViewerProps) => {
           }
         }
       });
+      if (!currentDayExists) {
+        workingFromHome.push(user);
+      }
     });
 
     setUsersWorkingFromHome(workingFromHome);
@@ -57,7 +62,9 @@ const DayViewer = ({ currentReservations, currentUsers }: DayViewerProps) => {
   };
 
   useEffect(() => {
-    getUsersWorkplace();
+    if (currentReservations && currentUsers) {
+      getUsersWorkplace();
+    }
   }, [currentReservations, currentUsers]);
 
   return (

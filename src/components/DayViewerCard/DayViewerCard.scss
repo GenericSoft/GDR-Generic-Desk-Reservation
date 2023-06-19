@@ -17,6 +17,33 @@
   &-card-users-container {
     display: flex;
     gap: 10px;
+    overflow-y: hidden;
+
+    /* Track */
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: $secondary;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: $primary;
+      border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #875a97;
+    }
+
+    .profile-image {
+      cursor: pointer;
+    }
   }
 
   &-no-users {
