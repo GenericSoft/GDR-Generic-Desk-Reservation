@@ -28,6 +28,9 @@
       height: 7.5rem;
       width: 7.5rem;
       border: 7px solid #ffffff5e;
+      &:hover{
+        cursor: pointer;
+      }
     }
   
     &__title {
@@ -39,6 +42,30 @@
     &__email {
       margin: 0;
       padding: 0;
+    }
+    &__buttons{
+      &>*{
+      margin-bottom:0.5rem;
+
+      }
+      margin-top:1rem;
+      display: flex;
+      flex-direction:column;
+      justify-content: center;
+      align-items: center;
+  
+      &--add-btn{
+        &:hover{
+          color:$primary
+        }
+      }
+      &--delete-icon{
+        height:2.5rem;
+        color:$secondary;
+        &:hover{
+cursor: pointer;
+        }
+      }
     }
   }
   .list-group-flush{

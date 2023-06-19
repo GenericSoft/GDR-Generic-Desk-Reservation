@@ -127,7 +127,8 @@ export const editUserRequest = async (userData: EditUserDataType) => {
       lastName: userInfo && userInfo.lastName,
       jobRole: userInfo && userInfo.jobRole,
       country: userInfo && userInfo.country,
-      birthday: userInfo && userInfo.jobRole,
+      birthday: userInfo && userInfo.birthday,
+      profilePic: userInfo && userInfo.profilePic,
     };
     return updatedUser;
   } catch (error) {
