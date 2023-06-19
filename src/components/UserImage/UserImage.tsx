@@ -7,7 +7,6 @@ type PropsType = {
   lastName: string | undefined;
   color?: string;
   background?: string;
-  // showTooltip?: () => void;
 };
 
 const UserImage = (props: PropsType) => {
@@ -23,7 +22,6 @@ const UserImage = (props: PropsType) => {
     <Container
       className="logo-container profile-image"
       style={{ color: props.color, background: props.background }}
-      // onClick={props.showTooltip}
     >
       {props.userImage ? (
         <img
