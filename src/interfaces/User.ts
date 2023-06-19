@@ -22,21 +22,23 @@ export interface userType {
   token?: string;
 }
 export interface ProfileInfoType {
-  firstName: string | undefined;
-  lastName: string | undefined;
+  firstName?: string | undefined;
+  lastName?: string | undefined;
   jobRole?: string | undefined;
   country?: string | undefined;
+  profilePic?: string;
   birthday?: string | undefined;
 }
 
 export interface EditUserDataType {
   userId: string;
   newFields: {
-    firstName: string;
-    lastName: string;
+    firstName?: string;
+    lastName?: string;
     jobRole?: string;
     country?: string;
     birthday?: string;
+    profilePic?: string;
   };
 }
 export interface firebaseUserType {

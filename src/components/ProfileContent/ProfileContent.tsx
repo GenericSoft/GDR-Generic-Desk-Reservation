@@ -200,13 +200,7 @@ const ProfileContent = (props: ProfileContentProps) => {
             <Col className="first-row__email-column">{user.email}</Col>
           </Row>
         </Col>
-        {/* {loadingRequest && (
-          <Row>
-            <Col colSpan={8} className="first-row__center-spinner">
-              <Spinner animation="grow" className="bg-primary" />
-            </Col>
-          </Row>
-        )} */}
+
         {!props.isProfileInEditMode && (
           <Row className="first-row__buttons">
             {loadingRequest && (
