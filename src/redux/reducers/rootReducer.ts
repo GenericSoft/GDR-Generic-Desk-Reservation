@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
 
+import { Room } from '../../interfaces/ImageMap';
 import { userType } from '../../interfaces/User';
 
 import userReducer from './userReducer';
 import roomReducer from './imageMapReducer';
-
-import { Room } from '../../interfaces/ImageMap';
 
 export type RootReducerType = {
   user: userType;

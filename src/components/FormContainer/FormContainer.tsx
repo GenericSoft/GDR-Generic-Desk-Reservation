@@ -2,6 +2,7 @@ import React from 'react';
 
 import RegistrationImage from '../../resources/images/registration-image.png';
 import FormHeader from '../FormHeader/FormHeader';
+
 import './FormContainer.scss';
 
 type FormContainerProps = {

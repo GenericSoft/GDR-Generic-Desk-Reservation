@@ -1,16 +1,20 @@
-import Table from 'react-bootstrap/Table';
-import TimeTableHeader from '../TimeTableHeader/TimeTableHeader';
-import { getAllUsers } from '../../api/reservationDeskBackend/getAllUsersApi';
-import './TimeTable.scss';
 import { useEffect, useState } from 'react';
-import { DocumentData } from '@firebase/firestore';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouseUser, faBuilding } from '@fortawesome/free-solid-svg-icons';
+
 import { Spinner } from 'react-bootstrap';
-import { getAllReservations } from '../../api/reservationDeskBackend/calendarApi';
+import Table from 'react-bootstrap/Table';
+import { QuerySnapshot } from 'firebase/firestore';
+import { DocumentData } from '@firebase/firestore';
+
 import { format, startOfWeek, add } from 'date-fns';
 
-import { QuerySnapshot } from 'firebase/firestore';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouseUser, faBuilding } from '@fortawesome/free-solid-svg-icons';
+
+import TimeTableHeader from '../TimeTableHeader/TimeTableHeader';
+import { getAllUsers } from '../../api/reservationDeskBackend/getAllUsersApi';
+import { getAllReservations } from '../../api/reservationDeskBackend/calendarApi';
+
+import './TimeTable.scss';
 
 type TimeTableProps = {
   setCurrentReservations: React.Dispatch<QuerySnapshot<DocumentData>>;

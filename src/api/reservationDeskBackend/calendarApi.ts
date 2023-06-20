@@ -1,4 +1,3 @@
-import { db } from '../../firebase';
 import {
   DocumentData,
   arrayRemove,
@@ -11,6 +10,7 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
+import { db } from '../../firebase';
 import { toError } from '../../utils/error';
 
 type allDayDataType = {

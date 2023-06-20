@@ -1,4 +1,3 @@
-import { db } from '../../firebase';
 import {
   doc,
   getDocs,
@@ -7,6 +6,7 @@ import {
   getDoc,
   setDoc,
 } from 'firebase/firestore';
+import { db } from '../../firebase';
 import { toError } from '../../utils/error';
 
 export const saveImageToFirebaseRequest = async (imageMapJSON: string) => {

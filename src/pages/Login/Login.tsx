@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import FormContainer from '../../components/FormContainer/FormContainer';
-import InputField from '../../components/InputField/InputField';
-
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+
+import FormContainer from '../../components/FormContainer/FormContainer';
+import InputField from '../../components/InputField/InputField';
 
 import { toError } from '../../utils/error';
 import { validateLogin } from '../../utils/validations';

@@ -1,5 +1,5 @@
-import { db } from '../../firebase';
 import { collection, query, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase';
 import { toError } from '../../utils/error';
 
 export const getAllUsers = async () => {

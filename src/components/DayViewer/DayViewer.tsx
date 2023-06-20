@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { endOfDay, format } from 'date-fns';
 import { DocumentData, QuerySnapshot } from 'firebase/firestore';
 
 import DayViewerCard from '../DayViewerCard/DayViewerCard';
 
-import { endOfDay, format } from 'date-fns';
+import { userType } from '../../interfaces/User';
 
 import './DayViewer.scss';
-import { userType } from '../../interfaces/User';
 
 type DayViewerProps = {
   currentReservations: QuerySnapshot<DocumentData> | undefined;

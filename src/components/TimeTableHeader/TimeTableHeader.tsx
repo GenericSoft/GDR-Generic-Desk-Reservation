@@ -16,12 +16,14 @@ import {
   eachDayOfInterval,
   sub,
 } from 'date-fns';
-import './TimeTableHeader.scss';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleChevronLeft,
   faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
+
+import './TimeTableHeader.scss';
 
 type CalendarType = {
   getDate?: (currDate: string) => void;

@@ -4,10 +4,11 @@ import Container from 'react-bootstrap/Container';
 import DropDown from '../DropDown/DropDown';
 import UserImage from '../UserImage/UserImage';
 
-import './NavigationBar.scss';
 import logo from '../../resources/images/GenericSoft_Logo_White.svg';
 import { useAppSelector } from '../../redux/store';
 import ReserveDeskButton from '../ReserveDeskButton/ReserveDeskButton';
+
+import './NavigationBar.scss';
 
 const NavigationBar = () => {
   const currentUser = useAppSelector((state) => state.user);
