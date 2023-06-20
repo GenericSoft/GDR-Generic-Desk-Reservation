@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { bindActionCreators } from 'redux';
 
 import {
   registerUserType,
@@ -16,7 +17,6 @@ import {
 } from '../../api/reservationDeskBackend/userApi';
 import { toError } from '../../utils/error';
 
-import { bindActionCreators } from 'redux';
 import { useAppDispatch } from '../store';
 
 export const registerUser = createAsyncThunk<userType, registerUserType>(

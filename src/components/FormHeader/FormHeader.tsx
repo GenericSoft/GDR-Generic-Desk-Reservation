@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './FormHeader.scss';
-
 import Logo from '../../resources/images/gs-logo.png';
+
+import './FormHeader.scss';
 
 type FormHeaderProps = {
   onClick: () => void;

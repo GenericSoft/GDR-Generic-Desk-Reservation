@@ -3,13 +3,15 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
+
+import { auth, db } from '../../firebase';
+
 import {
   registerUserType,
   firebaseUserType,
   EditUserDataType,
 } from '../../interfaces/User';
-import { auth, db } from '../../firebase';
-import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 import { toError } from '../../utils/error';
 
 export const registerUserRequest = async (userData: registerUserType) => {

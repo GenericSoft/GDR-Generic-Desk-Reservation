@@ -11,7 +11,8 @@
     // "airbnb/hooks",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:css-import-order/recommended"
   ],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
@@ -25,7 +26,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": ["react", "@typescript-eslint", "prettier", "import","css-import-order"],
   "ignorePatterns": ["main.js", "*.jsx", "*.js"],
   "rules": {
     "no-console": "off",
@@ -38,6 +39,90 @@
       "error",
       {
         "endOfLine": "auto"
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin", 
+          "external", 
+          "internal", 
+          "parent", 
+          "sibling", 
+          "index"
+        ], 
+        "pathGroups": [
+          { 
+            "pattern": "react", 
+            "group": "builtin",
+            "position": "before"
+          }, 
+          {
+            "pattern": "react-router-dom",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "redux",
+            "group": "builtin"
+          },
+          { 
+            "pattern": "date-fns", 
+            "group": "builtin" 
+          }, 
+          {
+            "pattern": "firebase/**", 
+            "group": "builtin",
+            "position": "after"
+          },
+          {
+            "pattern": "react-bootstrap/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@fortawesome/**",
+            "group": "external",
+            "position": "after"
+          },
+          { 
+            "pattern": "components/**", 
+            "group": "internal" 
+          }, 
+          { 
+            "pattern": "pages/**", 
+            "group": "internal" 
+          }, 
+          { 
+            "pattern": "redux/**", 
+            "group": "internal" 
+          },
+          { 
+            "pattern": "interfaces/**", 
+            "group": "internal" 
+          }, 
+          { 
+            "pattern": "config/**", 
+            "group": "internal" 
+          }, 
+          { 
+            "pattern": "utils/**", 
+            "group": "internal" 
+          }, 
+          { 
+            "pattern": "resources/**", 
+            "group": "internal"
+          },
+          { 
+            "pattern": "common/**", 
+            "group": "internal" 
+          },
+          { 
+            "pattern": "api/**", 
+            "group": "internal"
+          }
+        ]
       }
     ]
   }

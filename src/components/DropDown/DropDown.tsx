@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
+import { Container } from 'react-bootstrap';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Container } from 'react-bootstrap';
+
 import {
   faUser,
   faRightFromBracket,
@@ -14,8 +15,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { logoutUser } from '../../redux/reducers/userReducer';
 import { useAppDispatch } from '../../redux/store';
 
-import './DropDown.scss';
 import UserImage from '../UserImage/UserImage';
+
+import './DropDown.scss';
 
 type UserProps = {
   firstName: string;

@@ -1,14 +1,15 @@
 import React from 'react';
 
-import RocketImage from '../../resources/images/rocket.png';
-
-import './Footer.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowUpRightFromSquare,
   faAt,
   faLink,
 } from '@fortawesome/free-solid-svg-icons';
+
+import RocketImage from '../../resources/images/rocket.png';
+
+import './Footer.scss';
 
 const Footer = () => {
   return (

@@ -10,7 +10,6 @@ import Button from 'react-bootstrap/Button';
 import { Spinner } from 'react-bootstrap';
 
 import InputField from '../InputField/InputField';
-import './ProfileContent.scss';
 import { validateEdit, validateEditProfile } from '../../utils/validations';
 
 import { editUser } from '../../redux/reducers/userReducer';
@@ -20,7 +19,14 @@ import { EditUserDataType } from '../../interfaces/User';
 import { toError } from '../../utils/error';
 import ProfileCard from '../ProfileCard/ProfileCard';
 
-const ProfileContent = () => {
+import './ProfileContent.scss';
+
+type ProfileContentProps = {
+  isProfileInEditMode: boolean;
+  cancelEditClick: (prop: boolean) => void;
+};
+
+const ProfileContent = (props: ProfileContentProps) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const [errorMsg, setErrorMsg] = useState<string>('');

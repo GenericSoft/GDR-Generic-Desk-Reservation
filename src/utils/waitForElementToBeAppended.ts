@@ -24,7 +24,7 @@ export function observeChangesOfChildren(element: HTMLDivElement) {
     const observer = new MutationObserver((mutationList) => {
       for (const mutation of mutationList) {
         if (mutation.type === 'childList') {
-          resolve('BS');
+          resolve('resolve');
           observer.disconnect();
         }
       }

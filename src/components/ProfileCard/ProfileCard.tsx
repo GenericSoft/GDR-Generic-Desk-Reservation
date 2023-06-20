@@ -17,13 +17,14 @@ import {
   faCircleXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
-import './ProfileCard.scss';
 import UserImage from '../UserImage/UserImage';
 
 import { toError } from '../../utils/error';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { editUser } from '../../redux/reducers/userReducer';
 import { useEffect } from 'react';
+
+import './ProfileCard.scss';
 
 type ProfileCardProps = {
   isProfileInEditMode: boolean;

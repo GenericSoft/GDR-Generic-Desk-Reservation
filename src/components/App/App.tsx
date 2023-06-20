@@ -3,8 +3,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 // Style
+// eslint-disable-next-line
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss';
 
 import Dashboard from '../../pages/Dashboard/Dashboard';
 import Registration from '../../pages/Registration/Registration';
@@ -15,6 +15,8 @@ import Calendar from '../../pages/Calendar/Calendar';
 import ImageMapProView from '../../pages/ImageMapProView/ImageMapProView';
 import ImageMapProEditor from '../../pages/ImageMapProEditor/ImageMapProEditor';
 import Profile from '../../pages/Profile/Profile';
+
+import './App.scss';
 
 function App() {
   return (

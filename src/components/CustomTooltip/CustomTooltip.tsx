@@ -2,7 +2,6 @@ import React from 'react';
 
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-
 import { Placement } from 'react-bootstrap/esm/types';
 
 type CustomTooltipProps = {
