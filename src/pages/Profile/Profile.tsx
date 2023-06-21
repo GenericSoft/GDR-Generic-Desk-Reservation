@@ -20,7 +20,10 @@ const Profile = () => {
       <NavigationBar />
       <Container fluid className="profile-container">
         <Container className="profile-container__profile-card">
-          <ProfileCard activeEditClick={changeProfileEditMode} />
+          <ProfileCard
+            activeEditClick={changeProfileEditMode}
+            isProfileInEditMode={isProfileInEditMode}
+          />
         </Container>
         <Container className="profile-container__profile-content">
           <ProfileContent
