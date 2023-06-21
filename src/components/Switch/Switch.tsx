@@ -6,6 +6,7 @@ type SwitchProps = {
   id?: string;
   disabled?: boolean;
   handleOnClick?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  checked?: boolean;
 };
 
 function Switch({
@@ -14,6 +15,7 @@ function Switch({
   id,
   disabled,
   handleOnClick,
+  checked,
 }: SwitchProps) {
   return (
     <Form.Check
@@ -23,6 +25,7 @@ function Switch({
       id={id}
       disabled={disabled}
       onChange={handleOnClick}
+      checked={checked}
     />
   );
 }
