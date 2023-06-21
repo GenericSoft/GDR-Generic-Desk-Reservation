@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { storage } from '../../firebase';
@@ -9,7 +9,6 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Container, Row } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -28,21 +27,20 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { editUser } from '../../redux/reducers/userReducer';
 
 type ProfileCardProps = {
+  isProfileInEditMode: boolean;
   activeEditClick: (prop: boolean) => void;
 };
+let initialImageState: File;
 
 const ProfileCard = (props: ProfileCardProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-  const [chooseImage, setChooseImage] = useState<File>();
-  const [activeChooseImage, setActiveChooseImage] = useState(false);
+  const [chooseImage, setChooseImage] = useState(initialImageState);
   const [loading, setLoading] = useState('');
-  const clickImage = () => {
-    setActiveChooseImage((state) => !state);
-    setLoading('');
-  };
+
   const editClick = () => {
+    setLoading('');
     props.activeEditClick(false);
   };
 
@@ -52,9 +50,8 @@ const ProfileCard = (props: ProfileCardProps) => {
     }
   };
 
-  const uploadImage = () => {
+  useEffect(() => {
     if (chooseImage) {
-      // const name = chooseImage.name;
       const storageRef = ref(storage, user.userId);
       const uploadImage = uploadBytesResumable(storageRef, chooseImage);
       setLoading('uploading is...');
@@ -64,7 +61,7 @@ const ProfileCard = (props: ProfileCardProps) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           if (progress === 100) {
-            setLoading('uploading is' + progress + '% done');
+            setLoading('uploading is ' + progress + '% done');
           }
         },
         (error) => {
@@ -83,8 +80,11 @@ const ProfileCard = (props: ProfileCardProps) => {
         }
       );
     }
-  };
+    setChooseImage(initialImageState);
+  }, [chooseImage]);
+
   const deleteImage = () => {
+    setLoading('');
     const storageRef = ref(storage, user.userId);
     try {
       deleteObject(storageRef).then(() => {
@@ -108,32 +108,36 @@ const ProfileCard = (props: ProfileCardProps) => {
           firstName={user.firstName || ''}
           lastName={user.lastName || ''}
           userImage={user.profilePic || ''}
-          onClick={clickImage}
         />
         <Card.Title className="user-data-container__title">{`${user.firstName} ${user.lastName}`}</Card.Title>
         <Card.Text className="user-data-container__email">
           {user.email}
         </Card.Text>
-        {activeChooseImage && (
+        {!props.isProfileInEditMode && (
           <Row className="user-data-container__buttons">
-            <input
-              className="user-data-container__buttons--file-input"
-              type="file"
-              onChange={chooseImageHandler}
-              accept=".jpg, .jpeg, .png"
-            />
-            <span>{loading}</span>
-            <Button
-              className="user-data-container__buttons--add-btn btn-secondary"
-              onClick={uploadImage}
-            >
-              Add photo
-            </Button>
-            <FontAwesomeIcon
-              onClick={deleteImage}
-              className="user-data-container__buttons--delete-icon"
-              icon={faCircleXmark}
-            />{' '}
+            <span className="user-data-container__buttons--text">
+              {loading}
+            </span>
+            <Container>
+              <label
+                htmlFor="file-upload"
+                className="user-data-container__buttons--add-btn btn-secondary"
+              >
+                <input
+                  id="file-upload"
+                  className="user-data-container__buttons--add-btn"
+                  type="file"
+                  onChange={chooseImageHandler}
+                  accept=".jpg, .jpeg, .png"
+                />
+                Add photo
+              </label>
+              <FontAwesomeIcon
+                onClick={deleteImage}
+                className="user-data-container__buttons--delete-icon"
+                icon={faCircleXmark}
+              />{' '}
+            </Container>
           </Row>
         )}
       </Container>
