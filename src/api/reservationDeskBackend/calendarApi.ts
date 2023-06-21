@@ -15,6 +15,9 @@ import { toError } from '../../utils/error';
 
 type allDayDataType = {
   date: string;
+  isAllDayReservation: boolean;
+  timeFrom: Date | number;
+  timeTo: Date | number;
   deskId: string;
   userId: string;
 };
@@ -23,7 +26,8 @@ export const saveDateRequest = async (
   allDayData: allDayDataType,
   floorName?: string
 ) => {
-  const { date, deskId, userId } = allDayData;
+  const { date, isAllDayReservation, timeFrom, timeTo, deskId, userId } =
+    allDayData;
 
   // check if calendar floor exists - not sure if it is needed for now
   // const check = await getIfCalendarExists(floorName);
@@ -40,7 +44,9 @@ export const saveDateRequest = async (
         deskId,
         usersArray: [
           {
-            hours: '12-15',
+            // hours: '12-15',
+            timeFrom,
+            timeTo,
             userId: userId,
           },
         ],
@@ -57,7 +63,7 @@ export const saveDateRequest = async (
         .data()
         .desks.filter((desk: DocumentData) => desk.deskId === deskId).length;
 
-      if (isDeskAlreadyReserved) {
+      if (!isAllDayReservation && isDeskAlreadyReserved) {
         let newUsersArray = null;
         let deskIdIndex = 0;
 
@@ -66,7 +72,8 @@ export const saveDateRequest = async (
             deskIdIndex = index;
             newUsersArray = element.usersArray;
             newUsersArray.push({
-              hours: '15-17',
+              timeFrom,
+              timeTo,
               userId: userId,
             });
           }
@@ -89,7 +96,6 @@ export const saveDateRequest = async (
             deskId,
             usersArray: [
               {
-                hours: '12-15',
                 userId: userId,
               },
             ],
