@@ -27,18 +27,22 @@ const ImageMapProView = () => {
   const [deskId, setDeskId] = useState('');
   const [floorName, setFloorName] = useState('');
   const [responsiveClass, setResponsiveClass] = useState('');
-  const [alreadyReservedHours, setalreadyReservedHours] = useState('');
-  const location = useLocation();
-  const navigate = useNavigate();
-
+  const [alreadyReservedHours, setAlreadyReservedHours] = useState('');
   const [imageMapJSON, setImageMapJSON] = useState('');
   const [infoModalShown, setInfoModalShown] = useState(false);
   const [shownImageMap, setShownImageMap] = useState('');
+  const [isReservationDone, setIsReservationDone] = useState('');
+
+  const location = useLocation();
 
   const userId = useAppSelector((state) => state.user.userId);
 
   const currDate = location.state.currDate;
   const srcFilePath = `${process.env.PUBLIC_URL}/assets/lib/imp/image-map-pro.min.js`;
+
+  const checkIfReservationIsSaved = (isReservationDone) => {
+    setIsReservationDone(isReservationDone);
+  };
 
   const getWindowWidth = () => {
     setTimeout(() => {
@@ -60,7 +64,7 @@ const ImageMapProView = () => {
       desks.data().desks.forEach((element, index) => {
         const p = [];
         const hours = [];
-        console.log(element);
+
         element.usersArray.forEach((el) => {
           p.push(el.userId);
           if (el.timeFrom) {
@@ -72,13 +76,7 @@ const ImageMapProView = () => {
           if (el.timeFrom) {
             document
               .querySelector('[data-object-id="' + element.deskId + '"]')
-              .setAttribute(
-                'hours',
-                // element.usersArray[index].timeFrom.toDate() +
-                //   '-' +
-                //   element.usersArray[index].timeTo.toDate()
-                hours
-              );
+              .setAttribute('hours', hours);
 
             document.querySelector(
               '[data-object-id="' + element.deskId + '"]'
@@ -135,8 +133,7 @@ const ImageMapProView = () => {
           !img.getAttribute('reserved') &&
           !img.getAttribute('reservedfrom')
         ) {
-          alert(1);
-          setalreadyReservedHours('');
+          setAlreadyReservedHours('');
           setDeskId(id);
 
           const attribute = img.getAttribute('data-title');
@@ -153,10 +150,8 @@ const ImageMapProView = () => {
             }
           }
         } else if (img.getAttribute('reservedfrom')) {
-          alert(2);
           setDeskId(id);
-          console.log(img.getAttribute('hours'));
-          setalreadyReservedHours(img.getAttribute('hours'));
+          setAlreadyReservedHours(img.getAttribute('hours'));
         } else {
           alert('This desk is already reserved for the day!');
           setInfoModalShown(false);
@@ -165,26 +160,11 @@ const ImageMapProView = () => {
     });
   };
 
-  // const handleOnClick = async () => {
-  //   const allDayData = {
-  //     date: currDate,
-  //     deskId,
-  //     userId,
-  //   };
-
-  //   if (deskId) {
-  //     const imageMapId = getImageMapId();
-  //     await saveDateRequest(allDayData, imageMapId);
-  //     navigate('/dashboard');
-  //   } else {
-  //     alert('Please, select a desk!');
-  //   }
-  // };
-
   const closeInfoModal = () => {
     setInfoModalShown(false);
   };
 
+  // USE EFFECTS
   useEffect(() => {
     getImageMapJSON();
     window.addEventListener('resize', getWindowWidth);
@@ -193,7 +173,25 @@ const ImageMapProView = () => {
     };
   }, []);
 
-  // USE EFFECTS
+  useEffect(() => {
+    //check if reservation has been made, if not, set background back to red
+    if (
+      document.querySelector('[data-object-id="' + deskId + '"]') &&
+      (isReservationDone == 'close' || isReservationDone == 'closex')
+    ) {
+      document.querySelector(
+        '[data-object-id="' + deskId + '"]'
+      ).style.background = 'green';
+    } else if (
+      document.querySelector('[data-object-id="' + deskId + '"]') &&
+      isReservationDone == 'saved'
+    ) {
+      document.querySelector(
+        '[data-object-id="' + deskId + '"]'
+      ).style.background = 'yellow';
+    }
+    setIsReservationDone('');
+  }, [isReservationDone]);
 
   useEffect(() => {
     if (imageMapJSON) {
@@ -253,7 +251,9 @@ const ImageMapProView = () => {
       <ModalContainer
         title="Viewer"
         navigateRoute="/dashboard"
-        // handleOnClick={handleOnClick}
+        modalClass={
+          infoModalShown ? 'blurred-overlay' : 'image-map-viewer-modal'
+        }
       >
         <HoursModal
           show={infoModalShown}
@@ -262,6 +262,7 @@ const ImageMapProView = () => {
           currDate={currDate}
           deskId={deskId}
           reservedHours={alreadyReservedHours}
+          checkIfReservationIsSaved={checkIfReservationIsSaved}
         />
         <div id="image-map-pro" className={responsiveClass}></div>
       </ModalContainer>

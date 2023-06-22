@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import Switch from '../../components/Switch/Switch';
 import TimePicker from 'rc-time-picker';
@@ -8,6 +8,7 @@ import { saveDateRequest } from '../../api/reservationDeskBackend/calendarApi';
 import isAfter from 'date-fns/isAfter';
 import moment from 'moment';
 import { format } from 'date-fns';
+
 type HoursModalProps = {
   show: boolean;
   close: () => void;
@@ -15,6 +16,7 @@ type HoursModalProps = {
   currDate: string;
   deskId: string;
   reservedHours: string;
+  checkIfReservationIsSaved: (isSaved: string) => void;
 };
 
 const HoursModal = ({
@@ -24,16 +26,23 @@ const HoursModal = ({
   currDate,
   deskId,
   reservedHours,
+  checkIfReservationIsSaved,
 }: HoursModalProps) => {
-  // console.log(shownImageMap);
   const [timeValueFrom, setTimeValueFrom] = useState<Date | number>(0);
   const [timeValueTo, setTimeValueTo] = useState<Date | number>(0);
-  const [isTimepickerVisible, setisTimepickerVisible] = useState(false);
+  const [isTimepickerVisible, setIsTimepickerVisible] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [isReservationOptionChecked, setIsReservationOptionChecked] =
+    useState(false);
 
   const userId = useAppSelector((state) => state.user.userId);
 
-  const handleOnClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //enable/disable switches, check if user chose option before save, control visibility of timepickers
+  const handleOnClickSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.target.checked && errorMsg ? setErrorMsg('') : null;
+
+    setIsReservationOptionChecked(event.target.checked);
+
     event.target.checked
       ? document
           .querySelector('.switch-btn input:not(#' + event.target.id + ')')
@@ -41,22 +50,47 @@ const HoursModal = ({
       : document
           .querySelector('.switch-btn input:not(#' + event.target.id + ')')
           ?.removeAttribute('disabled');
-    setisTimepickerVisible(
+
+    setIsTimepickerVisible(
       event.target.getAttribute('id') == 'timepicker-switch'
         ? event.target.checked
         : false
     );
   };
 
+  //set values to timepickers
   const timepickerValueFrom = (value: moment.Moment) => {
-    setTimeValueFrom(value.toDate());
+    if (value) {
+      setTimeValueFrom(value.toDate());
+    }
   };
   const timepickerValueTo = (value: moment.Moment) => {
-    setTimeValueTo(value.toDate());
+    if (value) {
+      setTimeValueTo(value.toDate());
+
+      timeValueFrom && value ? setErrorMsg('') : null;
+
+      //check if the reservation is not overlapping another one
+      const disabledHoursArr = disabledHours();
+      let startHour = 0;
+      if (typeof timeValueFrom == 'object') {
+        startHour = Number(format(timeValueFrom.getTime(), 'k'));
+      }
+      const endHour = Number(format(value.toDate().getTime(), 'k'));
+      disabledHoursArr.every(
+        (hour: number) => !(hour > startHour && hour < endHour)
+      )
+        ? setErrorMsg('')
+        : setErrorMsg(
+            'You cannot set this time as end hour, because the desk is already reserved for some hours between!'
+          );
+    } else {
+      setTimeValueTo(0);
+    }
   };
 
+  //set already reserved hours as disabled to timepickers
   const disabledHours = () => {
-    console.log(reservedHours);
     const disabledArray: number[] = [
       0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 21, 22, 23,
     ];
@@ -77,7 +111,11 @@ const HoursModal = ({
   };
 
   const handleSave = async () => {
-    disabledHours();
+    //validations before save
+    if (!isReservationOptionChecked) {
+      setErrorMsg('Please, select time option for your reservation!');
+      return;
+    }
     if (isTimepickerVisible && !timeValueFrom && !timeValueTo) {
       setErrorMsg('Please, pick a time for your reservation');
       return;
@@ -86,6 +124,7 @@ const HoursModal = ({
       setErrorMsg('End time should be after start time!');
       return;
     }
+
     const allDayData = {
       date: currDate,
       isAllDayReservation: !isTimepickerVisible,
@@ -94,38 +133,65 @@ const HoursModal = ({
       deskId,
       userId,
     };
-    console.log(allDayData);
+
     if (deskId) {
       const imageMapId = shownImageMap;
       await saveDateRequest(allDayData, imageMapId);
-      //   navigate('/dashboard');
+      await saveDateRequest(allDayData);
+      allDayData.isAllDayReservation
+        ? checkIfReservationIsSaved('savedAllDay')
+        : checkIfReservationIsSaved('saved');
+      //TO DO: Add alert > Reservation successfully saved
     }
     close();
   };
+
+  useEffect(() => {
+    if (!show) {
+      setIsTimepickerVisible(false);
+    }
+    errorMsg ? setErrorMsg('') : null;
+    reservedHours ? setIsTimepickerVisible(true) : !isTimepickerVisible;
+    reservedHours
+      ? setIsReservationOptionChecked(true)
+      : isReservationOptionChecked;
+  }, [show]);
   return (
     <>
-      <Modal show={show}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+      <Modal
+        show={show}
+        onHide={() => {
+          checkIfReservationIsSaved('closex');
+          close();
+        }}
+      >
+        <Modal.Header closeButton closeVariant="white">
+          <Modal.Title className="text-white">Reservation hours</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {shownImageMap}
-          <div className="d-flex justify-content-center mt-5 mb-3">
-            {reservedHours}
+          <div>
             {!reservedHours && (
               <>
-                <Switch
-                  label="All day reservation"
-                  className="switch-btn"
-                  id="all-day-switch"
-                  handleOnClick={handleOnClick}
-                />
-                <Switch
-                  label="Pick a time slot for you reservation"
-                  className="switch-btn"
-                  id="timepicker-switch"
-                  handleOnClick={handleOnClick}
-                />
+                <Row className="mb-4 mt-2">
+                  <Col>
+                    <Switch
+                      label="All day reservation"
+                      className="switch-btn"
+                      id="all-day-switch"
+                      handleOnClick={handleOnClickSwitch}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col>
+                    <Switch
+                      label="Pick a time slot for you reservation"
+                      className="switch-btn"
+                      id="timepicker-switch"
+                      handleOnClick={handleOnClickSwitch}
+                    />
+                  </Col>
+                </Row>
               </>
             )}
             {reservedHours && (
@@ -133,33 +199,53 @@ const HoursModal = ({
                 label="Pick a time slot for you reservation"
                 className="switch-btn"
                 id="timepicker-switch"
-                handleOnClick={handleOnClick}
+                handleOnClick={handleOnClickSwitch}
                 checked={true}
               />
             )}
-            <div>
-              <span>From </span>
-              <TimePicker
-                showSecond={false}
-                onChange={timepickerValueFrom}
-                disabledHours={disabledHours}
-                minuteStep={30}
-                disabled={!isTimepickerVisible}
-              />
-              <span>To </span>
-              <TimePicker
-                showSecond={false}
-                onChange={timepickerValueTo}
-                disabledHours={disabledHours}
-                minuteStep={30}
-                disabled={!isTimepickerVisible}
-              />
-            </div>
+            <Row className="mb-3">
+              <Col sm={2}>
+                <span className={!isTimepickerVisible ? 'opacity-5' : ''}>
+                  From{' '}
+                </span>
+              </Col>
+              <Col>
+                <TimePicker
+                  showSecond={false}
+                  onChange={timepickerValueFrom}
+                  disabledHours={disabledHours}
+                  minuteStep={60}
+                  disabled={reservedHours ? false : !isTimepickerVisible}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={2}>
+                <span className={!isTimepickerVisible ? 'opacity-5' : ''}>
+                  To{' '}
+                </span>
+              </Col>
+              <Col>
+                <TimePicker
+                  showSecond={false}
+                  onChange={timepickerValueTo}
+                  disabledHours={disabledHours}
+                  minuteStep={60}
+                  disabled={reservedHours ? false : !isTimepickerVisible}
+                />
+              </Col>
+            </Row>
           </div>
           <div className="error-message">{errorMsg}</div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={close}>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              close();
+              checkIfReservationIsSaved('close');
+            }}
+          >
             Close
           </Button>
           <Button variant="primary" onClick={handleSave}>

@@ -7,3 +7,13 @@
     align-items: center;
     justify-content: center;
 }
+
+.opacity-5 {
+    opacity: .5;
+}
+
+.blurred-overlay { 
+    filter: blur(5px);
+    background: black;
+    opacity: .7;
+}
