@@ -5,6 +5,8 @@
 @import './colors';
 @import './modals';
 @import './helpers';
+@import './modals';
+@import './plugins/timepicker';
 
 .App {
   background-color: $background;

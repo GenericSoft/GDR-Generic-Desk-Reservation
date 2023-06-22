@@ -9,6 +9,7 @@ import TimeTableHeader from '../../components/TimeTableHeader/TimeTableHeader';
 import './Calendar.scss';
 
 import 'rc-time-picker/assets/index.css';
+import { format } from 'date-fns';
 const Calendar = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState<string>('');
@@ -21,7 +22,11 @@ const Calendar = () => {
       <TimeTableHeader getDate={getDate} />
       <div className="d-flex justify-content-center mt-3 mb-5">
         <Button
-          onClick={() => navigate('/view', { state: { currDate: date } })}
+          onClick={() =>
+            navigate('/view', {
+              state: { currDate: date || format(new Date(), 'dd-MMM-y') },
+            })
+          }
         >
           SAVE
         </Button>

@@ -36,20 +36,16 @@ export const saveDateRequest = async (
 
   const docRef = doc(db, calendarName, date);
 
-  // TODO: if date exist, an update to the document must be made
+  const userArrayObject = isAllDayReservation
+    ? { userId }
+    : { timeFrom, timeTo, userId };
+
   const data = {
     day: date,
     desks: [
       {
         deskId,
-        usersArray: [
-          {
-            // hours: '12-15',
-            timeFrom,
-            timeTo,
-            userId: userId,
-          },
-        ],
+        usersArray: [userArrayObject],
       },
     ],
   };
@@ -91,14 +87,13 @@ export const saveDateRequest = async (
         });
       } else {
         // save new desk id for same date
+        const userArrayObject = isAllDayReservation
+          ? { userId }
+          : { timeFrom, timeTo, userId };
         await updateDoc(docRef, {
           desks: arrayUnion({
             deskId,
-            usersArray: [
-              {
-                userId: userId,
-              },
-            ],
+            usersArray: [userArrayObject],
           }),
         });
       }
