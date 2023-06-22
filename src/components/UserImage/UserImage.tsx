@@ -11,6 +11,7 @@ type PropsType = {
 
 const UserImage = (props: PropsType) => {
   let nameLogo = '';
+  const isUserHasPhoto = props.userImage || props.instantPhoto;
 
   if (props.firstName && props.lastName) {
     nameLogo =

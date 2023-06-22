@@ -144,6 +144,7 @@ export const userSlice = createSlice({
     builder.addCase(editUser.fulfilled, (state, action) => {
       const { firstName, lastName, jobRole, country, birthday, profilePic } =
         action.payload;
+
       return {
         ...state,
         firstName,

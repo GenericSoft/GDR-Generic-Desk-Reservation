@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../firebase';
 
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
@@ -20,7 +22,11 @@ import { toError } from '../../utils/error';
 type ProfileContentProps = {
   isProfileInEditMode: boolean;
   cancelEditClick: (prop: boolean) => void;
+  setChooseImage: (prop: File) => void;
+  setLoading: (prop: string) => void;
+  chooseImage: File;
 };
+let initialImageState: File;
 
 const ProfileContent = (props: ProfileContentProps) => {
   const dispatch = useAppDispatch();
@@ -72,9 +78,10 @@ const ProfileContent = (props: ProfileContentProps) => {
         lastName: lastNameInputValue,
       });
       setErrorMsg(errMessage);
-
       userData.newFields.firstName = firstNameInputValue;
       userData.newFields.lastName = lastNameInputValue;
+
+      props.setChooseImage(initialImageState);
 
       if (jobRoleInputValue || user.jobRole) {
         userData.newFields.jobRole = jobRoleInputValue;
@@ -89,23 +96,45 @@ const ProfileContent = (props: ProfileContentProps) => {
       if (errMessage) {
         return;
       }
+      if (props.chooseImage) {
+        const storageRef = ref(storage, user.userId);
+        const uploadImage = uploadBytesResumable(storageRef, props.chooseImage);
+        props.setLoading('uploading is...');
+        uploadImage.on(
+          'state_changed',
+          async (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            if (progress === 100) {
+              props.setLoading('uploading is ' + progress + '% done');
+            }
+          },
+          (error) => {
+            throw toError(error, true);
+          },
+          async () => {
+            const imgUrl = await getDownloadURL(uploadImage.snapshot.ref);
+            userData.newFields.profilePic = imgUrl;
+
+            try {
+              setLoadingRequest(true);
+              await dispatch(editUser(userData)).then(() => {
+                setLoadingRequest(false);
+              });
+              props.cancelEditClick(true);
+            } catch (error) {
+              const err = toError(error);
+              const errMessage = validateEdit(err);
+              setErrorMsg(errMessage);
+              setLoadingRequest(false);
+            }
+          }
+        );
+      }
       firstNameRef.current.value = firstNameRef.current.value.trim();
       lastNameRef.current.value = lastNameRef.current.value.trim();
       birthdayRef.current.value = birthdayRef.current.value.trim();
       countryRef.current.value = countryRef.current.value.trim();
-    }
-
-    try {
-      setLoadingRequest(true);
-      await dispatch(editUser(userData)).then(() => {
-        setLoadingRequest(false);
-      });
-      props.cancelEditClick(true);
-    } catch (error) {
-      const err = toError(error);
-      const errMessage = validateEdit(err);
-      setErrorMsg(errMessage);
-      setLoadingRequest(false);
     }
   };
 
