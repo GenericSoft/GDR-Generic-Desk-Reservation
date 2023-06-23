@@ -44,3 +44,9 @@ $xlg: 1200px;
     @content;
   }
 }
+
+@mixin md-height {
+  @media screen and (max-height: ($md-2)) {
+    @content;
+  }
+}
