@@ -22,6 +22,7 @@
     transform: translate(-50%, -50%);
     height: 70vh;
     display: flex;
+    width: 70vw;
   }
 }
 
@@ -116,5 +117,27 @@
       width: 75vw;
       height: 60vh;
     }
+  }
+}
+
+@include md-height {
+  .form {
+    &-container {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+
+      &.login {
+        width: 90vw;
+      }
+    }
+
+    &-body {
+      overflow-y: scroll;
+      touch-action: pan-y;
+    }
+  }
+
+  .image-container {
+    display: none;
   }
 }
