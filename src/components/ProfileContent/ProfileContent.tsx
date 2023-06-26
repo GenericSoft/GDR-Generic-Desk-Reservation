@@ -25,7 +25,7 @@ const ProfileContent = () => {
   const user = useAppSelector((state) => state.user);
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [loadingRequest, setLoadingRequest] = useState(false);
-  const [isProfileInEditMode, setIsProfileInEditMode] = useState(true);
+  const [isProfileInEditMode, setIsProfileInEditMode] = useState(false);
   const [chooseImage, setChooseImage] = useState<File | undefined>(undefined);
   const [loading, setLoading] = useState('');
 
@@ -73,7 +73,7 @@ const ProfileContent = () => {
       lastNameRef.current.value = user.lastName || '';
       birthdayRef.current.value = user.birthday || '';
     }
-    changeProfileEditMode(true);
+    changeProfileEditMode(false);
   };
 
   const updateProfileFieldsDb = async () => {
@@ -142,6 +142,7 @@ const ProfileContent = () => {
       lastNameRef.current.value = lastNameRef.current.value.trim();
       birthdayRef.current.value = birthdayRef.current.value.trim();
       countryRef.current.value = countryRef.current.value.trim();
+      changeProfileEditMode(false);
     }
   };
 
@@ -178,7 +179,7 @@ const ProfileContent = () => {
                     reference={firstNameRef}
                     placeholder=""
                     defaultValue={user.firstName || ''}
-                    readOnlyValue={isProfileInEditMode}
+                    readOnlyValue={!isProfileInEditMode}
                   />
                 </Col>
               </Row>
@@ -191,9 +192,9 @@ const ProfileContent = () => {
                       !user.country && 'profile-form--empty'
                     }`}
                     reference={countryRef}
-                    placeholder={!isProfileInEditMode ? '' : 'your country'}
+                    placeholder={isProfileInEditMode ? '' : 'your country'}
                     defaultValue={user.country || ''}
-                    readOnlyValue={isProfileInEditMode}
+                    readOnlyValue={!isProfileInEditMode}
                   />
                 </Col>
               </Row>
@@ -206,9 +207,9 @@ const ProfileContent = () => {
                       !user.jobRole && 'profile-form--empty'
                     }`}
                     reference={jobRoleRef}
-                    placeholder={!isProfileInEditMode ? '' : 'your job'}
+                    placeholder={isProfileInEditMode ? '' : 'your job'}
                     defaultValue={user.jobRole || ''}
-                    readOnlyValue={isProfileInEditMode}
+                    readOnlyValue={!isProfileInEditMode}
                   />
                 </Col>
               </Row>
@@ -223,7 +224,7 @@ const ProfileContent = () => {
                     reference={lastNameRef}
                     placeholder=""
                     defaultValue={user.lastName || ''}
-                    readOnlyValue={isProfileInEditMode}
+                    readOnlyValue={!isProfileInEditMode}
                   />
                 </Col>
               </Row>
@@ -236,9 +237,9 @@ const ProfileContent = () => {
                       !user.birthday && 'profile-form--empty'
                     }`}
                     reference={birthdayRef}
-                    placeholder={!isProfileInEditMode ? '' : 'your birthday'}
+                    placeholder={isProfileInEditMode ? '' : 'your birthday'}
                     defaultValue={user.birthday || ''}
-                    readOnlyValue={isProfileInEditMode}
+                    readOnlyValue={!isProfileInEditMode}
                   />
                 </Col>
               </Row>
@@ -248,7 +249,7 @@ const ProfileContent = () => {
               </Row>
             </Col>
 
-            {!isProfileInEditMode && (
+            {isProfileInEditMode && (
               <Row className="first-row__buttons">
                 {loadingRequest && (
                   <Row>
