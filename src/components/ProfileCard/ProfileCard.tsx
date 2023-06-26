@@ -26,13 +26,12 @@ import { editUser } from '../../redux/reducers/userReducer';
 type ProfileCardProps = {
   isProfileInEditMode: boolean;
   activeEditClick: (prop: boolean) => void;
-  setChooseImage: (prop: File) => void;
+  setChooseImage: (prop: File | undefined) => void;
   setInstantPhoto: (prop: string) => void;
   setLoading: (prop: string) => void;
   loading: string;
   instantPhoto: string;
 };
-let initialImageState: File;
 
 const ProfileCard = (props: ProfileCardProps) => {
   const navigate = useNavigate();
@@ -74,7 +73,7 @@ const ProfileCard = (props: ProfileCardProps) => {
             };
             dispatch(editUser(data));
           });
-          props.setChooseImage(initialImageState);
+          props.setChooseImage(undefined);
           props.setLoading('');
         } catch (err) {
           throw toError(err, true);
