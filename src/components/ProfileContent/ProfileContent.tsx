@@ -27,13 +27,11 @@ const ProfileContent = () => {
   const [loadingRequest, setLoadingRequest] = useState(false);
   const [isProfileInEditMode, setIsProfileInEditMode] = useState(true);
   const [chooseImage, setChooseImage] = useState<File | undefined>(undefined);
-  const [instantPhoto, setInstantPhoto] = useState<string>('');
   const [loading, setLoading] = useState('');
 
   const changeProfileEditMode = (isInEditMode: boolean) => {
     if (isInEditMode) {
       setChooseImage(undefined);
-      setInstantPhoto('');
     }
     setIsProfileInEditMode(isInEditMode);
   };
@@ -154,8 +152,6 @@ const ProfileContent = () => {
           activeEditClick={changeProfileEditMode}
           isProfileInEditMode={isProfileInEditMode}
           setChooseImage={setChooseImage}
-          setInstantPhoto={setInstantPhoto}
-          instantPhoto={instantPhoto}
           setLoading={setLoading}
           loading={loading}
         />

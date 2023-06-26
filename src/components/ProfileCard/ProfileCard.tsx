@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { storage } from '../../firebase';
@@ -22,21 +23,25 @@ import UserImage from '../UserImage/UserImage';
 import { toError } from '../../utils/error';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { editUser } from '../../redux/reducers/userReducer';
+import { useEffect } from 'react';
 
 type ProfileCardProps = {
   isProfileInEditMode: boolean;
   activeEditClick: (prop: boolean) => void;
   setChooseImage: (prop: File | undefined) => void;
-  setInstantPhoto: (prop: string) => void;
   setLoading: (prop: string) => void;
   loading: string;
-  instantPhoto: string;
 };
 
 const ProfileCard = (props: ProfileCardProps) => {
+  const [instantPhoto, setInstantPhoto] = useState<string>('');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    setInstantPhoto('');
+  }, [props.activeEditClick]);
 
   const editClick = () => {
     props.setLoading('');
@@ -50,7 +55,7 @@ const ProfileCard = (props: ProfileCardProps) => {
 
       reader.onload = (e) => {
         if (e.target) {
-          props.setInstantPhoto(e.target.result as string);
+          setInstantPhoto(e.target.result as string);
         }
       };
       reader.readAsDataURL(e.target.files[0]);
@@ -88,8 +93,7 @@ const ProfileCard = (props: ProfileCardProps) => {
         <UserImage
           firstName={user.firstName || ''}
           lastName={user.lastName || ''}
-          userImage={user.profilePic || ''}
-          instantPhoto={props.instantPhoto}
+          userImage={instantPhoto || user.profilePic || ''}
         />
         <Card.Title className="user-data-container__title">{`${user.firstName} ${user.lastName}`}</Card.Title>
         <Card.Text className="user-data-container__email">
