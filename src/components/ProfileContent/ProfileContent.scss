@@ -1,108 +1,125 @@
 @import '../../common/styles/colors';
-.profile-content-container {
-  .row {
-    margin: 0;
+.profile-container {
+  height: 100vh;
+  background: $grey;
+  margin: 0;
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  & > * {
     padding: 0;
-    .col {
-      p {
+    margin: 0;
+  }
+  &__profile-card {
+    padding: 0;
+    margin: 0;
+    flex: 0 0 22%;
+  }
+
+  .profile-content-container {
+    .row {
+      margin: 0;
+      padding: 0;
+      .col {
+        p {
+          margin: 0;
+        }
+        margin: 0;
+        padding: 0;
+      }
+    }
+    .card-box {
+      border: none;
+      margin: 0;
+      padding: 0;
+      &__body {
+        padding: 0;
         margin: 0;
       }
-      margin: 0;
-      padding: 0;
     }
-  }
-  .card-box {
-    border: none;
-    margin: 0;
-    padding: 0;
-    &__body {
-      padding: 0;
-      margin: 0;
+
+    & > *:not(:last-child) {
+      margin-bottom: 2rem;
     }
-  }
 
-  & > *:not(:last-child) {
-    margin-bottom: 2rem;
-  }
+    .first-row {
+      background: #fff;
+      padding-bottom: 1.5rem;
 
-  .first-row {
-    background: #fff;
-    padding-bottom: 1.5rem;
-
-    .col {
-      color: $darkgrey;
-      &:not(:last-child) {
-        margin-bottom: 1rem;
+      .col {
+        color: $darkgrey;
+        &:not(:last-child) {
+          margin-bottom: 1rem;
+        }
       }
-    }
 
-    &__email-column {
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-    &__buttons {
-      justify-content: space-around;
-      &--btn {
-        font-weight: bold;
-        flex-basis: 35%;
+      &__email-column {
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
-      &--error {
-        text-align: center;
+      &__buttons {
+        justify-content: space-around;
+        &--btn {
+          font-weight: bold;
+          flex-basis: 35%;
+        }
+        &--error {
+          text-align: center;
+        }
       }
-    }
-    .btn-cancel {
-      border: solid 2px $secondary;
-      color: $dark;
-    }
-    &__center-spinner{
-    display: flex;
-    justify-content: center;
-    }
-  }
-  .card-content {
-    &__text {
-      font-style: italic;
-      color: $white;
-      margin: 0;
-      text-align: center;
-      background: $primary;
-      padding: 3rem;
-    }
-    &__title {
-      color: $darkgrey;
-      margin: 0;
-      padding: 1rem 0.7rem;
-    }
-    &__body {
-      color: $darkgrey;
-    }
-  }
-
-  .second-row {
-    .col-sm {
-      margin: 0;
-      background: white;
-      &:not(:last-child) {
-        margin-right: 25px;
+      .btn-cancel {
+        border: solid 2px $secondary;
+        color: $dark;
       }
-    }
-    &__col {
-      display: flex;
-      padding: 2rem;
-      color: $darkgrey;
-
-      &--flex-number {
-        font-weight: bold;
+      &__center-spinner {
         display: flex;
         justify-content: center;
-        align-items: center;
       }
     }
-    .primary-color {
-      color: $primary;
+    .card-content {
+      &__text {
+        font-style: italic;
+        color: $white;
+        margin: 0;
+        text-align: center;
+        background: $primary;
+        padding: 3rem;
+      }
+      &__title {
+        color: $darkgrey;
+        margin: 0;
+        padding: 1rem 0.7rem;
+      }
+      &__body {
+        color: $darkgrey;
+      }
     }
-    .success-color {
-      color: $success;
+
+    .second-row {
+      .col-sm {
+        margin: 0;
+        background: white;
+        &:not(:last-child) {
+          margin-right: 25px;
+        }
+      }
+      &__col {
+        display: flex;
+        padding: 2rem;
+        color: $darkgrey;
+
+        &--flex-number {
+          font-weight: bold;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+      .primary-color {
+        color: $primary;
+      }
+      .success-color {
+        color: $success;
+      }
     }
   }
 }
