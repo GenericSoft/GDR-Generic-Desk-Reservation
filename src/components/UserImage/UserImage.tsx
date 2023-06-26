@@ -12,10 +12,10 @@ type PropsType = {
 const UserImage = (props: PropsType) => {
   let nameLogo = '';
 
-  if (props.firstName && props.lastName) {
+  if (firstName && lastName) {
     nameLogo =
-      props.firstName.trim().substring(0, 1).toUpperCase() +
-      props.lastName.trim().substring(0, 1).toUpperCase();
+      firstName.trim().substring(0, 1).toUpperCase() +
+      lastName.trim().substring(0, 1).toUpperCase();
   }
 
   return (

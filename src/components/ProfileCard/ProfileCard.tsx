@@ -33,7 +33,13 @@ type ProfileCardProps = {
   loading: string;
 };
 
-const ProfileCard = (props: ProfileCardProps) => {
+const ProfileCard = ({
+  isProfileInEditMode,
+  activeEditClick,
+  setChooseImage,
+  setLoading,
+  loading,
+}: ProfileCardProps) => {
   const [instantPhoto, setInstantPhoto] = useState<string>('');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -41,17 +47,17 @@ const ProfileCard = (props: ProfileCardProps) => {
 
   useEffect(() => {
     setInstantPhoto('');
-  }, [props.activeEditClick]);
+  }, [isProfileInEditMode]);
 
   const editClick = () => {
-    props.setLoading('');
-    props.activeEditClick(false);
+    setLoading('');
+    activeEditClick(true);
   };
 
   const chooseImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
       const reader = new FileReader();
-      props.setChooseImage(e.target.files[0]);
+      setChooseImage(e.target.files[0]);
 
       reader.onload = (e) => {
         if (e.target) {
@@ -66,7 +72,7 @@ const ProfileCard = (props: ProfileCardProps) => {
     if (user.profilePic) {
       const text = 'Are you sure to delete your photo ?';
       if (confirm(text) === true) {
-        props.setLoading('');
+        setLoading('');
         const storageRef = ref(storage, user.userId);
         try {
           deleteObject(storageRef).then(() => {
@@ -78,8 +84,8 @@ const ProfileCard = (props: ProfileCardProps) => {
             };
             dispatch(editUser(data));
           });
-          props.setChooseImage(undefined);
-          props.setLoading('');
+          setChooseImage(undefined);
+          setLoading('');
         } catch (err) {
           throw toError(err, true);
         }
@@ -99,10 +105,10 @@ const ProfileCard = (props: ProfileCardProps) => {
         <Card.Text className="user-data-container__email">
           {user.email}
         </Card.Text>
-        {!props.isProfileInEditMode && (
+        {isProfileInEditMode && (
           <Row className="user-data-container__buttons">
             <span className="user-data-container__buttons--text">
-              {props.loading}
+              {loading}
             </span>
             <Container>
               <label
