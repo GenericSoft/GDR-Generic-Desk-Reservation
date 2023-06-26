@@ -33,6 +33,20 @@ const ProfileContent = (props: ProfileContentProps) => {
   const user = useAppSelector((state) => state.user);
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [loadingRequest, setLoadingRequest] = useState(false);
+  async function dispatchEditUserRequest(userData: EditUserDataType) {
+    try {
+      setLoadingRequest(true);
+      await dispatch(editUser(userData)).then(() => {
+        setLoadingRequest(false);
+      });
+      props.cancelEditClick(true);
+    } catch (error) {
+      const err = toError(error);
+      const errMessage = validateEdit(err);
+      setErrorMsg(errMessage);
+      setLoadingRequest(false);
+    }
+  }
 
   const firstNameRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
@@ -115,22 +129,13 @@ const ProfileContent = (props: ProfileContentProps) => {
           async () => {
             const imgUrl = await getDownloadURL(uploadImage.snapshot.ref);
             userData.newFields.profilePic = imgUrl;
-
-            try {
-              setLoadingRequest(true);
-              await dispatch(editUser(userData)).then(() => {
-                setLoadingRequest(false);
-              });
-              props.cancelEditClick(true);
-            } catch (error) {
-              const err = toError(error);
-              const errMessage = validateEdit(err);
-              setErrorMsg(errMessage);
-              setLoadingRequest(false);
-            }
+            dispatchEditUserRequest(userData);
           }
         );
+      } else {
+        dispatchEditUserRequest(userData);
       }
+
       firstNameRef.current.value = firstNameRef.current.value.trim();
       lastNameRef.current.value = lastNameRef.current.value.trim();
       birthdayRef.current.value = birthdayRef.current.value.trim();

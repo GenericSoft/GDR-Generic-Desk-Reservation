@@ -119,6 +119,8 @@ export const editUserRequest = async (userData: EditUserDataType) => {
   const { userId, newFields } = userData;
   const userDoc = doc(db, 'users', userId);
   try {
+    console.log('user api');
+
     await updateDoc(userDoc, newFields);
 
     const userInfo = await retrieveUserInformationRequest(userId);
