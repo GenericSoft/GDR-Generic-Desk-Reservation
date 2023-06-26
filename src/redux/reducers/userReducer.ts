@@ -48,8 +48,6 @@ export const editUser = createAsyncThunk<ProfileInfoType, EditUserDataType>(
   'users/editUserStatus',
   async (userData) => {
     try {
-      console.log('edit');
-
       const response: ProfileInfoType = await editUserRequest(userData);
       return response;
     } catch (err) {
