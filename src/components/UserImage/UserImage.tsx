@@ -9,15 +9,6 @@ type PropsType = {
   background?: string;
 };
 
-const UserImage = (props: PropsType) => {
-type PropsType = {
-  userImage?: string;
-  firstName: string | undefined;
-  lastName: string | undefined;
-  color?: string;
-  background?: string;
-};
-
 const UserImage = ({
   userImage,
   firstName,
