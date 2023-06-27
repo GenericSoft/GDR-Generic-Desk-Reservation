@@ -28,7 +28,7 @@ import { useEffect } from 'react';
 type ProfileCardProps = {
   isProfileInEditMode: boolean;
   activeEditClick: (prop: boolean) => void;
-  setChooseImage: (prop: File | undefined) => void;
+  setChosenImage: (prop: File | undefined) => void;
   setLoading: (prop: string) => void;
   loading: string;
 };
@@ -36,7 +36,7 @@ type ProfileCardProps = {
 const ProfileCard = ({
   isProfileInEditMode,
   activeEditClick,
-  setChooseImage,
+  setChosenImage,
   setLoading,
   loading,
 }: ProfileCardProps) => {
@@ -48,7 +48,7 @@ const ProfileCard = ({
   const chooseImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
       const reader = new FileReader();
-      setChooseImage(e.target.files[0]);
+      setChosenImage(e.target.files[0]);
 
       reader.onload = (e) => {
         if (e.target) {
@@ -75,7 +75,7 @@ const ProfileCard = ({
             };
             dispatch(editUser(data));
           });
-          setChooseImage(undefined);
+          setChosenImage(undefined);
           setLoading('');
         } catch (err) {
           throw toError(err, true);
@@ -83,15 +83,14 @@ const ProfileCard = ({
       }
     }
   };
-  useEffect(() => {
-    setInstantPhoto('');
-  }, [isProfileInEditMode]);
 
   const editClick = () => {
     setLoading('');
     activeEditClick(true);
   };
-
+  useEffect(() => {
+    setInstantPhoto('');
+  }, [isProfileInEditMode]);
   return (
     <Card className="profile-card-container">
       <Container className="user-data-container">
