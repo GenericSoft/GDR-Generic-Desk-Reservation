@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../firebase';
 
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
@@ -9,6 +8,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { Spinner } from 'react-bootstrap';
 
+import { storage } from '../../firebase';
+
 import InputField from '../InputField/InputField';
 import { validateEdit, validateEditProfile } from '../../utils/validations';
 
@@ -16,17 +17,13 @@ import { editUser } from '../../redux/reducers/userReducer';
 import { useAppDispatch } from '../../redux/store';
 import { useAppSelector } from '../../redux/store';
 import { EditUserDataType } from '../../interfaces/User';
+
 import { toError } from '../../utils/error';
 import ProfileCard from '../ProfileCard/ProfileCard';
 
 import './ProfileContent.scss';
 
-type ProfileContentProps = {
-  isProfileInEditMode: boolean;
-  cancelEditClick: (prop: boolean) => void;
-};
-
-const ProfileContent = (props: ProfileContentProps) => {
+const ProfileContent = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const [errorMsg, setErrorMsg] = useState<string>('');

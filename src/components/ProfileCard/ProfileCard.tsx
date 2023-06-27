@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { storage } from '../../firebase';
-import { ref, deleteObject } from 'firebase/storage';
 
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Container, Row } from 'react-bootstrap';
+
+import { ref, deleteObject } from 'firebase/storage';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -17,12 +16,13 @@ import {
   faCircleXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
+import { storage } from '../../firebase';
+
 import UserImage from '../UserImage/UserImage';
 
 import { toError } from '../../utils/error';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { editUser } from '../../redux/reducers/userReducer';
-import { useEffect } from 'react';
 
 import './ProfileCard.scss';
 
