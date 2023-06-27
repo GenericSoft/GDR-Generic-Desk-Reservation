@@ -41,7 +41,7 @@ const ProfileContent = () => {
       await dispatch(editUser(userData)).then(() => {
         setLoadingRequest(false);
       });
-      changeProfileEditMode(true);
+      changeProfileEditMode(false);
     } catch (error) {
       const err = toError(error);
       const errMessage = validateEdit(err);
@@ -142,7 +142,6 @@ const ProfileContent = () => {
       lastNameRef.current.value = lastNameRef.current.value.trim();
       birthdayRef.current.value = birthdayRef.current.value.trim();
       countryRef.current.value = countryRef.current.value.trim();
-      changeProfileEditMode(false);
     }
   };
 
