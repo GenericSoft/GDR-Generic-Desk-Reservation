@@ -45,15 +45,6 @@ const ProfileCard = ({
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
-  useEffect(() => {
-    setInstantPhoto('');
-  }, [isProfileInEditMode]);
-
-  const editClick = () => {
-    setLoading('');
-    activeEditClick(true);
-  };
-
   const chooseImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
       const reader = new FileReader();
@@ -91,6 +82,14 @@ const ProfileCard = ({
         }
       }
     }
+  };
+  useEffect(() => {
+    setInstantPhoto('');
+  }, [isProfileInEditMode]);
+
+  const editClick = () => {
+    setLoading('');
+    activeEditClick(true);
   };
 
   return (
