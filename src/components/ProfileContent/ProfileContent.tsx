@@ -26,12 +26,12 @@ const ProfileContent = () => {
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [loadingRequest, setLoadingRequest] = useState(false);
   const [isProfileInEditMode, setIsProfileInEditMode] = useState(false);
-  const [chooseImage, setChooseImage] = useState<File | undefined>(undefined);
+  const [chosenImage, setChosenImage] = useState<File | undefined>(undefined);
   const [loading, setLoading] = useState('');
 
   const changeProfileEditMode = (isInEditMode: boolean) => {
     if (isInEditMode) {
-      setChooseImage(undefined);
+      setChosenImage(undefined);
     }
     setIsProfileInEditMode(isInEditMode);
   };
@@ -97,7 +97,7 @@ const ProfileContent = () => {
       userData.newFields.firstName = firstNameInputValue;
       userData.newFields.lastName = lastNameInputValue;
 
-      setChooseImage(undefined);
+      setChosenImage(undefined);
 
       if (jobRoleInputValue || user.jobRole) {
         userData.newFields.jobRole = jobRoleInputValue;
@@ -112,9 +112,9 @@ const ProfileContent = () => {
       if (errMessage) {
         return;
       }
-      if (chooseImage) {
+      if (chosenImage) {
         const storageRef = ref(storage, user.userId);
-        const uploadImage = uploadBytesResumable(storageRef, chooseImage);
+        const uploadImage = uploadBytesResumable(storageRef, chosenImage);
         setLoading('uploading is...');
         uploadImage.on(
           'state_changed',
@@ -151,7 +151,7 @@ const ProfileContent = () => {
         <ProfileCard
           activeEditClick={changeProfileEditMode}
           isProfileInEditMode={isProfileInEditMode}
-          setChooseImage={setChooseImage}
+          setChosenImage={setChosenImage}
           setLoading={setLoading}
           loading={loading}
         />
