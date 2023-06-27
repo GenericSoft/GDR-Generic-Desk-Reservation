@@ -10,6 +10,21 @@ type PropsType = {
 };
 
 const UserImage = (props: PropsType) => {
+type PropsType = {
+  userImage?: string;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  color?: string;
+  background?: string;
+};
+
+const UserImage = ({
+  userImage,
+  firstName,
+  lastName,
+  color,
+  background,
+}: PropsType) => {
   let nameLogo = '';
 
   if (firstName && lastName) {
@@ -18,21 +33,19 @@ const UserImage = (props: PropsType) => {
       lastName.trim().substring(0, 1).toUpperCase();
   }
 
-  return (
+  return !userImage ? (
     <Container
       className="logo-container profile-image"
-      style={{ color: props.color, background: props.background }}
+      style={{ color: color, background: background }}
     >
-      {props.userImage ? (
-        <img
-          src={props.userImage}
-          className="user-image profile-image"
-          alt="user photo"
-        />
-      ) : (
-        nameLogo
-      )}
+      {nameLogo}
     </Container>
+  ) : (
+    <img
+      src={userImage}
+      className="user-image profile-image"
+      alt="user photo"
+    />
   );
 };
 
