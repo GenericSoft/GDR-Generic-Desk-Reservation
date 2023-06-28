@@ -174,7 +174,10 @@ const ImageMapProView = () => {
   }, []);
 
   useEffect(() => {
-    //check if reservation has been made, if not, set background back to red
+    //check if reservation has been made, update the view, if not, set background back to red
+    if (isReservationDone) {
+      fetchReservedDesks(currDate);
+    }
     if (
       document.querySelector('[data-object-id="' + deskId + '"]') &&
       (isReservationDone == 'close' || isReservationDone == 'closex') &&
@@ -185,13 +188,6 @@ const ImageMapProView = () => {
       document.querySelector(
         '[data-object-id="' + deskId + '"]'
       ).style.background = 'green';
-    } else if (
-      document.querySelector('[data-object-id="' + deskId + '"]') &&
-      isReservationDone == 'saved'
-    ) {
-      document.querySelector(
-        '[data-object-id="' + deskId + '"]'
-      ).style.background = 'yellow';
     }
     setIsReservationDone('');
   }, [isReservationDone]);
