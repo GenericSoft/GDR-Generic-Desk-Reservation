@@ -177,7 +177,10 @@ const ImageMapProView = () => {
     //check if reservation has been made, if not, set background back to red
     if (
       document.querySelector('[data-object-id="' + deskId + '"]') &&
-      (isReservationDone == 'close' || isReservationDone == 'closex')
+      (isReservationDone == 'close' || isReservationDone == 'closex') &&
+      !document
+        .querySelector('[data-object-id="' + deskId + '"]')
+        .getAttribute('hours')
     ) {
       document.querySelector(
         '[data-object-id="' + deskId + '"]'
