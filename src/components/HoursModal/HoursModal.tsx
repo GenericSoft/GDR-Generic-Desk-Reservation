@@ -147,14 +147,16 @@ const HoursModal = ({
   };
 
   useEffect(() => {
+    errorMsg ? setErrorMsg('') : null;
+
+    if (reservedHours) {
+      setIsTimepickerVisible(true);
+      setIsReservationOptionChecked(true);
+    }
     if (!show) {
       setIsTimepickerVisible(false);
+      setIsReservationOptionChecked(false);
     }
-    errorMsg ? setErrorMsg('') : null;
-    reservedHours ? setIsTimepickerVisible(true) : !isTimepickerVisible;
-    reservedHours
-      ? setIsReservationOptionChecked(true)
-      : isReservationOptionChecked;
   }, [show]);
   return (
     <>
