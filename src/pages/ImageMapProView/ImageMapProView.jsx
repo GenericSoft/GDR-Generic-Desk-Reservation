@@ -25,6 +25,7 @@ import './ImageMapPro.scss';
 const ImageMapProView = () => {
   const [deskId, setDeskId] = useState('');
   const [floorName, setFloorName] = useState('');
+  const [responsiveClass, setResponsiveClass] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -35,6 +36,11 @@ const ImageMapProView = () => {
   const currDate = location.state.currDate;
   const srcFilePath = `${process.env.PUBLIC_URL}/assets/lib/imp/image-map-pro.min.js`;
 
+  const getWindowWidth = () => {
+    window.innerWidth < document.querySelector('.imp-image').clientWidth
+      ? setResponsiveClass('smaller-window')
+      : setResponsiveClass('normal-window');
+  };
   const fetchReservedDesks = async (currDate) => {
     const imageMapId = getImageMapId();
 
@@ -49,6 +55,7 @@ const ImageMapProView = () => {
           .setAttribute('reserved', 'reserved');
       });
     }
+    getWindowWidth();
   };
 
   const getImageMapJSON = async () => {
@@ -124,6 +131,10 @@ const ImageMapProView = () => {
 
   useEffect(() => {
     getImageMapJSON();
+    window.addEventListener('resize', getWindowWidth);
+    return () => {
+      window.removeEventListener('resize', getWindowWidth);
+    };
   }, []);
 
   // USE EFFECTS
@@ -188,7 +199,7 @@ const ImageMapProView = () => {
         navigateRoute="/dashboard"
         handleOnClick={handleOnClick}
       >
-        <div id="image-map-pro"></div>
+        <div id="image-map-pro" className={responsiveClass}></div>
       </ModalContainer>
     </div>
   );
