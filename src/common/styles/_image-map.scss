@@ -1,0 +1,24 @@
+#image-map-pro.normal-window {
+  width: auto;
+  height: calc(100vh - 100px) !important;
+  .imp-image,
+  .imp-objects,
+  .imp-scale,
+  .imp-translate,
+  .imp-canvas {
+    height: calc(100vh - 100px) !important;
+    width: auto !important;
+  }
+  .imp-objects {
+    position: inherit !important;
+    .imp-object {
+      z-index: 999 !important;
+    }
+  }
+  .imp-ui-wrap {
+    margin: auto !important;
+  }
+  .imp-object-text.imp-object {
+    font-size: 5vh;
+  }
+}

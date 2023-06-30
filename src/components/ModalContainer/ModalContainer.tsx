@@ -29,6 +29,9 @@ const ModalContainer = ({
       onHide={() => {
         navigate(navigateRoute);
       }}
+      dialogClassName={
+        'modal-container-' + location.pathname.replace(/\//g, '')
+      }
     >
       <Modal.Header closeButton closeVariant="white">
         <Modal.Title className="text-white">{title}</Modal.Title>
