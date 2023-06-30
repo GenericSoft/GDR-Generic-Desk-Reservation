@@ -58,10 +58,38 @@ const HoursModal = ({
     );
   };
 
+  //check if the reservation is not overlapping another one
+  const isValidReservationTime = (startTime: Date, endTime: Date) => {
+    const disabledHoursArr = disabledHours();
+    let startHour = 0;
+
+    startHour = Number(format(startTime.getTime(), 'k'));
+    const endHour = Number(format(endTime.getTime(), 'k'));
+
+    if (
+      disabledHoursArr.every(
+        (hour: number) => !(hour > startHour && hour < endHour)
+      )
+    ) {
+      if (startHour == endHour) {
+        setErrorMsg('You can not reserve a desk for less than 1 hour!');
+      } else {
+        setErrorMsg('');
+      }
+    } else {
+      setErrorMsg(
+        'You cannot set this time as end hour, because the desk is already reserved for some hours between!'
+      );
+    }
+  };
+
   //set values to timepickers
   const timepickerValueFrom = (value: moment.Moment) => {
     if (value) {
       setTimeValueFrom(value.toDate());
+      if (timeValueTo && typeof timeValueTo !== 'number') {
+        isValidReservationTime(value.toDate(), timeValueTo);
+      }
     }
   };
   const timepickerValueTo = (value: moment.Moment) => {
@@ -69,21 +97,9 @@ const HoursModal = ({
       setTimeValueTo(value.toDate());
 
       timeValueFrom && value ? setErrorMsg('') : null;
-
-      //check if the reservation is not overlapping another one
-      const disabledHoursArr = disabledHours();
-      let startHour = 0;
-      if (typeof timeValueFrom == 'object') {
-        startHour = Number(format(timeValueFrom.getTime(), 'k'));
+      if (timeValueFrom && typeof timeValueFrom !== 'number') {
+        isValidReservationTime(timeValueFrom, value.toDate());
       }
-      const endHour = Number(format(value.toDate().getTime(), 'k'));
-      disabledHoursArr.every(
-        (hour: number) => !(hour > startHour && hour < endHour)
-      )
-        ? setErrorMsg('')
-        : setErrorMsg(
-            'You cannot set this time as end hour, because the desk is already reserved for some hours between!'
-          );
     } else {
       setTimeValueTo(0);
     }
@@ -117,11 +133,14 @@ const HoursModal = ({
       return;
     }
     if (isTimepickerVisible && !timeValueFrom && !timeValueTo) {
-      setErrorMsg('Please, pick a time for your reservation');
+      setErrorMsg('Please, pick a time for your reservation!');
       return;
     }
     if (isAfter(timeValueFrom, timeValueTo)) {
       setErrorMsg('End time should be after start time!');
+      return;
+    }
+    if (errorMsg) {
       return;
     }
 
@@ -156,6 +175,8 @@ const HoursModal = ({
     if (!show) {
       setIsTimepickerVisible(false);
       setIsReservationOptionChecked(false);
+      setTimeValueFrom(0);
+      setTimeValueTo(0);
     }
   }, [show]);
   return (
