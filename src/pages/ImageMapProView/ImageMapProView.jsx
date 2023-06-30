@@ -37,9 +37,15 @@ const ImageMapProView = () => {
   const srcFilePath = `${process.env.PUBLIC_URL}/assets/lib/imp/image-map-pro.min.js`;
 
   const getWindowWidth = () => {
-    window.innerWidth < document.querySelector('.imp-image').clientWidth
-      ? setResponsiveClass('smaller-window')
-      : setResponsiveClass('normal-window');
+    setTimeout(() => {
+      if (
+        window.innerHeight < document.querySelector('.imp-image').clientHeight
+      ) {
+        setResponsiveClass('normal-window');
+      } else {
+        setResponsiveClass('');
+      }
+    }, 0);
   };
   const fetchReservedDesks = async (currDate) => {
     const imageMapId = getImageMapId();
