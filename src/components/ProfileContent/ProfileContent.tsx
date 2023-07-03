@@ -193,11 +193,13 @@ const ProfileContent = () => {
       const firstName = firstNameUseEffectRef?.value;
       const lastName = lastNameUseEffectRef?.value;
       const jobRole = jobRoleUseEffectRef?.value;
+      const country = countryUseEffectRef?.value;
       const birthday = birthdayUseEffectRef?.value;
       const isChanged =
         chosenImage ||
         firstName !== user.firstName ||
         lastName !== user.lastName ||
+        country !== user.country ||
         jobRole !== user.jobRole ||
         birthday !== user.birthday;
 
