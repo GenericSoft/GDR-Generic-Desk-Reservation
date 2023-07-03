@@ -195,6 +195,7 @@ const ProfileContent = () => {
       const jobRole = jobRoleUseEffectRef?.value;
       const birthday = birthdayUseEffectRef?.value;
       const isChanged =
+        chosenImage ||
         firstName !== user.firstName ||
         lastName !== user.lastName ||
         jobRole !== user.jobRole ||
