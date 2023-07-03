@@ -104,6 +104,9 @@ export const loginUserRequest = async (userData: {
       lastName: userInfo && userInfo.lastName,
       token,
       profilePic: userInfo?.profilePic,
+      country: userInfo?.country,
+      jobRole: userInfo?.jobRole,
+      birthday: userInfo?.birthday,
     };
     return user;
   } catch (error) {

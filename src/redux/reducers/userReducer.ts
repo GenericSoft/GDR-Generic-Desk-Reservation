@@ -112,8 +112,17 @@ export const userSlice = createSlice({
       throw new Error(action.error.message);
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      const { userId, email, token, firstName, lastName, profilePic } =
-        action.payload;
+      const {
+        userId,
+        email,
+        token,
+        firstName,
+        lastName,
+        profilePic,
+        country,
+        jobRole,
+        birthday,
+      } = action.payload;
       return {
         ...state,
         userId,
@@ -122,6 +131,9 @@ export const userSlice = createSlice({
         email,
         token,
         profilePic,
+        country,
+        jobRole,
+        birthday,
       };
     });
     builder.addCase(loginUser.rejected, (state, action) => {

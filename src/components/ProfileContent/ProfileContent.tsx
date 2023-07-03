@@ -33,6 +33,7 @@ type UpdateProfile = {
 const ProfileContent = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+  console.log(user);
 
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [loadingRequest, setLoadingRequest] = useState(false);
