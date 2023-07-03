@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase';
 
@@ -20,9 +21,19 @@ import { EditUserDataType } from '../../interfaces/User';
 import { toError } from '../../utils/error';
 import ProfileCard from '../ProfileCard/ProfileCard';
 
+type UpdateProfile = {
+  firstName?: string;
+  lastName?: string;
+  jobRole?: string;
+  country?: string;
+  birthday?: string;
+  useEffectRef?: boolean;
+};
+
 const ProfileContent = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [loadingRequest, setLoadingRequest] = useState(false);
   const [isProfileInEditMode, setIsProfileInEditMode] = useState(false);
@@ -51,6 +62,7 @@ const ProfileContent = () => {
   }
 
   const firstNameRef = useRef<HTMLInputElement>(null);
+
   const countryRef = useRef<HTMLInputElement>(null);
   const jobRoleRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
@@ -76,29 +88,27 @@ const ProfileContent = () => {
     changeProfileEditMode(false);
   };
 
-  const updateProfileFieldsDb = async () => {
+  const updateProfileFieldsDb = async ({
+    useEffectRef,
+    firstName,
+    lastName,
+    jobRole,
+    country,
+    birthday,
+  }: UpdateProfile) => {
     const userData: EditUserDataType = {
       userId: user.userId,
       newFields: { firstName: '', lastName: '' },
     };
-
-    if (currentRefs) {
+    if (currentRefs && !useEffectRef) {
       const firstNameInputValue = firstNameRef.current.value.trim();
       const lastNameInputValue = lastNameRef.current.value.trim();
       const jobRoleInputValue = jobRoleRef.current.value.trim();
       const countryInputValue = countryRef.current.value.trim();
       const birthdayInputValue = birthdayRef.current.value.trim();
 
-      const errMessage = validateEditProfile({
-        firstName: firstNameInputValue,
-        lastName: lastNameInputValue,
-      });
-      setErrorMsg(errMessage);
       userData.newFields.firstName = firstNameInputValue;
       userData.newFields.lastName = lastNameInputValue;
-
-      setChosenImage(undefined);
-
       if (jobRoleInputValue || user.jobRole) {
         userData.newFields.jobRole = jobRoleInputValue;
       }
@@ -108,42 +118,116 @@ const ProfileContent = () => {
       if (birthdayInputValue || user.birthday) {
         userData.newFields.birthday = birthdayInputValue;
       }
-
-      if (errMessage) {
-        return;
+    } else {
+      userData.newFields.firstName = firstName;
+      userData.newFields.lastName = lastName;
+      if (jobRole || user.jobRole) {
+        userData.newFields.jobRole = jobRole;
       }
-      if (chosenImage) {
-        const storageRef = ref(storage, user.userId);
-        const uploadImage = uploadBytesResumable(storageRef, chosenImage);
-        setLoading('uploading is...');
-        uploadImage.on(
-          'state_changed',
-          async (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            if (progress === 100) {
-              setLoading('uploading is ' + progress + '% done');
-            }
-          },
-          (error) => {
-            throw toError(error, true);
-          },
-          async () => {
-            const imgUrl = await getDownloadURL(uploadImage.snapshot.ref);
-            userData.newFields.profilePic = imgUrl;
-            dispatchEditUserRequest(userData);
+      if (country || user.country) {
+        userData.newFields.country = country;
+      }
+      if (birthday || user.birthday) {
+        userData.newFields.birthday = birthday;
+      }
+    }
+
+    const errMessage = validateEditProfile({
+      firstName: userData.newFields.firstName || '',
+      lastName: userData.newFields.lastName || '',
+    });
+    setErrorMsg(errMessage);
+    if (errMessage) {
+      return;
+    }
+
+    if (chosenImage) {
+      const storageRef = ref(storage, user.userId);
+      const uploadImage = uploadBytesResumable(storageRef, chosenImage);
+      setLoading('uploading is...');
+      uploadImage.on(
+        'state_changed',
+        async (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          if (progress === 100) {
+            setLoading('uploading is ' + progress + '% done');
           }
-        );
-      } else {
-        dispatchEditUserRequest(userData);
-      }
+        },
+        (error) => {
+          throw toError(error, true);
+        },
+        async () => {
+          const imgUrl = await getDownloadURL(uploadImage.snapshot.ref);
+          userData.newFields.profilePic = imgUrl;
 
-      firstNameRef.current.value = firstNameRef.current.value.trim();
-      lastNameRef.current.value = lastNameRef.current.value.trim();
-      birthdayRef.current.value = birthdayRef.current.value.trim();
-      countryRef.current.value = countryRef.current.value.trim();
+          dispatchEditUserRequest(userData);
+        }
+      );
+    } else {
+      dispatchEditUserRequest(userData);
     }
   };
+
+  useEffect(() => {
+    let firstNameUseEffectRef: HTMLInputElement | null = null;
+    let lastNameUseEffectRef: HTMLInputElement | null = null;
+    let jobRoleUseEffectRef: HTMLInputElement | null = null;
+    let countryUseEffectRef: HTMLInputElement | null = null;
+    let birthdayUseEffectRef: HTMLInputElement | null = null;
+    if (
+      firstNameRef.current &&
+      lastNameRef.current &&
+      jobRoleRef.current &&
+      countryRef.current &&
+      birthdayRef.current
+    ) {
+      firstNameUseEffectRef = firstNameRef.current;
+      lastNameUseEffectRef = lastNameRef.current;
+      jobRoleUseEffectRef = jobRoleRef.current;
+      countryUseEffectRef = countryRef.current;
+      birthdayUseEffectRef = birthdayRef.current;
+    }
+
+    return () => {
+      const firstName = firstNameUseEffectRef?.value;
+      const lastName = lastNameUseEffectRef?.value;
+      const jobRole = jobRoleUseEffectRef?.value;
+      const birthday = birthdayUseEffectRef?.value;
+      const isChanged =
+        firstName !== user.firstName ||
+        lastName !== user.lastName ||
+        jobRole !== user.jobRole ||
+        birthday !== user.birthday;
+
+      const text = 'You dont save your data. Do you want to save ?';
+      if (
+        isProfileInEditMode &&
+        isChanged &&
+        window.location.pathname !== '/profile'
+      ) {
+        if (confirm(text) === true) {
+          if (
+            firstNameUseEffectRef &&
+            lastNameUseEffectRef &&
+            jobRoleUseEffectRef &&
+            countryUseEffectRef &&
+            birthdayUseEffectRef
+          ) {
+            const userInputs = {
+              useEffectRef: true,
+              firstName: firstNameUseEffectRef.value,
+              lastName: lastNameUseEffectRef.value,
+              jobRole: jobRoleUseEffectRef.value,
+              country: countryUseEffectRef.value,
+              birthday: birthdayUseEffectRef.value,
+            };
+            updateProfileFieldsDb(userInputs);
+          }
+        }
+      }
+    };
+  }, [chosenImage, isProfileInEditMode]);
 
   return (
     <Container fluid className="profile-container">
@@ -271,7 +355,7 @@ const ProfileContent = () => {
                 </Button>
                 <Button
                   className="btn-primary mt-2 first-row__buttons--btn"
-                  onClick={updateProfileFieldsDb}
+                  onClick={() => updateProfileFieldsDb({ useEffectRef: false })}
                 >
                   Save
                 </Button>

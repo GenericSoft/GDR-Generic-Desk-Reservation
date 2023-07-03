@@ -91,6 +91,7 @@ const ProfileCard = ({
   useEffect(() => {
     setInstantPhoto('');
   }, [isProfileInEditMode]);
+
   return (
     <Card className="profile-card-container">
       <Container className="user-data-container">
@@ -119,7 +120,7 @@ const ProfileCard = ({
                   type="file"
                   onChange={chooseImageHandler}
                   accept=".jpg, .jpeg, .png"
-                />
+                />{' '}
                 Add photo
               </label>
               <FontAwesomeIcon
