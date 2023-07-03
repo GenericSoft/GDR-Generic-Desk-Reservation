@@ -1,6 +1,15 @@
+import { format, isAfter } from 'date-fns';
+
 type userInputsType = {
   firstName: string;
   lastName: string;
+};
+
+type ReservationOptionTypes = {
+  isReservationOptionChecked: boolean;
+  isTimepickerVisible: boolean;
+  timeValueFrom: Date | number;
+  timeValueTo: Date | number;
 };
 
 const validateLogin = (err: Error) => {
@@ -54,4 +63,57 @@ const validateEditProfile = (userInputsData: userInputsType) => {
   return '';
 };
 
-export { validateLogin, validateRegister, validateEditProfile, validateEdit };
+const validateHoursReservation = (
+  reservationOptions: ReservationOptionTypes
+) => {
+  if (!reservationOptions.isReservationOptionChecked) {
+    return 'Please, select time option for your reservation!';
+  }
+  if (
+    reservationOptions.isTimepickerVisible &&
+    !reservationOptions.timeValueFrom &&
+    !reservationOptions.timeValueTo
+  ) {
+    return 'Please, pick a time for your reservation!';
+  }
+  if (
+    isAfter(reservationOptions.timeValueFrom, reservationOptions.timeValueTo)
+  ) {
+    return 'End time should be after start time!';
+  }
+};
+
+//check if the reservation is not overlapping another one
+const isValidReservationTime = (
+  disabledHours: () => number[],
+  startTime: Date,
+  endTime: Date
+) => {
+  const disabledHoursArr = disabledHours();
+
+  const startHour = Number(format(startTime.getTime(), 'k'));
+  const endHour = Number(format(endTime.getTime(), 'k'));
+
+  if (
+    disabledHoursArr.every(
+      (hour: number) => !(hour > startHour && hour < endHour)
+    )
+  ) {
+    if (startHour == endHour) {
+      return 'You can not reserve a desk for less than 1 hour!';
+    } else {
+      return '';
+    }
+  } else {
+    return 'You cannot set this time as end hour, because the desk is already reserved for some hours between!';
+  }
+};
+
+export {
+  validateLogin,
+  validateRegister,
+  validateEditProfile,
+  validateEdit,
+  validateHoursReservation,
+  isValidReservationTime,
+};
