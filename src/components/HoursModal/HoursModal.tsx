@@ -5,9 +5,12 @@ import Switch from '../../components/Switch/Switch';
 import TimePicker from 'rc-time-picker';
 import { useAppSelector } from '../../redux/store';
 import { saveDateRequest } from '../../api/reservationDeskBackend/calendarApi';
-import isAfter from 'date-fns/isAfter';
 import moment from 'moment';
 import { format } from 'date-fns';
+import {
+  isValidReservationTime,
+  validateHoursReservation,
+} from '../../utils/validations';
 
 type HoursModalProps = {
   show: boolean;
@@ -31,7 +34,7 @@ const HoursModal = ({
   const [timeValueFrom, setTimeValueFrom] = useState<Date | number>(0);
   const [timeValueTo, setTimeValueTo] = useState<Date | number>(0);
   const [isTimepickerVisible, setIsTimepickerVisible] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState<string | undefined>('');
   const [isReservationOptionChecked, setIsReservationOptionChecked] =
     useState(false);
 
@@ -58,53 +61,6 @@ const HoursModal = ({
     );
   };
 
-  //check if the reservation is not overlapping another one
-  const isValidReservationTime = (startTime: Date, endTime: Date) => {
-    const disabledHoursArr = disabledHours();
-    let startHour = 0;
-
-    startHour = Number(format(startTime.getTime(), 'k'));
-    const endHour = Number(format(endTime.getTime(), 'k'));
-
-    if (
-      disabledHoursArr.every(
-        (hour: number) => !(hour > startHour && hour < endHour)
-      )
-    ) {
-      if (startHour == endHour) {
-        setErrorMsg('You can not reserve a desk for less than 1 hour!');
-      } else {
-        setErrorMsg('');
-      }
-    } else {
-      setErrorMsg(
-        'You cannot set this time as end hour, because the desk is already reserved for some hours between!'
-      );
-    }
-  };
-
-  //set values to timepickers
-  const timepickerValueFrom = (value: moment.Moment) => {
-    if (value) {
-      setTimeValueFrom(value.toDate());
-      if (timeValueTo && typeof timeValueTo !== 'number') {
-        isValidReservationTime(value.toDate(), timeValueTo);
-      }
-    }
-  };
-  const timepickerValueTo = (value: moment.Moment) => {
-    if (value) {
-      setTimeValueTo(value.toDate());
-
-      timeValueFrom && value ? setErrorMsg('') : null;
-      if (timeValueFrom && typeof timeValueFrom !== 'number') {
-        isValidReservationTime(timeValueFrom, value.toDate());
-      }
-    } else {
-      setTimeValueTo(0);
-    }
-  };
-
   //set already reserved hours as disabled to timepickers
   const disabledHours = () => {
     const disabledArray: number[] = [
@@ -126,18 +82,58 @@ const HoursModal = ({
     return disabledArray;
   };
 
+  //set values to timepickers
+  const timepickerValueFrom = (value: moment.Moment) => {
+    if (value) {
+      setTimeValueFrom(value.toDate());
+      if (timeValueTo && typeof timeValueTo !== 'number') {
+        const validateReservationTime = isValidReservationTime(
+          disabledHours,
+          value.toDate(),
+          timeValueTo
+        );
+
+        validateReservationTime
+          ? setErrorMsg(validateReservationTime)
+          : setErrorMsg('');
+      }
+    }
+  };
+  const timepickerValueTo = (value: moment.Moment) => {
+    if (value) {
+      setTimeValueTo(value.toDate());
+
+      timeValueFrom && value ? setErrorMsg('') : null;
+      if (timeValueFrom && typeof timeValueFrom !== 'number') {
+        const validateReservationTime = isValidReservationTime(
+          disabledHours,
+          timeValueFrom,
+          value.toDate()
+        );
+
+        validateReservationTime
+          ? setErrorMsg(validateReservationTime)
+          : setErrorMsg('');
+      }
+    } else {
+      setTimeValueTo(0);
+    }
+  };
+
   const handleSave = async () => {
+    const reservationOptions = {
+      isReservationOptionChecked,
+      isTimepickerVisible,
+      timeValueFrom,
+      timeValueTo,
+      errorMsg,
+    };
+
     //validations before save
-    if (!isReservationOptionChecked) {
-      setErrorMsg('Please, select time option for your reservation!');
-      return;
-    }
-    if (isTimepickerVisible && !timeValueFrom && !timeValueTo) {
-      setErrorMsg('Please, pick a time for your reservation!');
-      return;
-    }
-    if (isAfter(timeValueFrom, timeValueTo)) {
-      setErrorMsg('End time should be after start time!');
+    const validationResult = validateHoursReservation(reservationOptions);
+
+    if (validationResult) {
+      setErrorMsg(validationResult);
       return;
     }
     if (errorMsg) {
