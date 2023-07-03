@@ -19,7 +19,6 @@ const ModalContainer = ({
   modalClass,
 }: ModalContainerProps) => {
   const navigate = useNavigate();
-
   return (
     <Modal
       show={true}
@@ -28,7 +27,10 @@ const ModalContainer = ({
         navigate(navigateRoute);
       }}
       dialogClassName={
-        'modal-container-' + location.pathname.replace(/\//g, '')
+        'modal-container-' +
+        location.pathname.replace(/\//g, '') +
+        ' ' +
+        modalClass
       }
     >
       <Modal.Header closeButton closeVariant="white">
