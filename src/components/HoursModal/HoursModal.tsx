@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react';
+
 import { Button, Col, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
-import Switch from '../../components/Switch/Switch';
+
 import TimePicker from 'rc-time-picker';
-import { useAppSelector } from '../../redux/store';
-import { saveDateRequest } from '../../api/reservationDeskBackend/calendarApi';
+
 import moment from 'moment';
+
 import { format } from 'date-fns';
+
+import Switch from '../../components/Switch/Switch';
+
+import { useAppSelector } from '../../redux/store';
+
+import { saveDateRequest } from '../../api/reservationDeskBackend/calendarApi';
+
 import {
   isValidReservationTime,
   validateHoursReservation,
