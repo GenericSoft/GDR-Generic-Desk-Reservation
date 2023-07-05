@@ -16,19 +16,14 @@
       color: $dark;
     }
 
-    
-    @if nth($color, 1) ==
-      'secondary'
-    {
+    @if nth($color, 1) == 'secondary' {
       color: $primary;
     }
 
     &:hover,
     &:active {
       background-color: lighten(nth($color, 2), 15%) !important;
-      @if nth($color, 1) ==
-        'secondary'
-      {
+      @if nth($color, 1) == 'secondary' {
         background-color: lighten(nth($color, 2), 3%) !important;
         color: $primary !important;
       }

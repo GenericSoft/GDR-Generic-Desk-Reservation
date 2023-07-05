@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import { Button } from 'react-bootstrap';
 
 import ModalContainer from '../../components/ModalContainer/ModalContainer';
 import TimeTableHeader from '../../components/TimeTableHeader/TimeTableHeader';
 
+import 'rc-time-picker/assets/index.css';
 import './Calendar.scss';
 
-import 'rc-time-picker/assets/index.css';
-import { format } from 'date-fns';
 const Calendar = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState<string>('');

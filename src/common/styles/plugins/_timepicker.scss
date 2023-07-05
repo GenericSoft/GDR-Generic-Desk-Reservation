@@ -1,6 +1,20 @@
+//timepicker
 .rc-time-picker-panel-inner {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 .rc-time-picker .rc-time-picker-clear-icon:after {
-    line-height: 1.6;
+  line-height: 1.6;
+}
+
+// Sweet alert
+.swal2-popup.swal2-modal.swal2-show {
+  color: $primary;
+}
+
+.swal2-confirm.swal2-styled {
+  background-color: $primary;
+}
+
+.swal2-default-outline:focus {
+  box-shadow: 0 0 0 3px rgb(4 15 24 / 22%);
 }
