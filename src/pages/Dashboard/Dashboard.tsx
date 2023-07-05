@@ -7,6 +7,8 @@ import NavigationBar from '../../components/NavigationBar/NavigationBar';
 import TimeTable from '../../components/TimeTable/TimeTable';
 import DayViewer from '../../components/DayViewer/DayViewer';
 
+import { fireAlert } from '../../utils/alert';
+
 const Dashboard = () => {
   const [currentReservations, setCurrentReservations] =
     useState<QuerySnapshot<DocumentData>>();
@@ -16,6 +18,23 @@ const Dashboard = () => {
   return (
     <>
       <NavigationBar />
+      <button
+        onClick={() =>
+          fireAlert('success', {
+            text: 'Text',
+            title: 'Title',
+            confirmButtonText: 'Confirm',
+            confirmText: 'confirm text',
+            confirmTitle: 'confirm title',
+            executeAfterConfirmFunction: () => {
+              console.log('TEST');
+            },
+          })
+        }
+      >
+        Alert
+      </button>
+
       <DayViewer
         currentReservations={currentReservations}
         currentUsers={currentUsers}
