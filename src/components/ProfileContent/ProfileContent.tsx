@@ -61,7 +61,6 @@ const ProfileContent = () => {
   }
 
   const firstNameRef = useRef<HTMLInputElement>(null);
-
   const countryRef = useRef<HTMLInputElement>(null);
   const jobRoleRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
@@ -96,28 +95,20 @@ const ProfileContent = () => {
   }: UpdateProfile) => {
     const userData: EditUserDataType = {
       userId: user.userId,
-      newFields: { firstName: '', lastName: '' },
+      newFields: {
+        firstName: firstNameRef.current
+          ? firstNameRef.current.value.trim()
+          : firstName,
+        lastName: lastNameRef.current
+          ? lastNameRef.current.value.trim()
+          : lastName,
+        jobRole: jobRoleRef.current ? jobRoleRef.current.value.trim() : jobRole,
+        country: countryRef.current ? countryRef.current.value.trim() : country,
+        birthday: birthdayRef.current
+          ? birthdayRef.current.value.trim()
+          : birthday,
+      },
     };
-
-    userData.newFields.firstName = firstNameRef.current
-      ? firstNameRef.current.value.trim()
-      : firstName;
-
-    userData.newFields.lastName = lastNameRef.current
-      ? lastNameRef.current.value.trim()
-      : lastName;
-
-    userData.newFields.jobRole = jobRoleRef.current
-      ? jobRoleRef.current.value.trim()
-      : jobRole;
-
-    userData.newFields.country = countryRef.current
-      ? countryRef.current.value.trim()
-      : country;
-
-    userData.newFields.birthday = birthdayRef.current
-      ? birthdayRef.current.value.trim()
-      : birthday;
 
     const errMessage = validateEditProfile({
       firstName: userData.newFields.firstName || '',
@@ -157,31 +148,20 @@ const ProfileContent = () => {
   };
 
   useEffect(() => {
-    let firstNameUseEffectRef: HTMLInputElement | null = null;
-    let lastNameUseEffectRef: HTMLInputElement | null = null;
-    let jobRoleUseEffectRef: HTMLInputElement | null = null;
-    let countryUseEffectRef: HTMLInputElement | null = null;
-    let birthdayUseEffectRef: HTMLInputElement | null = null;
-    if (
-      firstNameRef.current &&
-      lastNameRef.current &&
-      jobRoleRef.current &&
-      countryRef.current &&
-      birthdayRef.current
-    ) {
-      firstNameUseEffectRef = firstNameRef.current;
-      lastNameUseEffectRef = lastNameRef.current;
-      jobRoleUseEffectRef = jobRoleRef.current;
-      countryUseEffectRef = countryRef.current;
-      birthdayUseEffectRef = birthdayRef.current;
-    }
+    const userFields = {
+      firstNameRef: firstNameRef.current ? firstNameRef.current : null,
+      lastNameRef: lastNameRef.current ? lastNameRef.current : null,
+      jobRoleRef: jobRoleRef.current ? jobRoleRef.current : null,
+      countryRef: countryRef.current ? countryRef.current : null,
+      birthdayRef: birthdayRef.current ? birthdayRef.current : null,
+    };
 
     return () => {
-      const firstName = firstNameUseEffectRef?.value;
-      const lastName = lastNameUseEffectRef?.value;
-      const jobRole = jobRoleUseEffectRef?.value;
-      const country = countryUseEffectRef?.value;
-      const birthday = birthdayUseEffectRef?.value;
+      const firstName = userFields.firstNameRef?.value;
+      const lastName = userFields.lastNameRef?.value;
+      const jobRole = userFields.jobRoleRef?.value;
+      const country = userFields.countryRef?.value;
+      const birthday = userFields.birthdayRef?.value;
       const isChanged =
         chosenImage ||
         firstName !== user.firstName ||
