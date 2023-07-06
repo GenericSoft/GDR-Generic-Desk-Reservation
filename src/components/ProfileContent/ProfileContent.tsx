@@ -27,13 +27,11 @@ type UpdateProfile = {
   jobRole?: string;
   country?: string;
   birthday?: string;
-  useEffectRef?: boolean;
 };
 
 const ProfileContent = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-  console.log(user);
 
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [loadingRequest, setLoadingRequest] = useState(false);
@@ -90,7 +88,6 @@ const ProfileContent = () => {
   };
 
   const updateProfileFieldsDb = async ({
-    useEffectRef,
     firstName,
     lastName,
     jobRole,
@@ -101,37 +98,26 @@ const ProfileContent = () => {
       userId: user.userId,
       newFields: { firstName: '', lastName: '' },
     };
-    if (currentRefs && !useEffectRef) {
-      const firstNameInputValue = firstNameRef.current.value.trim();
-      const lastNameInputValue = lastNameRef.current.value.trim();
-      const jobRoleInputValue = jobRoleRef.current.value.trim();
-      const countryInputValue = countryRef.current.value.trim();
-      const birthdayInputValue = birthdayRef.current.value.trim();
 
-      userData.newFields.firstName = firstNameInputValue;
-      userData.newFields.lastName = lastNameInputValue;
-      if (jobRoleInputValue || user.jobRole) {
-        userData.newFields.jobRole = jobRoleInputValue;
-      }
-      if (countryInputValue || user.country) {
-        userData.newFields.country = countryInputValue;
-      }
-      if (birthdayInputValue || user.birthday) {
-        userData.newFields.birthday = birthdayInputValue;
-      }
-    } else {
-      userData.newFields.firstName = firstName;
-      userData.newFields.lastName = lastName;
-      if (jobRole || user.jobRole) {
-        userData.newFields.jobRole = jobRole;
-      }
-      if (country || user.country) {
-        userData.newFields.country = country;
-      }
-      if (birthday || user.birthday) {
-        userData.newFields.birthday = birthday;
-      }
-    }
+    userData.newFields.firstName = firstNameRef.current
+      ? firstNameRef.current.value.trim()
+      : firstName;
+
+    userData.newFields.lastName = lastNameRef.current
+      ? lastNameRef.current.value.trim()
+      : lastName;
+
+    userData.newFields.jobRole = jobRoleRef.current
+      ? jobRoleRef.current.value.trim()
+      : jobRole;
+
+    userData.newFields.country = countryRef.current
+      ? countryRef.current.value.trim()
+      : country;
+
+    userData.newFields.birthday = birthdayRef.current
+      ? birthdayRef.current.value.trim()
+      : birthday;
 
     const errMessage = validateEditProfile({
       firstName: userData.newFields.firstName || '',
@@ -211,23 +197,14 @@ const ProfileContent = () => {
         window.location.pathname !== '/profile'
       ) {
         if (confirm(text) === true) {
-          if (
-            firstNameUseEffectRef &&
-            lastNameUseEffectRef &&
-            jobRoleUseEffectRef &&
-            countryUseEffectRef &&
-            birthdayUseEffectRef
-          ) {
-            const userInputs = {
-              useEffectRef: true,
-              firstName: firstNameUseEffectRef.value,
-              lastName: lastNameUseEffectRef.value,
-              jobRole: jobRoleUseEffectRef.value,
-              country: countryUseEffectRef.value,
-              birthday: birthdayUseEffectRef.value,
-            };
-            updateProfileFieldsDb(userInputs);
-          }
+          const userInputs = {
+            firstName: firstName,
+            lastName: lastName,
+            jobRole: jobRole,
+            country: country,
+            birthday: birthday,
+          };
+          updateProfileFieldsDb(userInputs);
         }
       }
     };
@@ -359,7 +336,7 @@ const ProfileContent = () => {
                 </Button>
                 <Button
                   className="btn-primary mt-2 first-row__buttons--btn"
-                  onClick={() => updateProfileFieldsDb({ useEffectRef: false })}
+                  onClick={() => updateProfileFieldsDb({})}
                 >
                   Save
                 </Button>
